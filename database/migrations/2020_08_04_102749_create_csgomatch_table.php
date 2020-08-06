@@ -18,8 +18,8 @@ class CreateCsgomatchTable extends Migration
             $table->string('gameimg')->comment('游戏图标');
             $table->string('time')->comment('时间');
             $table->string('BO')->comment('赛制局数');
-            $table->string('teamone')->comment('参赛队伍1');
-            $table->string('teamoneimg')->comment('参赛队1图标');
+            $table->string('team1')->comment('参赛队伍1');
+            $table->string('team1img')->comment('参赛队1图标');
             $table->string('team2img')->comment('参赛队2图标');
             $table->string('team2')->comment('参赛队2');
             $table->string('eventsimg')->comment('所属赛事图标');
@@ -29,12 +29,12 @@ class CreateCsgomatchTable extends Migration
             $table->string('TV')->comment('直播地址');
             $table->string('now')->comment('当前局数');
             $table->string('pooreconomy')->comment('经济差');
-            $table->integer('teamonewinnum')->comment('队伍1胜利局数');
-            $table->integer('teamkillnum')->comment('队伍1杀敌数');
-            $table->string('teamonespecial')->comment('队伍1特殊图');
-            $table->integer('teamonewinnum')->comment('队伍2胜利局数');
-            $table->integer('teamkillnum')->comment('队伍2杀敌数');
-            $table->string('teamspecial')->comment('队伍2特殊图');
+            $table->integer('team1winnum')->comment('队伍1胜利局数');
+            $table->integer('team1killnum')->comment('队伍1杀敌数');
+            $table->string('team1special')->comment('队伍1特殊图');
+            $table->integer('team2winnum')->comment('队伍2胜利局数');
+            $table->integer('team2killnum')->comment('队伍2杀敌数');
+            $table->string('team2special')->comment('队伍2特殊图');
             $table->timestamps();
         });
     }
