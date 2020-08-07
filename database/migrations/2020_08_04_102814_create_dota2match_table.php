@@ -25,16 +25,6 @@ class CreateDota2matchTable extends Migration
             $table->string('eventsimg')->comment('所属赛事图标');
             $table->string('events')->comment('所属赛事');
             $table->integer('eventsid')->comment('所属赛事ID');
-            $table->integer('ing')->default(0)->comment('是否正在进行');
-            $table->string('TV')->comment('直播地址');
-            $table->string('now')->comment('当前局数');
-            $table->string('pooreconomy')->comment('经济差');
-            $table->integer('team1winnum')->comment('队伍1胜利局数');
-            $table->integer('team1killnum')->comment('队伍1杀敌数');
-            $table->string('team1special')->comment('队伍1特殊图');
-            $table->integer('team2winnum')->comment('队伍2胜利局数');
-            $table->integer('team2killnum')->comment('队伍2杀敌数');
-            $table->string('team2special')->comment('队伍2特殊图');
             $table->timestamps();
         });
     }
