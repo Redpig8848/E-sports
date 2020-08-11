@@ -2,11 +2,11 @@
 
 ### 首页接口
 
-- 当前日期 ( http://127.0.0.1:8000/NowDate )
+- 当前日期 ( http://45.157.91.155/NowDate )
 
 
     2020年08月10日
-- **快速导航** ( http://127.0.0.1:8000/FastNavigation )
+- **快速导航** ( http://45.157.91.155/FastNavigation )
     
     
     [
@@ -38,7 +38,7 @@
     ]
 
 
-- 游戏赛事导航 ( http://127.0.0.1:8000/GameNavigation )
+- 游戏赛事导航 ( http://45.157.91.155/GameNavigation )
 
 
     {
@@ -97,7 +97,7 @@
         ]
     }
 
-- 首页全部游戏未开始 ( http://127.0.0.1:8000/GetAllMatch )
+- 首页全部游戏未开始 ( http://45.157.91.155/GetAllMatch )
 
 
     [
@@ -137,7 +137,7 @@
     ]
 
 
-- 首页指定游戏未开始 ( http://127.0.0.1:8000/AppointMatch/$id )
+- 首页指定游戏未开始 ( http://45.157.91.155/AppointMatch/$id )
 
 
     [
@@ -177,7 +177,7 @@
     ]
 
 
-- 首页右侧刚刚结束 ( http://127.0.0.1:8000/JustOver )
+- 首页右侧刚刚结束 ( http://45.157.91.155/JustOver )
 
 
     [
@@ -202,7 +202,7 @@
 
 ### 比分页接口
 
-- 全部游戏未开始 ( http://127.0.0.1:8000/ScoreNotStarted )
+- 全部游戏未开始 ( http://45.157.91.155/ScoreNotStarted )
 
 
     [
@@ -243,3 +243,129 @@
         }
     ]
 
+- 指定获取游戏未开始 ( http://45.157.91.155/ScoreAppointNotStarted/{id} ) 
+
+
+    [
+        {
+            "id": 4,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "game": "CS:GO",
+            "time": "17:10",
+            "BO": "BO3",
+            "team1": "AVANT",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190121\/48b9b58ae0814a97844a62d981bda9f1.jpg",
+            "team2img": "https:\/\/qn.feijing88.com\/egame\/csgo\/team\/35dbd4e5a101fff12c3368615ff040fd.png",
+            "team2": "Paradox",
+            "eventsimg": "https:\/\/qn.feijing88.com\/egame\/csgo\/league\/038803234a89e88bdcf7388fc19eb0cd.png",
+            "events": "ESEA MDL Season 34 Australia",
+            "eventsid": 55,
+            "index": "1.25\/3.7",
+            "created_at": null,
+            "updated_at": null
+        },
+        ... ...
+        {
+            "id": 19,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "game": "CS:GO",
+            "time": "15:00",
+            "BO": "BO3",
+            "team1": "Tikitakan",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/csgo\/team.png",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190121\/9dab47b972af4930bcfc87e3c62ef507.jpg",
+            "team2": "Nexus",
+            "eventsimg": "https:\/\/qn.feijing88.com\/egame\/csgo\/league\/6cb32166930104d7c043ca5f470ce21a.png",
+            "events": "Nine to Five 3 Dawn",
+            "eventsid": 293,
+            "index": "1.45\/2.63",
+            "created_at": null,
+            "updated_at": null
+        }
+    ]
+
+- 全部游戏完场 ( http://45.157.91.155/GetScoreOver )
+
+
+    [
+        {
+            "id": 1,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/lol_sel_icon.png",
+            "game": "\u82f1\u96c4\u8054\u76df",
+            "time": "00:09",
+            "BO": "BO5",
+            "team1": "Team Quesco",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/2020121\/765de0df0352448aa620c5822c130bd0.png",
+            "score": "1-3",
+            "team2img": "https:\/\/qn.feijing88.com\/egame\/lol\/team\/f1c9d625b6c6803231ac1e367110edff.png",
+            "team2": "CRB",
+            "eventsimg": "\/static\/index\/img\/lol_sel_icon.png",
+            "events": "2020 LVP SLO\u590f\u5b63\u8d5b",
+            "eventsid": 168,
+            "index": "4.938\/1.161",
+            "created_at": null,
+            "updated_at": null
+        },
+        ... ...
+        {
+            "id": 14,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "game": "CS:GO",
+            "time": "11:35",
+            "BO": "BO1",
+            "team1": "Eclipse",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/csgo\/team.png",
+            "score": "14-16",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/csgo\/team.png",
+            "team2": "Northern Forces",
+            "eventsimg": "\/static\/index\/img\/csgo_sel_icon.png",
+            "events": "IEM New York 2020 North America Open Qualifier 1",
+            "eventsid": 300,
+            "index": "-\/-",
+            "created_at": null,
+            "updated_at": null
+        }
+    ]
+
+- 指定获取游戏完场 ( http://45.157.91.155/ScoreAppointOver/$id )
+
+
+    [
+        {
+            "id": 3,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "game": "CS:GO",
+            "time": "01:50",
+            "BO": "BO3",
+            "team1": "Yeah",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/202065\/0a576787ee42444ea7167097d3bd1cfa.webp",
+            "score": "0-2",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190121\/649231a18f554ab2aa8ec9c50d05e410.jpg",
+            "team2": "Cloud9",
+            "eventsimg": "\/static\/index\/img\/csgo_sel_icon.png",
+            "events": "DreamHack Open Summer 2020 North America",
+            "eventsid": 287,
+            "index": "4.18\/1.2",
+            "created_at": null,
+            "updated_at": null
+        },
+        ... ...
+        {
+            "id": 14,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "game": "CS:GO",
+            "time": "11:35",
+            "BO": "BO1",
+            "team1": "Eclipse",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/csgo\/team.png",
+            "score": "14-16",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/csgo\/team.png",
+            "team2": "Northern Forces",
+            "eventsimg": "\/static\/index\/img\/csgo_sel_icon.png",
+            "events": "IEM New York 2020 North America Open Qualifier 1",
+            "eventsid": 300,
+            "index": "-\/-",
+            "created_at": null,
+            "updated_at": null
+        }
+    ]

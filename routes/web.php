@@ -29,6 +29,10 @@ Route::get('AppointMatch/{id}','IndexController@AppointMatch');
 
 
 Route::get('ScoreNotStarted','ScoreController@ScoreNotStarted');
+Route::get('ScoreAppointNotStarted/{id}','ScoreController@ScoreAppointNotStarted');
+Route::get('GetScoreOver','ScoreController@ScoreOver');
+Route::get('ScoreAppointOver/{id}','ScoreController@ScoreAppointOver');
+Route::get('GetWeek','ScoreController@GetWeek');
 
 
 

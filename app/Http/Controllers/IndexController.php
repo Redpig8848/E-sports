@@ -34,6 +34,7 @@ class IndexController extends Controller
                 ->limit(4)
                 ->get()
                 ->toArray();
+            array_unshift($Navigation[$game->game],['game'=>$game->game,'gameid'=>$game->id]);
         }
         return $Navigation;
     }
