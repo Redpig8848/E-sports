@@ -100,6 +100,9 @@ class IndexController extends Controller
     // 首页指定游戏未开始
     function AppointMatch($id)
     {
+        if ($id == 0){
+            return $this->AllMatch();
+        }
         $game = DB::table('games')->select('game')
             ->where('id', $id)
             ->get()
