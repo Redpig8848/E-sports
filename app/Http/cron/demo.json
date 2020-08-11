@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/lol_sel_icon.png",
+        "game": "\u82f1\u96c4\u8054\u76df",
+        "time": "16:00",
+        "BO": "BO3",
+        "team1": "OZ",
+        "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/lol\/team.png",
+        "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/lol\/team.png",
+        "team2": "ELM",
+        "eventsimg": "https:\/\/qn.feijing88.com\/egame\/lol\/league\/9c7ea58bd9ffe8e5a1602dd166a2a0cc.jpg",
+        "events": "2020 CK\u590f\u5b63\u8d5b",
+        "eventsid": 175,
+        "index": "",
+        "created_at": null,
+        "updated_at": null
+    },
+     ... ...
+    {
+        "id": 19,
+        "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+        "game": "CS:GO",
+        "time": "15:00",
+        "BO": "BO3",
+        "team1": "Tikitakan",
+        "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/csgo\/team.png",
+        "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190121\/9dab47b972af4930bcfc87e3c62ef507.jpg",
+        "team2": "Nexus",
+        "eventsimg": "https:\/\/qn.feijing88.com\/egame\/csgo\/league\/6cb32166930104d7c043ca5f470ce21a.png",
+        "events": "Nine to Five 3 Dawn",
+        "eventsid": 293,
+        "index": "1.45\/2.63",
+        "created_at": null,
+        "updated_at": null
+    }
+]

@@ -8,7 +8,7 @@ class CreateTvlinkTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     * 首页显示所有正在比赛的视频链接
      * @return void
      */
     public function up()

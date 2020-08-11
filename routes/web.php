@@ -16,8 +16,50 @@ Route::get('/', function () {
 });
 
 
+//-----------获取-------------------//
 
-Route::get('demo','HomeController@index');
+Route::get('FastNavigation','IndexController@FastNavigation');
+Route::get('GameNavigation','IndexController@GameNavigation');
+
+Route::get('GetAllMatch','IndexController@AllMatch');
+Route::get('JustOver','IndexController@JustOver');
+Route::get('NowDate','IndexController@NowDate');
+Route::get('AppointMatch/{id}','IndexController@AppointMatch');
+
+
+
+Route::get('ScoreNotStarted','ScoreController@ScoreNotStarted');
+
+
+
+
+
+
+
+
+
+
+
+//--------------爬虫-----------------//
+Route::get('allmatching','HomeController@index');
+
+Route::get('allmatch','HomeController@allmatch');
+
+Route::get('scorenot','HomeController@scorenot');
+Route::get('scoreover','HomeController@scoreover');
+Route::get('scoreing','HomeController@scoreing');
+
+
+Route::get('Schedule','ScheduleController@index');
+Route::get('today','ScheduleController@today');
+
+
+
+
+
+
+
+Route::get('fns','DemoController@index');
 
 
 

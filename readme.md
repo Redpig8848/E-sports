@@ -1,66 +1,245 @@
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+### 首页接口
 
-## About Laravel
+- 当前日期 ( http://127.0.0.1:8000/NowDate )
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    2020年08月10日
+- **快速导航** ( http://127.0.0.1:8000/FastNavigation )
+    
+    
+    [
+        {
+            "id": 1,
+            "game": "DOTA2",
+            "gameimg": "https:\/\/500bf.com\/static\/index\/img\/dota_sel_icon.png",
+            "created_at": null,
+            "updated_at": null
+        },
+        
+        {
+            "id": 2,
+            ...
+        },
+        
+        {
+            "id": 3,
+            ...
+        },
+        
+        {
+            "id": 4,
+            "game": "\u738b\u8005\u8363\u8000",
+            "gameimg": "https:\/\/500bf.com\/static\/index\/img\/kog_sel_icon.png",
+            "created_at": null,
+            "updated_at": null
+        }
+    ]
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
 
-## Learning Laravel
+- 游戏赛事导航 ( http://127.0.0.1:8000/GameNavigation )
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+    {
+        "DOTA2": [
+            {
+                "id": 270,
+                "match": "ESL One\u6cf0\u56fd 2020-\u9884\u9009\u8d5b",
+                "matchimg": "https:\/\/qn.feijing88.com\/egame\/dota\/league\/e48ed7e98bad3235b79a2a1648ea60a2.png"
+            },
+            {
+                "id": 269,
+                "match": "OMEGA League \u9884\u9009\u8d5b",
+                "matchimg": "https:\/\/qn.feijing88.com\/egame\/dota\/league\/547fc21588b1b132a1da55b3c46f693e.png"
+            },
+            {
+                "id": 268,
+                "match": "Moon Studio\u4e9a\u6d32\u8054\u8d5b",
+                "matchimg": "https:\/\/qn.feijing88.com\/egame\/dota\/league\/9e993fa9bc2034a5ba11cd230700ceeb.png"
+            },
+            {
+                "id": 267,
+                "match": "DOTA\u590f\u5b63\u8054\u8d5b \u7b2c\u4e00\u5b63",
+                "matchimg": "https:\/\/qn.feijing88.com\/egame\/dota\/league\/a875db9e2bc0bd2e5720d8ae0155ff1c.png"
+            }
+        ],
+        
+        "CS:GO": [
+           ...
+        ],
+        
+        "\u82f1\u96c4\u8054\u76df": [
+            ...
+        ],
+        
+        "\u738b\u8005\u8363\u8000": [
+            {
+                "id": 250,
+                "match": "2020\u738b\u8005\u51a0\u519b\u676f",
+                "matchimg": "https:\/\/qn.feijing88.com\/egame\/kog\/league\/9baacc448e77003ed6b32ae66139f630.png"
+            },
+            {
+                "id": 242,
+                "match": "2020 \u738b\u8005\u51a0\u519b\u676f",
+                "matchimg": "https:\/\/qn.feijing88.com\/egame\/kog\/league\/9baacc448e77003ed6b32ae66139f630.png"
+            },
+            {
+                "id": 193,
+                "match": "2020\u4e16\u754c\u51a0\u519b\u676f",
+                "matchimg": "https:\/\/qn.feijing88.com\/egame\/kog\/league\/9baacc448e77003ed6b32ae66139f630.png"
+            },
+            {
+                "id": 5,
+                "match": "2020 KPL\u6625\u5b63\u8d5b",
+                "matchimg": "https:\/\/qn.feijing88.com\/egame\/kog\/league\/3767c1e22299befd683350035b98ad62.png"
+            }
+        ]
+    }
 
-## Laravel Sponsors
+- 首页全部游戏未开始 ( http://127.0.0.1:8000/GetAllMatch )
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
+    [
+        {
+            "id": 1,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/lol_sel_icon.png",
+            "game": "\u82f1\u96c4\u8054\u76df",
+            "time": "16:00",
+            "BO": "BO3",
+            "team1": "OZ",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/lol\/team.png",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/lol\/team.png",
+            "team2": "ELM",
+            "eventsimg": "https:\/\/qn.feijing88.com\/egame\/lol\/league\/9c7ea58bd9ffe8e5a1602dd166a2a0cc.jpg",
+            "events": "2020 CK\u590f\u5b63\u8d5b",
+            "eventsid": 175,
+            "created_at": null,
+            "updated_at": null
+        },
+        ...
+        {
+            "id": 20,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "game": "CS:GO",
+            "time": "16:30",
+            "BO": "BO3",
+            "team1": "Ground Zero",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190121\/584f7d5686124b9285f1f90f061ee1bb.jpg",
+            "team2img": "https:\/\/qn.feijing88.com\/egame\/csgo\/team\/35dbd4e5a101fff12c3368615ff040fd.png",
+            "team2": "Paradox",
+            "eventsimg": "https:\/\/qn.feijing88.com\/egame\/csgo\/league\/9dea94311125f453bdf2855766440667.png",
+            "events": "ESL Australia & NZ Championship Season 11",
+            "eventsid": 110,
+            "created_at": null,
+            "updated_at": null
+        }
+    ]
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- 首页指定游戏未开始 ( http://127.0.0.1:8000/AppointMatch/$id )
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    [
+        {
+            "id": 4,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "game": "CS:GO",
+            "time": "17:10",
+            "BO": "BO3",
+            "team1": "AVANT",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190121\/48b9b58ae0814a97844a62d981bda9f1.jpg",
+            "team2img": "https:\/\/qn.feijing88.com\/egame\/csgo\/team\/35dbd4e5a101fff12c3368615ff040fd.png",
+            "team2": "Paradox",
+            "eventsimg": "https:\/\/qn.feijing88.com\/egame\/csgo\/league\/038803234a89e88bdcf7388fc19eb0cd.png",
+            "events": "ESEA MDL Season 34 Australia",
+            "eventsid": 55,
+            "created_at": null,
+            "updated_at": null
+        },
+        ... ...
+        {
+            "id": 20,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "game": "CS:GO",
+            "time": "16:30",
+            "BO": "BO3",
+            "team1": "Ground Zero",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190121\/584f7d5686124b9285f1f90f061ee1bb.jpg",
+            "team2img": "https:\/\/qn.feijing88.com\/egame\/csgo\/team\/35dbd4e5a101fff12c3368615ff040fd.png",
+            "team2": "Paradox",
+            "eventsimg": "https:\/\/qn.feijing88.com\/egame\/csgo\/league\/9dea94311125f453bdf2855766440667.png",
+            "events": "ESL Australia & NZ Championship Season 11",
+            "eventsid": 110,
+            "created_at": null,
+            "updated_at": null
+        }
+    ]
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# E-sports
+- 首页右侧刚刚结束 ( http://127.0.0.1:8000/JustOver )
+
+
+    [
+        {
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/lol_sel_icon.png",
+            "team1": "CLG",
+            "score": "0-2",
+            "team2": "DIG",
+            "time": "08:03"
+        },
+        ... ...
+        {
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "team1": "Chaos",
+            "score": "0-2",
+            "team2": "New England Whalers",
+            "time": "04:55"
+        }
+    ]
+
+
+
+### 比分页接口
+
+- 全部游戏未开始 ( http://127.0.0.1:8000/ScoreNotStarted )
+
+
+    [
+        {
+            "id": 1,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/lol_sel_icon.png",
+            "game": "\u82f1\u96c4\u8054\u76df",
+            "time": "16:00",
+            "BO": "BO3",
+            "team1": "OZ",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/lol\/team.png",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/lol\/team.png",
+            "team2": "ELM",
+            "eventsimg": "https:\/\/qn.feijing88.com\/egame\/lol\/league\/9c7ea58bd9ffe8e5a1602dd166a2a0cc.jpg",
+            "events": "2020 CK\u590f\u5b63\u8d5b",
+            "eventsid": 175,
+            "index": "",
+            "created_at": null,
+            "updated_at": null
+        },
+         ... ...
+        {
+            "id": 19,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "game": "CS:GO",
+            "time": "15:00",
+            "BO": "BO3",
+            "team1": "Tikitakan",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/csgo\/team.png",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190121\/9dab47b972af4930bcfc87e3c62ef507.jpg",
+            "team2": "Nexus",
+            "eventsimg": "https:\/\/qn.feijing88.com\/egame\/csgo\/league\/6cb32166930104d7c043ca5f470ce21a.png",
+            "events": "Nine to Five 3 Dawn",
+            "eventsid": 293,
+            "index": "1.45\/2.63",
+            "created_at": null,
+            "updated_at": null
+        }
+    ]
+

@@ -17,8 +17,9 @@ class CreateAllmatchingTable extends Migration
             $table->increments('id');
             $table->string('eventsimg')->comment('所属赛事图标');
             $table->string('events')->comment('所属赛事');
+            $table->string('game')->comment('所属游戏');
             $table->integer('eventsid')->comment('所属赛事ID');
-            $table->string('tv')->default('已存入TVlink数据表')->comment('直播地址');
+            $table->text('tv')->comment('直播地址');
             $table->string('now')->comment('当前局数');
             $table->string('BO')->comment('赛制局数');
             $table->string('pooreconomy')->comment('经济差');

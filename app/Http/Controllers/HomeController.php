@@ -3,190 +3,1248 @@
 namespace App\Http\Controllers;
 
 use App\Content;
+use App\Match;
 use App\Title;
 use GuzzleHttp\Client;
 use GuzzleHttp\Pool;
 use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\DocBlock\Tags\Deprecated;
+use PhpParser\Node\Expr\Empty_;
 use Symfony\Component\DomCrawler\Crawler;
+use function foo\func;
+use function GuzzleHttp\Psr7\str;
 
 class HomeController extends Controller
 {
     private $totalPageCount;
-    private $counter        = 1;
-    private $concurrency    = 300;  // 同时并发抓取
+    private $counter = 1;
+    private $concurrency = 300;  // 同时并发抓取
 
     protected $startUrl = 'https://www.autotimes.com.cn/news/1.html';
 
-    public function index()
-    {
-        set_time_limit(0);
-        ini_set('memory_limit', '-1');
-        for ($i=1;$i<2;$i++){
-            $this->url[] = 'https://www.500bf.com/';
-        }
-        $this->totalPageCount = 1500;
-        $client = new Client();
-//        $client->setDefaultOption('verify',false);
-//        dd($this->url);
-        $requests = function ($total) use ($client) {
-            foreach ($this->url as $uri) {
-                yield function() use ($client, $uri) {
-                    return $client->get($uri,['verify' => false]);
-                };
-            }
-        };
-//        dd(1);
-//        dd($requests($this->totalPageCount));
-
-        $pool = new Pool($client, $requests($this->totalPageCount), [
-            'concurrency' => $this->concurrency,
-            'fulfilled'   => function ($response, $index){
-                echo '爬取'.$this->url[$index];
-                echo '<br>';
-                ob_flush();
-                flush();
-                try{
-//                    dd($response->getBody()->getContents());
-                    $http = $response->getBody()->getContents();
-//                    $http = iconv('gbk', 'UTF-8', $response->getBody()->getContents());
-                }catch (\Exception $e){
-                    echo '没有找到数据';
-                }
-                if(!empty($http)){
-                    $crawler = new Crawler();
-                    $crawler->addHtmlContent($http);
-                    $arr = $crawler->filter('#index_living > div > div')->each(function ($node,$i) use ($http) {
-                        $src = $node->filter('div > div.header > div.item-league-panel > img')->attr('src');
-                        dd($src);
-                        //                        $data['href'] = $node->filter('a')->attr('href');
-//                        $data['title'] = $node->filter('a > h3')->text();
-//                        dd($data['title']);
-
-//                            $data['author'] = $node->filter('li > div.r_info > div.furt > span.zuozhe')->text();
-//                            $data['created_at'] = date('Y-m-d H:i:s');
-//                            $data['updated_at'] = date('Y-m-d H:i:s');
-//                            $data['webid'] = 4;
-//                        dd($data);
-                        return $data;
-                    });
-                    $bool = DB::table('title')->insert($arr);
-                    echo $bool;
-                    echo '<br>';
-                    $this->countedAndCheckEnded();
-                }
-            },
-            'rejected' => function ($reason, $index){
-            dd('rejected');
-//                    log('test',"rejected" );
-//                    log('test',"rejected reason: " . $reason );
-                $this->countedAndCheckEnded();
-            },
-        ]);
-
-        $promise = $pool->promise();
-        $promise->wait();
-
-    }
-
-    public function content()
-    {
-        set_time_limit(0);
-        ini_set('memory_limit', -1);
-//        $this->title = Title::select('href')->get();
-        $this->title = Title::select('href')->get();
-//        dd($this->title[1]);
-        $this->totalPageCount = count($this->title);
-        $headers = ['user-agent' => 'Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)',];
-        $client = new Client(['timeout' => 20, 'headers' => $headers]);
-        $requests = function ($total) use ($client) {
-            foreach ($this->title as $uri) {
-                yield function() use ($client, $uri) {
-                    $href = substr($uri->href,0,strpos($uri->href,"#"));
-                    return $client->getAsync($href);
-
-                };
-            }
-        };
-        $pool = new Pool($client, $requests($this->totalPageCount), [
-
-            'concurrency' => $this->concurrency,
-            'fulfilled'   => function ($response, $index){
-                $file = @fopen(public_path('body/txt.txt'),'a');
-                echo '爬取'.$this->title[$index]->href;
-                echo '<br>';
-                ob_flush();
-                flush();
-                try{
-                    $http = iconv('gbk', 'UTF-8', $response->getBody()->getContents());;
-                } catch(\Exception $e) { // I guess its InvalidArgumentException in this case
-                    $this->countedAndCheckEnded();
-                }
-
-                $crawler = new Crawler();
-                $crawler->addHtmlContent($http);
-                $data['content'] = $crawler->filter('#articleContent > p')->text();
-
-
-                $txt = $this->chuli($data['content']).chr(10);
-                $bool = fwrite($file,$txt);
-                fclose($file);
-                if ($bool){
-                    echo 'save success';
-                    echo '<br>';
-                }else{
-                    echo 'save fail';
-                    echo '<br>';
-                }
-                $this->countedAndCheckEnded();
-            },
-            'rejected' => function ($reason, $index){
-//                    log('test',"rejected" );
-//                    log('test',"rejected reason: " . $reason );
-                $this->countedAndCheckEnded();
-            },
-        ]);
-
-        $promise = $pool->promise();
-        $promise->wait();
-
-    }
-
-
     public function countedAndCheckEnded()
     {
-        if ($this->counter < $this->totalPageCount){
+        if ($this->counter < $this->totalPageCount) {
             return;
         }
     }
 
-    //截取文章的标题
-    function gettitle($html){
 
-        echo '正在截取标题'.'<br>';
-        $str = substr($html,strpos($html,'<h1 id="artical_topic">'));
-        $h1 = substr($str,0,strpos($str,'</h1>')+5);
-        $t = substr($h1,23);
-        $title = substr($t,0,strpos($t,'</h1>'));
-        echo '截取成功！！'.'<br>';
-        return $title;
+    // 首页正在进行全部游戏  （完成）
+    public function index()
+    {
+        set_time_limit(0);
+        ini_set('memory_limit', '-1');
+        for ($i = 1; $i < 2; $i++) {
+            $this->url[] = 'https://www.500bf.com/';
+        }
+        $this->totalPageCount = 1500;
+        $client = new Client();
+        $requests = function ($total) use ($client) {
+            foreach ($this->url as $uri) {
+                yield function () use ($client, $uri) {
+                    return $client->get($uri, ['verify' => false]);
+                };
+            }
+        };
+
+        $pool = new Pool($client, $requests($this->totalPageCount), [
+            'concurrency' => $this->concurrency,
+            'fulfilled' => function ($response, $index) {
+                echo '爬取' . $this->url[$index];
+                echo '<br>';
+                ob_flush();
+                flush();
+                try {
+//                    dd($response->getBody()->getContents());
+                    $http = $response->getBody()->getContents();
+//                    $http = iconv('gbk', 'UTF-8', $response->getBody()->getContents());
+                } catch (\Exception $e) {
+                    echo '没有找到数据';
+                }
+                if (!empty($http)) {
+                    $crawler = new Crawler();
+                    $crawler->addHtmlContent($http);
+                    $arr = $crawler->filter('#index_living > div > div')->each(function ($node, $i) use ($http) {
+                        $data['eventsimg'] = $node->filter('div > div.header > div.item-league-panel > img')->attr('src');
+                        $data['events'] = $node->filter('div > div.header > div.item-league-panel > p')->text();
+                        // 所属游戏
+                        if (strpos($data['eventsimg'], 'dota') !== false) {
+                            $data['game'] = 'DOTA2';
+                        } elseif (strpos($data['eventsimg'], 'csgo') !== false) {
+                            $data['game'] = 'CS:GO';
+                        } elseif (strpos($data['eventsimg'], 'lol') !== false) {
+                            $data['game'] = '英雄联盟';
+                        } elseif (strpos($data['eventsimg'], 'kog') !== false) {
+                            $data['game'] = '王者荣耀';
+                        } else {
+                            $data['game'] = '英雄联盟';
+                        }
+
+                        // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
+                        $Match = new Match();
+                        $events_id = $Match->GetMatchId($data['events']);
+                        if ($events_id) {
+                            $data['eventsid'] = $events_id;
+                        } else { // 赛事不存在，需新增
+                            $events_onclick = $node->filter('div > div.header > div')->attr('onclick');
+                            $events_link = substr($events_onclick, strpos($events_onclick, 'hrefClicked(\'') + 13);
+                            $events_link = substr($events_link, 0, strpos($events_link, '\')'));
+                            $events_client = new Client();
+                            $events_response = $events_client->get('https://www.500bf.com' . $events_link, ['verify' => false]);
+                            $events_request = $events_response->getBody()->getContents();
+                            $events_crawler = new Crawler();
+                            $events_crawler->addHtmlContent($events_request);
+                            $events['match'] = $data['events'];
+                            $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
+                            $events['matchtime'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.match-time > div > p:nth-child(2)')->text();
+                            $events['teams'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.teamIds > div > p:nth-child(2)')->text();
+                            $events['money'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.prize > div > p:nth-child(2)')->text();
+                            $events['venue'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.address > div > p:nth-child(2)')->text();
+                            $events['organizers'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.organizer > div > p:nth-child(2)')->text();
+
+                            $events['game'] = $data['game'];
+
+                            $events['link'] = 'https://www.500bf.com' . $events_link;
+                            $data['eventsid'] = DB::table('match')->insertGetId($events);
+                        }
+
+
+                        $arr = array();
+                        // 开始处理直播地址
+                        $tv_arr = $node->filter('div > div.header > div.videos-panel > ul > li')->each(function ($node2, $i) use ($arr) {
+                            $arr = array_add($arr, $node2->filter('a > span')->text(), 'https://www.500bf.com' . $node2->filter('a')->attr('href'));
+                            return $arr;
+                        });
+                        $data['tv'] = '';
+                        if (!empty($tv_arr)) {
+                            foreach ($tv_arr as $value) {
+                                $tv_client = new Client();
+                                $tv_response = $tv_client->get(current($value), ['verify' => false]);
+                                $tv_http = $tv_response->getBody()->getContents();
+                                if (strpos($tv_http, '500电竞比分网') !== false) {
+                                    $iframe = substr($tv_http, strpos($tv_http, "class=\"live-iframe\"") + 20);
+                                    $iframe = substr($iframe, 0, strpos($iframe, '">'));
+                                    $data['tv'] = $data['tv'] . key($value) . "=>" . substr($iframe, strpos($iframe, 'http')) . "|";
+                                } else {
+                                    $data['tv'] = $data['tv'] . key($value) . "=>" . current($value) . "|";
+                                }
+//                                echo current($value);
+                            }
+                        }
+
+                        $data['now'] = $node->filter('div > div.item-row-title > div.tag-1 > p')->text();
+                        $data['BO'] = $node->filter('div > div.item-row-title > div.tag-2 > p')->text();
+                        try {
+                            $data['pooreconomy'] = $node->filter('div > div.item-row-title > div.tag-3 > p')->text();
+                        } catch (\Exception $exception) {
+                            $data['pooreconomy'] = '0K';
+                        }
+                        $data['team1img'] = $node->filter('div > div:nth-child(3) > div.tag-1 > img')->attr('src');
+                        $data['team1'] = $node->filter('div > div:nth-child(3) > div.tag-1 > p')->text();
+                        $data['team1winnum'] = (integer)$node->filter('div > div:nth-child(3) > div.tag-2 > p.score')->text();
+                        $data['team1killnum'] = (integer)$node->filter('div > div:nth-child(3) > div.tag-2 > p.kill')->text();
+
+
+                        // 开始处理特殊图标   图标可能为空  可能为一个或多个
+                        $data['team1special'] = $node->filter('div > div:nth-child(3) > div.tag-2 > div > div')->each(function ($node3, $i) {
+                            return 'https://www.500bf.com' . $node3->filter('img')->attr('src');
+                        });
+                        if (is_array($data['team1special']))
+                            $data['team1special'] = implode("|", $data['team1special']);
+
+//                        if (!Empty($team1special_var)){
+//                            $data['team1special'] = $team1special_var;
+//                        } else {
+//                            $data['team1special'] = '';
+//                        }
+                        $data['team2img'] = $node->filter('div > div:nth-child(4) > div.tag-1 > img')->attr('src');
+                        $data['team2'] = $node->filter('div > div:nth-child(4) > div.tag-1 > p')->text();
+                        $data['team2winnum'] = (integer)$node->filter('div > div:nth-child(4) > div.tag-2 > p.score')->text();
+                        $data['team2killnum'] = (integer)$node->filter('div > div:nth-child(4) > div.tag-2 > p.kill')->text();
+
+                        // 开始处理特殊图标   图标可能为空  可能为一个或多个
+                        $data['team2special'] = $node->filter('div > div:nth-child(4) > div.tag-2 > div > div')->each(function ($node3, $i) {
+                            return 'https://www.500bf.com' . $node3->filter('img')->attr('src');
+                        });
+                        if (is_array($data['team2special']))
+                            $data['team2special'] = implode("|", $data['team2special']);
+//                        dd($data);
+                        return $data;
+                    });
+//                    dd($arr);
+                    DB::table('allmatching')->insert($arr);
+//                    echo $bool;
+                    echo '<br>';
+                    $this->countedAndCheckEnded();
+                }
+            },
+            'rejected' => function ($reason, $index) {
+//                    log('test',"rejected" );
+//                    log('test',"rejected reason: " . $reason );
+                $this->countedAndCheckEnded();
+            },
+        ]);
+
+        $promise = $pool->promise();
+        $promise->wait();
+
     }
 
-    //截取文章的内容
-    function getbody($ta){
+
+    // 首页全部游戏未开始  （已完成）
+    public function allmatch()
+    {
+        set_time_limit(0);
+        ini_set('memory_limit', '-1');
+        for ($i = 1; $i < 2; $i++) {
+            $this->url[] = 'https://www.500bf.com/';
+        }
+        $this->totalPageCount = 1500;
+        $client = new Client();
+        $requests = function ($total) use ($client) {
+            foreach ($this->url as $uri) {
+                yield function () use ($client, $uri) {
+                    return $client->get($uri, ['verify' => false]);
+                };
+            }
+        };
+
+        $pool = new Pool($client, $requests($this->totalPageCount), [
+            'concurrency' => $this->concurrency,
+            'fulfilled' => function ($response, $index) {
+                echo '爬取' . $this->url[$index];
+                echo '<br>';
+                ob_flush();
+                flush();
+                try {
+//                    dd($response->getBody()->getContents());
+                    $http = $response->getBody()->getContents();
+//                    $http = iconv('gbk', 'UTF-8', $response->getBody()->getContents());
+                } catch (\Exception $e) {
+                    echo '没有找到数据';
+                }
+                if (!empty($http)) {
+                    $crawler = new Crawler();
+                    $crawler->addHtmlContent($http);
+                    $arr = $crawler->filter('body > div > div.home-wapper.default-continer > div > div.home-container > div.match-wrapper > div > div.container > div')->each(function ($node, $i) use ($http) {
+                        $data['gameimg'] = 'https://www.500bf.com' . $node->filter('img')->attr('src');
+                        // 所属游戏
+                        if (strpos($data['gameimg'], 'dota') !== false) {
+                            $data['game'] = 'DOTA2';
+                        } elseif (strpos($data['gameimg'], 'csgo') !== false) {
+                            $data['game'] = 'CS:GO';
+                        } elseif (strpos($data['gameimg'], 'lol') !== false) {
+                            $data['game'] = '英雄联盟';
+                        } elseif (strpos($data['gameimg'], 'kog') !== false) {
+                            $data['game'] = '王者荣耀';
+                        }
+
+                        $data['time'] = $node->filter('p.match-item-time')->text();
+                        $data['BO'] = $node->filter('p.match-item-bo')->text();
+                        $data['team1'] = $node->filter('div.home-team > p')->text();
+                        $data['team1img'] = $node->filter('div.home-team > img')->attr('src');
+                        $data['team2img'] = $node->filter('div.away-team > img')->attr('src');
+                        $data['team2'] = $node->filter('div.away-team > p')->text();
+                        $data['eventsimg'] = $node->filter('div.league > img')->attr('src');
+                        $data['events'] = $node->filter('div.league > p')->text();
+
+                        // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
+                        $Match = new Match();
+                        $events_id = $Match->GetMatchId($data['events']);
+                        if ($events_id) {
+                            $data['eventsid'] = $events_id;
+                        } else { // 赛事不存在，需新增
+                            $events_onclick = $node->filter('div.league')->attr('onclick');
+                            $events_link = substr($events_onclick, strpos($events_onclick, 'hrefClicked(\'') + 13);
+                            $events_link = substr($events_link, 0, strpos($events_link, '\')'));
+                            $events_client = new Client();
+                            $events_response = $events_client->get('https://www.500bf.com' . $events_link, ['verify' => false]);
+                            $events_request = $events_response->getBody()->getContents();
+                            $events_crawler = new Crawler();
+                            $events_crawler->addHtmlContent($events_request);
+                            $events['match'] = $data['events'];
+                            $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
+                            $events['matchtime'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.match-time > div > p:nth-child(2)')->text();
+                            $events['teams'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.teamIds > div > p:nth-child(2)')->text();
+                            $events['money'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.prize > div > p:nth-child(2)')->text();
+                            $events['venue'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.address > div > p:nth-child(2)')->text();
+                            $events['organizers'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.organizer > div > p:nth-child(2)')->text();
+
+                            $events['game'] = $data['game'];
+
+                            $events['link'] = 'https://www.500bf.com' . $events_link;
+                            $data['eventsid'] = DB::table('match')->insertGetId($events);
+                        }
+//                        dd($data);
+                        return $data;
+                    });
+                    DB::table('allmatch')->truncate();
+                    DB::table('allmatch')->insert($arr);
 
 
+//                    $bool = DB::table('title')->insert($arr);
+//                    echo $bool;
+                    echo '<br>';
+                    $this->countedAndCheckEnded();
+                }
+            },
+            'rejected' => function ($reason, $index) {
+//                    log('test',"rejected" );
+//                    log('test',"rejected reason: " . $reason );
+                $this->countedAndCheckEnded();
+            },
+        ]);
 
-        echo '正在截取文章内容'.'<br>';
-        $t = substr($ta,strpos($ta,'<!--mainContent begin-->')+24);
-        $t = substr($t,0,strpos($t,'<!--mainContent end-->'));
-        echo '截取成功！！'.'<br>';
-        return $t;
+        $promise = $pool->promise();
+        $promise->wait();
+
     }
 
-    function chuli($str){
-//        $str = str_replace('<a','<div',$str);
-        return str_replace(array("\r\n", "\r", "\n" ,"\t"), "", $str);
+
+// 首页LOL未开始  （已完成）
+    public function lolmatch()
+    {
+        set_time_limit(0);
+        ini_set('memory_limit', '-1');
+        for ($i = 1; $i < 2; $i++) {
+            $this->url[] = 'https://www.500bf.com/index/index/index?type=1';
+        }
+        $this->totalPageCount = 1500;
+        $client = new Client();
+        $requests = function ($total) use ($client) {
+            foreach ($this->url as $uri) {
+                yield function () use ($client, $uri) {
+                    return $client->get($uri, ['verify' => false]);
+                };
+            }
+        };
+
+        $pool = new Pool($client, $requests($this->totalPageCount), [
+            'concurrency' => $this->concurrency,
+            'fulfilled' => function ($response, $index) {
+                echo '爬取' . $this->url[$index];
+                echo '<br>';
+                ob_flush();
+                flush();
+                try {
+//                    dd($response->getBody()->getContents());
+                    $http = $response->getBody()->getContents();
+//                    $http = iconv('gbk', 'UTF-8', $response->getBody()->getContents());
+                } catch (\Exception $e) {
+                    echo '没有找到数据';
+                }
+                if (!empty($http)) {
+                    $crawler = new Crawler();
+                    $crawler->addHtmlContent($http);
+                    $arr = $crawler->filter('body > div > div.home-wapper.default-continer > div > div.home-container > div.match-wrapper > div > div.container > div')->each(function ($node, $i) use ($http) {
+                        $data['gameimg'] = 'https://www.500bf.com' . $node->filter('img')->attr('src');
+                        $data['time'] = $node->filter('p.match-item-time')->text();
+                        $data['BO'] = $node->filter('p.match-item-bo')->text();
+                        $data['team1'] = $node->filter('div.home-team > p')->text();
+                        $data['team1img'] = $node->filter('div.home-team > img')->attr('src');
+                        $data['team2img'] = $node->filter('div.away-team > img')->attr('src');
+                        $data['team2'] = $node->filter('div.away-team > p')->text();
+                        $data['eventsimg'] = $node->filter('div.league > img')->attr('src');
+                        $data['events'] = $node->filter('div.league > p')->text();
+
+                        // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
+                        $Match = new Match();
+                        $events_id = $Match->GetMatchId($data['events']);
+                        if ($events_id) {
+                            $data['eventsid'] = $events_id;
+                        } else { // 赛事不存在，需新增
+                            $events_onclick = $node->filter('div.league')->attr('onclick');
+                            $events_link = substr($events_onclick, strpos($events_onclick, 'hrefClicked(\'') + 13);
+                            $events_link = substr($events_link, 0, strpos($events_link, '\')'));
+                            $events_client = new Client();
+                            $events_response = $events_client->get('https://www.500bf.com' . $events_link, ['verify' => false]);
+                            $events_request = $events_response->getBody()->getContents();
+                            $events_crawler = new Crawler();
+                            $events_crawler->addHtmlContent($events_request);
+                            $events['match'] = $data['events'];
+                            $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
+                            $events['matchtime'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.match-time > div > p:nth-child(2)')->text();
+                            $events['teams'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.teamIds > div > p:nth-child(2)')->text();
+                            $events['money'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.prize > div > p:nth-child(2)')->text();
+                            $events['venue'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.address > div > p:nth-child(2)')->text();
+                            $events['organizers'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.organizer > div > p:nth-child(2)')->text();
+                            $events['game'] = '英雄联盟';
+                            $events['link'] = 'https://www.500bf.com' . $events_link;
+                            $data['eventsid'] = DB::table('match')->insertGetId($events);
+                        }
+//                        dd($data);
+                        return $data;
+                    });
+                    DB::table('lolmatch')->truncate();
+                    DB::table('lolmatch')->insert($arr);
+
+
+//                    $bool = DB::table('title')->insert($arr);
+//                    echo $bool;
+                    echo '<br>';
+                    $this->countedAndCheckEnded();
+                }
+            },
+            'rejected' => function ($reason, $index) {
+//                    log('test',"rejected" );
+//                    log('test',"rejected reason: " . $reason );
+                $this->countedAndCheckEnded();
+            },
+        ]);
+
+        $promise = $pool->promise();
+        $promise->wait();
+
+    }
+
+
+// 首页CS:GO未开始  （已完成）
+    public function csgomatch()
+    {
+        set_time_limit(0);
+        ini_set('memory_limit', '-1');
+        for ($i = 1; $i < 2; $i++) {
+            $this->url[] = 'https://www.500bf.com/index/index/index?type=3';
+        }
+        $this->totalPageCount = 1500;
+        $client = new Client();
+        $requests = function ($total) use ($client) {
+            foreach ($this->url as $uri) {
+                yield function () use ($client, $uri) {
+                    return $client->get($uri, ['verify' => false]);
+                };
+            }
+        };
+
+        $pool = new Pool($client, $requests($this->totalPageCount), [
+            'concurrency' => $this->concurrency,
+            'fulfilled' => function ($response, $index) {
+                echo '爬取' . $this->url[$index];
+                echo '<br>';
+                ob_flush();
+                flush();
+                try {
+//                    dd($response->getBody()->getContents());
+                    $http = $response->getBody()->getContents();
+//                    $http = iconv('gbk', 'UTF-8', $response->getBody()->getContents());
+                } catch (\Exception $e) {
+                    echo '没有找到数据';
+                }
+                if (!empty($http)) {
+                    $crawler = new Crawler();
+                    $crawler->addHtmlContent($http);
+                    $arr = $crawler->filter('body > div > div.home-wapper.default-continer > div > div.home-container > div.match-wrapper > div > div.container > div')->each(function ($node, $i) use ($http) {
+                        $data['gameimg'] = 'https://www.500bf.com' . $node->filter('img')->attr('src');
+                        $data['time'] = $node->filter('p.match-item-time')->text();
+                        $data['BO'] = $node->filter('p.match-item-bo')->text();
+                        $data['team1'] = $node->filter('div.home-team > p')->text();
+                        $data['team1img'] = $node->filter('div.home-team > img')->attr('src');
+                        $data['team2img'] = $node->filter('div.away-team > img')->attr('src');
+                        $data['team2'] = $node->filter('div.away-team > p')->text();
+                        $data['eventsimg'] = $node->filter('div.league > img')->attr('src');
+                        $data['events'] = $node->filter('div.league > p')->text();
+
+                        // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
+                        $Match = new Match();
+                        $events_id = $Match->GetMatchId($data['events']);
+                        if ($events_id) {
+                            $data['eventsid'] = $events_id;
+                        } else { // 赛事不存在，需新增
+                            $events_onclick = $node->filter('div.league')->attr('onclick');
+                            $events_link = substr($events_onclick, strpos($events_onclick, 'hrefClicked(\'') + 13);
+                            $events_link = substr($events_link, 0, strpos($events_link, '\')'));
+                            $events_client = new Client();
+                            $events_response = $events_client->get('https://www.500bf.com' . $events_link, ['verify' => false]);
+                            $events_request = $events_response->getBody()->getContents();
+                            $events_crawler = new Crawler();
+                            $events_crawler->addHtmlContent($events_request);
+                            $events['match'] = $data['events'];
+                            $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
+                            $events['matchtime'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.match-time > div > p:nth-child(2)')->text();
+                            $events['teams'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.teamIds > div > p:nth-child(2)')->text();
+                            $events['money'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.prize > div > p:nth-child(2)')->text();
+                            $events['venue'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.address > div > p:nth-child(2)')->text();
+                            $events['organizers'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.organizer > div > p:nth-child(2)')->text();
+                            $events['game'] = 'CS:GO';
+                            $events['link'] = 'https://www.500bf.com' . $events_link;
+                            $data['eventsid'] = DB::table('match')->insertGetId($events);
+                        }
+//                        dd($data);
+                        return $data;
+                    });
+                    DB::table('csgomatch')->truncate();
+                    DB::table('csgomatch')->insert($arr);
+
+
+//                    $bool = DB::table('title')->insert($arr);
+//                    echo $bool;
+                    echo '<br>';
+                    $this->countedAndCheckEnded();
+                }
+            },
+            'rejected' => function ($reason, $index) {
+//                    log('test',"rejected" );
+//                    log('test',"rejected reason: " . $reason );
+                $this->countedAndCheckEnded();
+            },
+        ]);
+
+        $promise = $pool->promise();
+        $promise->wait();
+
+    }
+
+
+// 首页DOTA2未开始  （已完成）
+    public function dota2match()
+    {
+        set_time_limit(0);
+        ini_set('memory_limit', '-1');
+        for ($i = 1; $i < 2; $i++) {
+            $this->url[] = 'https://www.500bf.com/index/index/index?type=2';
+        }
+        $this->totalPageCount = 1500;
+        $client = new Client();
+        $requests = function ($total) use ($client) {
+            foreach ($this->url as $uri) {
+                yield function () use ($client, $uri) {
+                    return $client->get($uri, ['verify' => false]);
+                };
+            }
+        };
+
+        $pool = new Pool($client, $requests($this->totalPageCount), [
+            'concurrency' => $this->concurrency,
+            'fulfilled' => function ($response, $index) {
+                echo '爬取' . $this->url[$index];
+                echo '<br>';
+                ob_flush();
+                flush();
+                try {
+//                    dd($response->getBody()->getContents());
+                    $http = $response->getBody()->getContents();
+//                    $http = iconv('gbk', 'UTF-8', $response->getBody()->getContents());
+                } catch (\Exception $e) {
+                    echo '没有找到数据';
+                }
+                if (!empty($http)) {
+                    $crawler = new Crawler();
+                    $crawler->addHtmlContent($http);
+                    $arr = $crawler->filter('body > div > div.home-wapper.default-continer > div > div.home-container > div.match-wrapper > div > div.container > div')->each(function ($node, $i) use ($http) {
+                        $data['gameimg'] = 'https://www.500bf.com' . $node->filter('img')->attr('src');
+                        $data['time'] = $node->filter('p.match-item-time')->text();
+                        $data['BO'] = $node->filter('p.match-item-bo')->text();
+                        $data['team1'] = $node->filter('div.home-team > p')->text();
+                        $data['team1img'] = $node->filter('div.home-team > img')->attr('src');
+                        $data['team2img'] = $node->filter('div.away-team > img')->attr('src');
+                        $data['team2'] = $node->filter('div.away-team > p')->text();
+                        $data['eventsimg'] = $node->filter('div.league > img')->attr('src');
+                        $data['events'] = $node->filter('div.league > p')->text();
+
+                        // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
+                        $Match = new Match();
+                        $events_id = $Match->GetMatchId($data['events']);
+                        if ($events_id) {
+                            $data['eventsid'] = $events_id;
+                        } else { // 赛事不存在，需新增
+                            $events_onclick = $node->filter('div.league')->attr('onclick');
+                            $events_link = substr($events_onclick, strpos($events_onclick, 'hrefClicked(\'') + 13);
+                            $events_link = substr($events_link, 0, strpos($events_link, '\')'));
+                            $events_client = new Client();
+                            $events_response = $events_client->get('https://www.500bf.com' . $events_link, ['verify' => false]);
+                            $events_request = $events_response->getBody()->getContents();
+                            $events_crawler = new Crawler();
+                            $events_crawler->addHtmlContent($events_request);
+                            $events['match'] = $data['events'];
+                            $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
+                            $events['matchtime'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.match-time > div > p:nth-child(2)')->text();
+                            $events['teams'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.teamIds > div > p:nth-child(2)')->text();
+                            $events['money'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.prize > div > p:nth-child(2)')->text();
+                            $events['venue'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.address > div > p:nth-child(2)')->text();
+                            $events['organizers'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.organizer > div > p:nth-child(2)')->text();
+                            $events['game'] = 'DOTA2';
+                            $events['link'] = 'https://www.500bf.com' . $events_link;
+                            $data['eventsid'] = DB::table('match')->insertGetId($events);
+                        }
+//                        dd($data);
+                        return $data;
+                    });
+                    DB::table('dota2match')->truncate();
+                    DB::table('dota2match')->insert($arr);
+
+
+//                    $bool = DB::table('title')->insert($arr);
+//                    echo $bool;
+                    echo '<br>';
+                    $this->countedAndCheckEnded();
+                }
+            },
+            'rejected' => function ($reason, $index) {
+//                    log('test',"rejected" );
+//                    log('test',"rejected reason: " . $reason );
+                $this->countedAndCheckEnded();
+            },
+        ]);
+
+        $promise = $pool->promise();
+        $promise->wait();
+
+    }
+
+// 首页GOK未开始  （已完成）
+    public function gokmatch()
+    {
+        set_time_limit(0);
+        ini_set('memory_limit', '-1');
+        for ($i = 1; $i < 2; $i++) {
+            $this->url[] = 'https://www.500bf.com/index/index/index?type=4';
+        }
+        $this->totalPageCount = 1500;
+        $client = new Client();
+        $requests = function ($total) use ($client) {
+            foreach ($this->url as $uri) {
+                yield function () use ($client, $uri) {
+                    return $client->get($uri, ['verify' => false]);
+                };
+            }
+        };
+
+        $pool = new Pool($client, $requests($this->totalPageCount), [
+            'concurrency' => $this->concurrency,
+            'fulfilled' => function ($response, $index) {
+                echo '爬取' . $this->url[$index];
+                echo '<br>';
+                ob_flush();
+                flush();
+                try {
+//                    dd($response->getBody()->getContents());
+                    $http = $response->getBody()->getContents();
+//                    $http = iconv('gbk', 'UTF-8', $response->getBody()->getContents());
+                } catch (\Exception $e) {
+                    echo '没有找到数据';
+                }
+                if (!empty($http)) {
+                    $crawler = new Crawler();
+                    $crawler->addHtmlContent($http);
+                    $arr = $crawler->filter('body > div > div.home-wapper.default-continer > div > div.home-container > div.match-wrapper > div > div.container > div')->each(function ($node, $i) use ($http) {
+                        $data['gameimg'] = 'https://www.500bf.com' . $node->filter('img')->attr('src');
+                        $data['time'] = $node->filter('p.match-item-time')->text();
+                        $data['BO'] = $node->filter('p.match-item-bo')->text();
+                        $data['team1'] = $node->filter('div.home-team > p')->text();
+                        $data['team1img'] = $node->filter('div.home-team > img')->attr('src');
+                        $data['team2img'] = $node->filter('div.away-team > img')->attr('src');
+                        $data['team2'] = $node->filter('div.away-team > p')->text();
+                        $data['eventsimg'] = $node->filter('div.league > img')->attr('src');
+                        $data['events'] = $node->filter('div.league > p')->text();
+
+                        // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
+                        $Match = new Match();
+                        $events_id = $Match->GetMatchId($data['events']);
+                        if ($events_id) {
+                            $data['eventsid'] = $events_id;
+                        } else { // 赛事不存在，需新增
+                            $events_onclick = $node->filter('div.league')->attr('onclick');
+                            $events_link = substr($events_onclick, strpos($events_onclick, 'hrefClicked(\'') + 13);
+                            $events_link = substr($events_link, 0, strpos($events_link, '\')'));
+                            $events_client = new Client();
+                            $events_response = $events_client->get('https://www.500bf.com' . $events_link, ['verify' => false]);
+                            $events_request = $events_response->getBody()->getContents();
+                            $events_crawler = new Crawler();
+                            $events_crawler->addHtmlContent($events_request);
+                            $events['match'] = $data['events'];
+                            $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
+                            $events['matchtime'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.match-time > div > p:nth-child(2)')->text();
+                            $events['teams'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.teamIds > div > p:nth-child(2)')->text();
+                            $events['money'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.prize > div > p:nth-child(2)')->text();
+                            $events['venue'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.address > div > p:nth-child(2)')->text();
+                            $events['organizers'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.organizer > div > p:nth-child(2)')->text();
+                            $events['game'] = '王者荣耀';
+                            $events['link'] = 'https://www.500bf.com' . $events_link;
+                            $data['eventsid'] = DB::table('match')->insertGetId($events);
+                        }
+//                        dd($data);
+                        return $data;
+                    });
+                    DB::table('gokmatch')->truncate();
+                    DB::table('gokmatch')->insert($arr);
+
+
+//                    $bool = DB::table('title')->insert($arr);
+//                    echo $bool;
+                    echo '<br>';
+                    $this->countedAndCheckEnded();
+                }
+            },
+            'rejected' => function ($reason, $index) {
+//                    log('test',"rejected" );
+//                    log('test',"rejected reason: " . $reason );
+                $this->countedAndCheckEnded();
+            },
+        ]);
+
+        $promise = $pool->promise();
+        $promise->wait();
+
+    }
+
+    // 比分  未开始
+    public function scorenot()
+    {
+        set_time_limit(0);
+        ini_set('memory_limit', '-1');
+        for ($i = 1; $i < 2; $i++) {
+            $this->url[] = 'https://www.500bf.com/index/index/score?type=0&subtype=0';
+        }
+        $this->totalPageCount = 1500;
+        $client = new Client();
+        $requests = function ($total) use ($client) {
+            foreach ($this->url as $uri) {
+                yield function () use ($client, $uri) {
+                    return $client->get($uri, ['verify' => false]);
+                };
+            }
+        };
+
+        $pool = new Pool($client, $requests($this->totalPageCount), [
+            'concurrency' => $this->concurrency,
+            'fulfilled' => function ($response, $index) {
+                echo '爬取' . $this->url[$index];
+                echo '<br>';
+                ob_flush();
+                flush();
+                try {
+//                    dd($response->getBody()->getContents());
+                    $http = $response->getBody()->getContents();
+//                    $http = iconv('gbk', 'UTF-8', $response->getBody()->getContents());
+                } catch (\Exception $e) {
+                    echo '没有找到数据';
+                }
+                if (!empty($http)) {
+                    $crawler = new Crawler();
+                    $crawler->addHtmlContent($http);
+                    $arr = $crawler->filter('body > div.body > div.score-warpper.default-continer > div.score-list-panel > div.match-wait-panel-wrapper > div.container > div')->each(function ($node, $i) use ($http) {
+                        $data['gameimg'] = 'https://www.500bf.com'.$node->filter('img')->attr('src');
+                        // 所属游戏
+                        if (strpos($data['gameimg'], 'dota') !== false) {
+                            $data['game'] = 'DOTA2';
+                        } elseif (strpos($data['gameimg'], 'csgo') !== false) {
+                            $data['game'] = 'CS:GO';
+                        } elseif (strpos($data['gameimg'], 'lol') !== false) {
+                            $data['game'] = '英雄联盟';
+                        } elseif (strpos($data['gameimg'], 'kog') !== false) {
+                            $data['game'] = '王者荣耀';
+                        }
+
+                        $data['time'] = $node->filter('p.match-item-time')->text();
+                        $data['BO'] = $node->filter('p.match-item-bo')->text();
+                        $data['team1'] = $node->filter('div.home-team > p')->text();
+                        $data['team1img'] = $node->filter('div.home-team > img')->attr('src');
+                        $data['team2img'] = $node->filter('div.away-team > img')->attr('src');
+                        $data['team2'] = $node->filter('div.away-team > p')->text();
+                        $data['eventsimg'] = $node->filter('div.leagues > img')->attr('src');
+                        $data['events'] = $node->filter('div.leagues > p')->text();
+
+                        // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
+                        $Match = new Match();
+                        $events_id = $Match->GetMatchId($data['events']);
+                        if ($events_id) {
+                            $data['eventsid'] = $events_id;
+                        } else { // 赛事不存在，需新增
+                            try {
+                                $events_onclick = $node->filter('div.leagues')->attr('onclick');
+                                $events_link = substr($events_onclick, strpos($events_onclick, 'hrefClicked(\'') + 13);
+                                $events_link = substr($events_link, 0, strpos($events_link, '\')'));
+                                $events_client = new Client();
+                                $events_response = $events_client->get('https://www.500bf.com' . $events_link, ['verify' => false]);
+                                $events_request = $events_response->getBody()->getContents();
+                                $events_crawler = new Crawler();
+                                $events_crawler->addHtmlContent($events_request);
+                                $events['match'] = $data['events'];
+                                $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
+                                $events['matchtime'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.match-time > div > p:nth-child(2)')->text();
+                                $events['teams'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.teamIds > div > p:nth-child(2)')->text();
+                                $events['money'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.prize > div > p:nth-child(2)')->text();
+                                $events['venue'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.address > div > p:nth-child(2)')->text();
+                                $events['organizers'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.organizer > div > p:nth-child(2)')->text();
+
+                            } catch (\Exception $exception) {
+                                $events['match'] = $data['events'];
+                                $events['matchimg'] = '该赛事内容不存在';
+                                $events['matchtime'] = '';
+                                $events['teams'] = '';
+                                $events['money'] = '';
+                                $events['venue'] = '';
+                                $events['organizers'] = '';
+
+                            }
+                            $events['game'] = $data['game'];
+
+                            $events['link'] = 'https://www.500bf.com' . $events_link;
+                            $data['eventsid'] = DB::table('match')->insertGetId($events);
+                        }
+
+                        $data['index'] = $node->filter('div.odd')->text();
+//                        dd($data);
+                        return $data;
+                    });
+                    DB::table('scorenot')->truncate();
+                    DB::table('scorenot')->insert($arr);
+
+
+//                    $bool = DB::table('title')->insert($arr);
+//                    echo $bool;
+                    echo '<br>';
+                    $this->countedAndCheckEnded();
+                }
+            },
+            'rejected' => function ($reason, $index) {
+//                    log('test',"rejected" );
+//                    log('test',"rejected reason: " . $reason );
+                $this->countedAndCheckEnded();
+            },
+        ]);
+
+        $promise = $pool->promise();
+        $promise->wait();
+
+    }
+
+    // 比分  完场
+    public function scoreover()
+    {
+        set_time_limit(0);
+        ini_set('memory_limit', '-1');
+        for ($i = 1; $i < 2; $i++) {
+            $this->url[] = 'https://www.500bf.com/index/index/score?type=0&subtype=1';
+        }
+        $this->totalPageCount = 1500;
+        $client = new Client();
+        $requests = function ($total) use ($client) {
+            foreach ($this->url as $uri) {
+                yield function () use ($client, $uri) {
+                    return $client->get($uri, ['verify' => false]);
+                };
+            }
+        };
+
+        $pool = new Pool($client, $requests($this->totalPageCount), [
+            'concurrency' => $this->concurrency,
+            'fulfilled' => function ($response, $index) {
+                echo '爬取' . $this->url[$index];
+                echo '<br>';
+                ob_flush();
+                flush();
+                try {
+//                    dd($response->getBody()->getContents());
+                    $http = $response->getBody()->getContents();
+//                    $http = iconv('gbk', 'UTF-8', $response->getBody()->getContents());
+                } catch (\Exception $e) {
+                    echo '没有找到数据';
+                }
+                if (!empty($http)) {
+                    $crawler = new Crawler();
+                    $crawler->addHtmlContent($http);
+                    $arr = $crawler->filter('body > div.body > div.score-warpper.default-continer > div.score-list-panel > div.match-wait-panel-wrapper > div.container > div')->each(function ($node, $i) use ($http) {
+                        $data['gameimg'] = 'https://www.500bf.com'.$node->filter('img')->attr('src');
+                        // 所属游戏
+                        if (strpos($data['gameimg'], 'dota') !== false) {
+                            $data['game'] = 'DOTA2';
+                        } elseif (strpos($data['gameimg'], 'csgo') !== false) {
+                            $data['game'] = 'CS:GO';
+                        } elseif (strpos($data['gameimg'], 'lol') !== false) {
+                            $data['game'] = '英雄联盟';
+                        } elseif (strpos($data['gameimg'], 'kog') !== false) {
+                            $data['game'] = '王者荣耀';
+                        }
+
+                        $data['time'] = $node->filter('p.match-item-time')->text();
+                        $data['BO'] = $node->filter('p.match-item-bo')->text();
+                        $data['team1'] = $node->filter('div.home-team > p')->text();
+                        $data['team1img'] = $node->filter('div.home-team > img')->attr('src');
+                        try {
+                            $data['score'] = $node->filter('p.match-item-score')->text();
+                        }catch (\Exception $exception){
+                            $data['score'] = $node->filter('p.match-item-tag')->text();
+                        }
+                        $data['team2img'] = $node->filter('div.away-team > img')->attr('src');
+                        $data['team2'] = $node->filter('div.away-team > p')->text();
+                        $data['eventsimg'] = $node->filter('div.leagues > img')->attr('src');
+                        $data['events'] = $node->filter('div.leagues > p')->text();
+
+                        // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
+                        $Match = new Match();
+                        $events_id = $Match->GetMatchId($data['events']);
+                        if ($events_id) {
+                            $data['eventsid'] = $events_id;
+                        } else { // 赛事不存在，需新增
+                            try {
+                                $events_onclick = $node->filter('div.leagues')->attr('onclick');
+                                $events_link = substr($events_onclick, strpos($events_onclick, 'hrefClicked(\'') + 13);
+                                $events_link = substr($events_link, 0, strpos($events_link, '\')'));
+                                $events_client = new Client();
+                                $events_response = $events_client->get('https://www.500bf.com' . $events_link, ['verify' => false]);
+                                $events_request = $events_response->getBody()->getContents();
+                                $events_crawler = new Crawler();
+                                $events_crawler->addHtmlContent($events_request);
+                                $events['match'] = $data['events'];
+                                $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
+                                $events['matchtime'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.match-time > div > p:nth-child(2)')->text();
+                                $events['teams'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.teamIds > div > p:nth-child(2)')->text();
+                                $events['money'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.prize > div > p:nth-child(2)')->text();
+                                $events['venue'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.address > div > p:nth-child(2)')->text();
+                                $events['organizers'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.organizer > div > p:nth-child(2)')->text();
+
+                            } catch (\Exception $exception) {
+                                $events['match'] = $data['events'];
+                                $events['matchimg'] = '该赛事内容不存在';
+                                $events['matchtime'] = '';
+                                $events['teams'] = '';
+                                $events['money'] = '';
+                                $events['venue'] = '';
+                                $events['organizers'] = '';
+
+                            }
+
+                            $events['game'] = $data['game'];
+                            $events['link'] = 'https://www.500bf.com' . $events_link;
+                            $data['eventsid'] = DB::table('match')->insertGetId($events);
+                        }
+
+                        $data['index'] = $node->filter('div.odd')->text();
+//                        dd($data);
+                        return $data;
+                    });
+                    DB::table('scoreover')->truncate();
+                    DB::table('scoreover')->insert($arr);
+
+
+//                    $bool = DB::table('title')->insert($arr);
+//                    echo $bool;
+                    echo '<br>';
+                    $this->countedAndCheckEnded();
+                }
+            },
+            'rejected' => function ($reason, $index) {
+//                    log('test',"rejected" );
+//                    log('test',"rejected reason: " . $reason );
+                $this->countedAndCheckEnded();
+            },
+        ]);
+
+        $promise = $pool->promise();
+        $promise->wait();
+
+    }
+
+    // 比分  即时
+    public function scoreing()
+    {
+        set_time_limit(0);
+        ini_set('memory_limit', '-1');
+        for ($i = 1; $i < 2; $i++) {
+            $this->url[] = 'https://www.500bf.com/index/index/score?type=0&subtype=0';
+        }
+        $this->totalPageCount = 1500;
+        $client = new Client();
+        $requests = function ($total) use ($client) {
+            foreach ($this->url as $uri) {
+                yield function () use ($client, $uri) {
+                    return $client->get($uri, ['verify' => false]);
+                };
+            }
+        };
+
+        $pool = new Pool($client, $requests($this->totalPageCount), [
+            'concurrency' => $this->concurrency,
+            'fulfilled' => function ($response, $index) {
+                echo '爬取' . $this->url[$index];
+                echo '<br>';
+                ob_flush();
+                flush();
+                try {
+//                    dd($response->getBody()->getContents());
+                    $http = $response->getBody()->getContents();
+//                    $http = iconv('gbk', 'UTF-8', $response->getBody()->getContents());
+                } catch (\Exception $e) {
+                    echo '没有找到数据';
+                }
+                if (!empty($http)) {
+                    $crawler = new Crawler();
+                    $crawler->addHtmlContent($http);
+                    $arr = $crawler->filter('#score_living > div > div > div.live_container > div')->each(function ($node, $i) use ($http) {
+                        $data['gameimg'] = 'https://www.500bf.com'.$node->filter('div > div > div.header > img')->attr('src');
+                        // 所属游戏
+                        if (strpos($data['gameimg'], 'dota') !== false) {
+                            $data['game'] = 'DOTA2';
+                        } elseif (strpos($data['gameimg'], 'csgo') !== false) {
+                            $data['game'] = 'CS:GO';
+                        } elseif (strpos($data['gameimg'], 'lol') !== false) {
+                            $data['game'] = '英雄联盟';
+                        } elseif (strpos($data['gameimg'], 'kog') !== false) {
+                            $data['game'] = '王者荣耀';
+                        }
+
+                        $data['events'] = $node->filter('div > div > div.header > p.name')->text();
+
+                        // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
+                        $Match = new Match();
+                        $events_id = $Match->GetMatchId($data['events']);
+                        if ($events_id) {
+                            $data['eventsid'] = $events_id;
+                        } else { // 赛事不存在，需新增
+                            try {
+                                $events_onclick = $node->filter('div > div > div.header > p.name')->attr('onclick');
+                                $events_link = substr($events_onclick, strpos($events_onclick, 'hrefClicked(\'') + 13);
+                                $events_link = substr($events_link, 0, strpos($events_link, '\')'));
+                                $events_client = new Client();
+                                $events_response = $events_client->get('https://www.500bf.com' . $events_link, ['verify' => false]);
+                                $events_request = $events_response->getBody()->getContents();
+                                $events_crawler = new Crawler();
+                                $events_crawler->addHtmlContent($events_request);
+                                $events['match'] = $data['events'];
+                                $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
+                                $events['matchtime'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.match-time > div > p:nth-child(2)')->text();
+                                $events['teams'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.teamIds > div > p:nth-child(2)')->text();
+                                $events['money'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.prize > div > p:nth-child(2)')->text();
+                                $events['venue'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.address > div > p:nth-child(2)')->text();
+                                $events['organizers'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.organizer > div > p:nth-child(2)')->text();
+
+                            } catch (\Exception $exception) {
+                                $events['match'] = $data['events'];
+                                $events['matchimg'] = '该赛事内容不存在';
+                                $events['matchtime'] = '';
+                                $events['teams'] = '';
+                                $events['money'] = '';
+                                $events['venue'] = '';
+                                $events['organizers'] = '';
+
+                            }
+                            $events['game'] = $data['game'];
+
+                            $events['link'] = 'https://www.500bf.com' . $events_link;
+                            $data['eventsid'] = DB::table('match')->insertGetId($events);
+                        }
+
+                        $data['tag'] = $node->filter('div > div > div.header > p:nth-child(3)')->text();
+                        $data['tag1'] = $node->filter('div > div > div.header > p:nth-child(4)')->text();
+                        $data['tag2'] = $node->filter('div > div > div.header > div > p:nth-child(1)')->text();
+                        $data['tag3'] = $node->filter('div > div > div.header > div > p:nth-child(2)')->text();
+                        try {
+                            $data['tag4'] = $node->filter('div > div > div.header > div > p:nth-child(3)')->text();
+                        }catch (\Exception $exception){
+                            $data['tag4'] = '';
+                        }
+                        try {
+                            $data['tag5'] = $node->filter('div > div > div.header > div > p:nth-child(4)')->text();
+                        }catch (\Exception $exception){
+                            $data['tag5'] = '';
+                        }
+                        try {
+                            $data['tag6'] = $node->filter('div > div.header > div.tag-panel > p:nth-child(5)')->text();
+                        } catch (\Exception $exception) {
+                            $data['tag6'] = '';
+                        }
+
+                        $data['index'] = $node->filter('div > div > div.header > p.tag.bet')->text();
+
+                        $arr = array();
+                        // 开始处理直播地址 #div > div.header > div > div > ul > li   div > div.header > div.videos-panel.video-panel > ul > li
+                        #div > div.header > div.videos-panel.video-panel > ul > li
+                        if ( $data['game'] == '英雄联盟'){
+                            $tv_arr = $node->filter('div > div.header > div.videos-panel.video-panel > ul > li')->each(function ($node2, $i) use ($arr) {
+                                $arr = array_add($arr, $node2->filter('a > span')->text(), 'https://www.500bf.com' . $node2->filter('a')->attr('href'));
+                                return $arr;
+                            });
+                        }else{
+                            $tv_arr = $node->filter('div > div.header > div > div > ul > li')->each(function ($node2, $i) use ($arr) {
+                                $arr = array_add($arr, $node2->filter('a > span')->text(), 'https://www.500bf.com' . $node2->filter('a')->attr('href'));
+                                return $arr;
+                            });
+                        }
+
+                        $data['tv'] = '';
+                        if (!empty($tv_arr)) {
+                            foreach ($tv_arr as $value) {
+                                $tv_client = new Client();
+                                $tv_response = $tv_client->get(current($value), ['verify' => false]);
+                                $tv_http = $tv_response->getBody()->getContents();
+                                if (strpos($tv_http, '500电竞比分网') !== false) {
+                                    $iframe = substr($tv_http, strpos($tv_http, "class=\"live-iframe\"") + 20);
+                                    $iframe = substr($iframe, 0, strpos($iframe, '">'));
+                                    $data['tv'] = $data['tv'] . key($value) . "=>" . substr($iframe, strpos($iframe, 'http')) . "|";
+                                } else {
+                                    $data['tv'] = $data['tv'] . key($value) . "=>" . current($value) . "|";
+                                }
+//                                echo current($value);
+                            }
+                        }
+                        $data['now'] = $node->filter('div > div > div.content > div.match-info > p:nth-child(1)')->text();
+                        $data['nowtime'] = $node->filter('div > div > div.content > div.match-info > p:nth-child(2)')->text();
+
+                        $data['team1img'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.team > img')->attr('src');
+                        $data['team1'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.team > p')->text();
+                        $data['team1winnum'] = (integer)$node->filter('div > div > div.content > div.team-info > div:nth-child(1) > p:nth-child(2)')->text();
+                        $data['team1lineup'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > p:nth-child(3)')->text();
+                        $data['team1killnum'] = (integer)$node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div:nth-child(4) > p')->text();
+
+                        try {
+                            // 开始处理特殊图标   图标可能为空  可能为一个或多个
+                            $data['team1killspecial'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div:nth-child(4) > img')->each(function ($node3, $i) {
+                                return 'https://www.500bf.com' . $node3->attr('src');
+                            });
+                            if (is_array($data['team1killspecial']))
+                                $data['team1killspecial'] = implode("|", $data['team1killspecial']);
+                        } catch (\Exception $e) {
+                            $data['team1killspecial'] = $node->filter('div > div.content > div.team-info > div:nth-child(1) > div.tag.kill > img')->each(function ($node3, $i) {
+                                return 'https://www.500bf.com' . $node3->attr('src');
+                            });
+                            if (is_array($data['team1killspecial']))
+                                $data['team1killspecial'] = implode("|", $data['team1killspecial']);
+                        }
+
+                        try {
+                            $data['team1tag3num'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.tag.first-half > p')->text();
+                        } catch (\Exception $exception) {
+                            try {
+                                $data['team1tag3num'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.tag.pl-8 > p')->text();
+                            }catch (\Exception $exception) {
+                                try{
+                                    $data['team1tag3num'] = $node->filter('div > div.content > div.team-info > div:nth-child(1) > div:nth-child(5) > p')->text();
+                                }catch (\Exception $exception) {
+                                    $data['team1tag3num'] = '';
+                                }
+                            }
+                        }
+                        try {
+                            $data['team1tag3special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.tag.first-half > img')->attr('src');
+                        } catch (\Exception $e) {
+                            $data['team1tag3special'] = '';
+                        }
+                        if ($data['tag4'] !== ''){
+                            try {
+                                $data['team1tag4num'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.tag.sconde-half > p')->text();
+                            } catch (\Exception $exception) {
+                                $data['team1tag4num'] = $node->filter('div > div.content > div.team-info > div:nth-child(1) > div:nth-child(6) > p')->text();
+                            }
+                        }else{
+                            $data['team1tag4num'] = '';
+                        }
+
+                        try {
+                            $data['team1tag4special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.tag.sconde-half > img')->attr('src');
+                        } catch (\Exception $e) {
+                            $data['team1tag4special'] = '';
+                        }
+                        if($data['tag5'] !== ''){
+                            try {
+                                $data['team1tag5num'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.tag.over-time > p')->text();
+                            } catch (\Exception $exception) {
+                                $data['team1tag5num'] = $node->filter('div > div.content > div.team-info > div:nth-child(1) > div:nth-child(7) > p')->text();
+                            }
+                        } else {
+                            $data['team1tag5num'] = '';
+                        }
+
+                        try {
+                            $data['team1tag5special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.tag.over-time > img')->attr('src');
+                        } catch (\Exception $e) {
+                            $data['team1tag5special'] = '';
+                        }
+                        if ($data['tag6'] !== ''){
+                            $data['team1tag6num'] = $node->filter('div > div.content > div.team-info > div:nth-child(1) > div:nth-child(8)')->text();
+                        } else {
+                            $data['team1tag6num'] = '';
+                        }
+                        $data['team1indexnum'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.tag.bet > p')->text();
+
+
+                        $data['team2img'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.team > img')->attr('src');
+                        $data['team2'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.team > p')->text();
+                        $data['team2winnum'] = (integer)$node->filter('div > div > div.content > div.team-info > div:nth-child(2) > p:nth-child(2)')->text();
+                        $data['team2lineup'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > p:nth-child(3)')->text();
+                        $data['team2killnum'] = (integer)$node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div:nth-child(4) > p')->text();
+                        try {
+                            $data['team2killspecial'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div:nth-child(4) > img')->attr('src');
+                        } catch (\Exception $e) {
+                            $data['team2killspecial'] = '';
+                        }
+                        try {
+                            $data['team2tag3num'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.tag.first-half > p')->text();
+                        } catch (\Exception $e) {
+                            try{
+                                $data['team2tag3num'] = $node->filter('div > div.content > div.team-info > div:nth-child(2) > div:nth-child(5) > p')->text();
+                            }catch (\Exception $exception){
+                                try{
+                                    $data['team2tag3num'] = $node->filter('div > div.content > div.team-info > div:nth-child(2) > div:nth-child(5)')->text();
+                                }catch (\Exception $exception){
+                                    $data['team2tag3num'] = '';
+                                }
+                            }
+                        }
+                        try {
+                            $data['team2tag3special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.tag.first-half > img')->attr('src');
+                        } catch (\Exception $e) {
+                            $data['team2tag3special'] = '';
+                        }
+                        if ($data['tag4'] !== ''){
+                            try {
+                                $data['team2tag4num'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.tag.sconde-half > p')->text();
+                            } catch (\Exception $e) {
+                                $data['team2tag4num'] = $node->filter('div > div.content > div.team-info > div:nth-child(2) > div:nth-child(6) > p')->text();
+                            }
+                        }else {
+                            $data['team2tag4num'] = '';
+                        }
+
+                        try {
+                            $data['team2tag4special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.tag.sconde-half > img')->attr('src');
+                        } catch (\Exception $e) {
+                            $data['team2tag4special'] = '';
+                        }
+                        if ($data['tag5'] !== ''){
+                            try {
+                                $data['team2tag5num'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.tag.over-time > p')->text();
+                            } catch (\Exception $e) {
+                                $data['team2tag5num'] = $node->filter('div > div.content > div.team-info > div:nth-child(2) > div:nth-child(7) > p')->text();
+                            }
+                        }else{
+                            $data['team2tag5num'] = '';
+                        }
+
+                        try {
+                            $data['team2tag5special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.tag.over-time > img')->attr('src');
+                        } catch (\Exception $e) {
+                            $data['team2tag5special'] = '';
+                        }
+                        $data['team2tag6num'] = '';
+                        $data['team2indexnum'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.tag.bet > p')->text();
+
+
+//                        dd($data);
+                        return $data;
+                    });
+//                    dd($arr);
+                    DB::table('scoreing')->truncate();
+                    DB::table('scoreing')->insert($arr);
+
+
+//                    $bool = DB::table('title')->insert($arr);
+//                    echo $bool;
+                    echo '<br>';
+                    $this->countedAndCheckEnded();
+                }
+            },
+            'rejected' => function ($reason, $index) {
+//                    log('test',"rejected" );
+//                    log('test',"rejected reason: " . $reason );
+                $this->countedAndCheckEnded();
+            },
+        ]);
+
+        $promise = $pool->promise();
+        $promise->wait();
+
     }
 
 }

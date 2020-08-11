@@ -19,9 +19,11 @@ class CreateMatchTable extends Migration
             $table->string('matchimg')->comment('赛事图标');
             $table->string('matchtime')->comment('比赛时间');
             $table->string('teams')->comment('参赛队伍');
-            $table->integer('money')->comment('赛事奖金');
+            $table->string('money')->comment('赛事奖金');
             $table->string('venue')->comment('举办地点');
             $table->string('organizers')->comment('举办方');
+            $table->string('game')->comment('所属游戏');
+            $table->string('link')->comment('更新链接');
             $table->timestamps();
         });
     }

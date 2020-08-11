@@ -15,9 +15,9 @@ class CreateAllscheduleTable extends Migration
     {
         Schema::create('allschedule', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('gameimg')->comment('游戏图标');
             $table->string('gametype')->comment('游戏分类');
-            $table->integer('gametypeid')->comment('游戏分类ID');
-            $table->time('matchtime')->comment('比赛时间');
+            $table->string('matchtime')->comment('比赛时间');
             $table->string('BO')->comment('赛制局数');
             $table->string('team1')->comment('参赛队伍1');
             $table->string('team1img')->comment('队伍1图标');

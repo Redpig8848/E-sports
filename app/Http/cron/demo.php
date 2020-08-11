@@ -1,22 +1,17 @@
 <?php
 
-$HTML =  file_get_contents("https://www.500bf.com/index/index/index?type=0");
+$timestamp = mktime(0,0,0,1,1,date('Y'));
 
-$match_start_panel = substr($HTML,strpos($HTML,"class=\"match_start_panel\""));
+$stime =  strtotime(date('Y-m-d',$timestamp));
 
-$match_start_panel = substr($match_start_panel,0,strpos($match_start_panel,'广告'));
+$timestamp = mktime(0,0,0,12,31,date('Y'));
 
+$etime = strtotime(date('Y-m-d',$timestamp));
 
-$match_start_panel_array = explode('id="match_start_panel"',$match_start_panel);
-
-
-//print_r($match_start_panel_array);
-echo $HTML;
-
-
-
-
-
+while($stime <= $etime){
+    echo date('Y-m-d',$stime).chr(10);
+    $stime = $stime + 86400;
+}
 
 
 

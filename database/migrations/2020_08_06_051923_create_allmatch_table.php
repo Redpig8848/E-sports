@@ -8,7 +8,7 @@ class CreateAllmatchTable extends Migration
 {
     /**
      * Run the migrations.
-     * 首页所有比赛展示
+     * 首页所有比赛展示未开始
      * @return void
      */
     public function up()
@@ -16,6 +16,7 @@ class CreateAllmatchTable extends Migration
         Schema::create('allmatch', function (Blueprint $table) {
             $table->increments('id');
             $table->string('gameimg')->comment('游戏图标');
+            $table->string('game')->comment('所属游戏');
             $table->string('time')->comment('时间');
             $table->string('BO')->comment('赛制局数');
             $table->string('team1')->comment('参赛队伍1');
