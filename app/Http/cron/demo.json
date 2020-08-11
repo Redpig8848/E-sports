@@ -1,60 +1,19 @@
-[
-    {
-        "id": 1,
-        "eventsimg": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/2020612\/f22fd95faa0648aca48e3348fc3ccc60.png",
-        "events": "2020 LDL\u590f\u5b63\u8d5b",
-        "game": "\u82f1\u96c4\u8054\u76df",
-        "eventsid": 139,
-        "tv": [
-            "\u864e\u7259356",
-            "\u6597\u9c7c244",
-            "\u6597\u9c7c194",
-            "\u864e\u7259821",
-            "\u864e\u72592077"
-        ],
-        "now": "\u7b2c\u4e00\u5c400",
-        "BO": "BO3",
-        "pooreconomy": "0K",
-        "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/202083\/c3feb03d14124449ab7d3e227601c2fc.png",
-        "team1": "OMD",
-        "team1winnum": 0,
-        "team1killnum": 0,
-        "team1special": "",
-        "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190920\/365503c142524f51965a3adb9a2a6c7d.png",
-        "team2": "LNG.A",
-        "team2winnum": 0,
-        "team2killnum": 0,
-        "team2special": "",
-        "created_at": null,
-        "updated_at": null
+{
+    "eventsimg": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/2020612\/f22fd95faa0648aca48e3348fc3ccc60.png",
+    "events": "2020 LDL\u590f\u5b63\u8d5b",
+    "BO": "BO3",
+    "tv": {
+        "\u864e\u7259356": "https:\/\/esportsapi.feijing88.com\/live\/v2\/?v=b59260462057d8cac878d00fd60649d3a05eb67129ddc655d0937953d975f8b6fb828cb0fa9e9b509d85157f1fd1993977ca1ce1aeafafc4c598633acf2c9a00c48fafaa8f957987b45df7d36484fbe5",
+        "\u6597\u9c7c244": "https:\/\/www.500bf.com\/index\/index\/living\/match_id\/268076636\/idx\/1.html",
+        "\u6597\u9c7c194": "https:\/\/esportsapi.feijing88.com\/live\/v2\/?v=6a7446ebd0a9f89d3035ada4ca84edf102d62812364a057cd5c0b1670c9e45cda56efe69c884c145025fb0a7ee5888b4f6915c5e25d2485448c3659fbb9073d7",
+        "\u864e\u7259821": "https:\/\/esportsapi.feijing88.com\/live\/v2\/?v=fb15acc87d797891163255e2748ac49b3c6da1fbaa89ff04e88b624fd7d46e1ffb828cb0fa9e9b509d85157f1fd1993977ca1ce1aeafafc4c598633acf2c9a0055d53445e0d0fafd98edde00faea89c7",
+        "\u864e\u72592077": "https:\/\/esportsapi.feijing88.com\/live\/v2\/?v=f2dcce8ef756cdd913583bc3a8edc643991a6a350ed32e96eb46208803058c14fb828cb0fa9e9b509d85157f1fd1993977ca1ce1aeafafc4c598633acf2c9a003de7089fe68971030e851acfd0fd79f2"
     },
-    ... ...
-    {
-        "id": 5,
-        "eventsimg": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/2020612\/f22fd95faa0648aca48e3348fc3ccc60.png",
-        "events": "2020 LDL\u590f\u5b63\u8d5b",
-        "game": "\u82f1\u96c4\u8054\u76df",
-        "eventsid": 139,
-        "tv": [
-            "\u864e\u7259356",
-            "\u6597\u9c7c194",
-            "\u864e\u72592077",
-            "\u864e\u7259899"
-        ],
-        "now": "\u7b2c\u4e00\u5c400",
-        "BO": "BO3",
-        "pooreconomy": "0K",
-        "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190920\/4a5cd1199d504544abe9513ae2c32493.png",
-        "team1": "VTG",
-        "team1winnum": 0,
-        "team1killnum": 0,
-        "team1special": "",
-        "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190302\/af20d3e7409b499aa1216eaabcf0ab6c.jpg",
-        "team2": "LEG",
-        "team2winnum": 0,
-        "team2killnum": 0,
-        "team2special": "",
-        "created_at": null,
-        "updated_at": null
-    }
-]
+    "team1": "OMD",
+    "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/202083\/c3feb03d14124449ab7d3e227601c2fc.png",
+    "team1winnum": 0,
+    "team2winnum": 0,
+    "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190920\/365503c142524f51965a3adb9a2a6c7d.png",
+    "team2": "LNG.A",
+    "time": "08\u670810\u65e5 13:00"
+}

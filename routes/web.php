@@ -43,6 +43,11 @@ Route::get('CourseAppoint/{date}/{id}','CourseController@CourseAppoint');
 
 
 
+Route::get('Video/{id}','LiveController@Video');
+
+
+
+
 
 
 
