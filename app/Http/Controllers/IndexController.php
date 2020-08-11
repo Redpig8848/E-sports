@@ -28,13 +28,14 @@ class IndexController extends Controller
         $games = $this->FastNavigation();
         $Navigation = array();
         foreach ($games as $game) {
-            $Navigation[$game->game] = DB::table('match')->select('id', 'match', 'matchimg')
+            $Navigation[$game->game] = ['type' => $game->game];
+            $Navigation[$game->game]['item'] = DB::table('match')->select('id', 'match', 'matchimg')
                 ->where('game', $game->game)
                 ->orderBy('id', 'desc')
                 ->limit(4)
                 ->get()
                 ->toArray();
-            array_unshift($Navigation[$game->game],['game'=>$game->game,'gameid'=>$game->id]);
+//            array_unshift($Navigation[$game->game],['game'=>$game->game,'gameid'=>$game->id]);
         }
         return $Navigation;
     }

@@ -20,7 +20,6 @@ Route::get('/', function () {
 
 Route::get('FastNavigation','IndexController@FastNavigation');
 Route::get('GameNavigation','IndexController@GameNavigation');
-
 Route::get('GetAllMatch','IndexController@AllMatch');
 Route::get('JustOver','IndexController@JustOver');
 Route::get('NowDate','IndexController@NowDate');
@@ -32,7 +31,12 @@ Route::get('ScoreNotStarted','ScoreController@ScoreNotStarted');
 Route::get('ScoreAppointNotStarted/{id}','ScoreController@ScoreAppointNotStarted');
 Route::get('GetScoreOver','ScoreController@ScoreOver');
 Route::get('ScoreAppointOver/{id}','ScoreController@ScoreAppointOver');
-Route::get('GetWeek','ScoreController@GetWeek');
+
+
+
+Route::get('GetWeek','CourseController@GetWeek');
+Route::get('CourseAll/{date}','CourseController@CourseAll');
+Route::get('CourseAppoint/{date}/{id}','CourseController@CourseAppoint');
 
 
 

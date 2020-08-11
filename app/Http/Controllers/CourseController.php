@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
@@ -28,6 +29,36 @@ class CourseController extends Controller
         }
         return $date;
     }
+
+    // 全部游戏
+    function CourseAll($date){
+        return DB::table('allschedule')->where('matchtime','like',$date.'%')
+            ->get()
+            ->toArray();
+    }
+
+    // 指定游戏
+    function CourseAppoint($date,$id){
+        $game = DB::table('games')->select('game')
+            ->where('id',$id)
+            ->get()
+            ->toArray();
+//        dd($game[0]);
+        return DB::table('allschedule')->whereColumn([
+            ['matchtime','like',$date.'%'],
+        ])
+            ->get()
+            ->toArray();
+    }
+
+
+
+
+
+
+
+
+
 
 
 

@@ -369,3 +369,65 @@
             "updated_at": null
         }
     ]
+
+### 赛程页面
+
+- 获取当前星期的日期 ( http://45.157.91.155/GetWeek )
+    
+    
+    [
+        {
+            "date": "08月10日",
+            "date2": "2020-08-10",
+            "week": "星期一"
+        },
+        ... ...
+        {
+            "date": "08月16日",
+            "date2": "2020-08-16",
+            "week": "星期日"
+        }
+    ]
+
+- 根据时间获取全部游戏 ( http://45.157.91.155/CourseAll/$date )
+
+
+    例： http://45.157.91.155/CourseAll/2020-08-19
+    [
+        {
+            "id": 6481,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "gametype": "CS:GO",
+            "matchtime": "2020-08-19 00:30",
+            "BO": "BO3",
+            "team1": "fnatic",
+            "team1img": "https:\/\/qn.feijing88.com\/egame\/csgo\/team\/bfbc68a63f191780e16012047b9371bf.svg",
+            "score": "-",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20191113\/ce2d725cd4e042cda94e25a667b8a211.svg",
+            "team2": "Astralis",
+            "eventsimg": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190930\/8862ad16343245999942776f25ec5ce7.jpg",
+            "events": "ESL One Cologne 2020 Europe",
+            "eventsid": 295,
+            "created_at": null,
+            "updated_at": null
+        },
+        ... ...
+        {
+            "id": 6486,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "gametype": "CS:GO",
+            "matchtime": "2020-08-19 21:00",
+            "BO": "BO3",
+            "team1": "Complexity",
+            "team1img": "https:\/\/qn.feijing88.com\/egame\/csgo\/team\/a39c8c7dc65b3962b35de6877f3a9260.svg",
+            "score": "-",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190615\/80858015697c4f4caec11b0cf5e2a7f1.jpg",
+            "team2": "MAD Lions",
+            "eventsimg": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190930\/8862ad16343245999942776f25ec5ce7.jpg",
+            "events": "ESL One Cologne 2020 Europe",
+            "eventsid": 295,
+            "created_at": null,
+            "updated_at": null
+        }
+    ]
+
