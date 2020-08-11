@@ -1,102 +1,60 @@
-{
-    "DOTA2": {
-        "type": "DOTA2",
-        "item": [
-            {
-                "id": 270,
-                "match": "ESL One\u6cf0\u56fd 2020-\u9884\u9009\u8d5b",
-                "matchimg": "https:\/\/qn.feijing88.com\/egame\/dota\/league\/e48ed7e98bad3235b79a2a1648ea60a2.png"
-            },
-            {
-                "id": 269,
-                "match": "OMEGA League \u9884\u9009\u8d5b",
-                "matchimg": "https:\/\/qn.feijing88.com\/egame\/dota\/league\/547fc21588b1b132a1da55b3c46f693e.png"
-            },
-            {
-                "id": 268,
-                "match": "Moon Studio\u4e9a\u6d32\u8054\u8d5b",
-                "matchimg": "https:\/\/qn.feijing88.com\/egame\/dota\/league\/9e993fa9bc2034a5ba11cd230700ceeb.png"
-            },
-            {
-                "id": 267,
-                "match": "DOTA\u590f\u5b63\u8054\u8d5b \u7b2c\u4e00\u5b63",
-                "matchimg": "https:\/\/qn.feijing88.com\/egame\/dota\/league\/a875db9e2bc0bd2e5720d8ae0155ff1c.png"
-            }
-        ]
+[
+    {
+        "id": 1,
+        "eventsimg": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/2020612\/f22fd95faa0648aca48e3348fc3ccc60.png",
+        "events": "2020 LDL\u590f\u5b63\u8d5b",
+        "game": "\u82f1\u96c4\u8054\u76df",
+        "eventsid": 139,
+        "tv": [
+            "\u864e\u7259356",
+            "\u6597\u9c7c244",
+            "\u6597\u9c7c194",
+            "\u864e\u7259821",
+            "\u864e\u72592077"
+        ],
+        "now": "\u7b2c\u4e00\u5c400",
+        "BO": "BO3",
+        "pooreconomy": "0K",
+        "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/202083\/c3feb03d14124449ab7d3e227601c2fc.png",
+        "team1": "OMD",
+        "team1winnum": 0,
+        "team1killnum": 0,
+        "team1special": "",
+        "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190920\/365503c142524f51965a3adb9a2a6c7d.png",
+        "team2": "LNG.A",
+        "team2winnum": 0,
+        "team2killnum": 0,
+        "team2special": "",
+        "created_at": null,
+        "updated_at": null
     },
-    "CS:GO": {
-        "type": "CS:GO",
-        "item": [
-            {
-                "id": 300,
-                "match": "IEM New York 2020 North America Open Qualifier 1",
-                "matchimg": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/csgo\/league.png"
-            },
-            {
-                "id": 299,
-                "match": "IEM New York 2020 CIS Open Qualifier 1",
-                "matchimg": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/csgo\/league.png"
-            },
-            {
-                "id": 298,
-                "match": "ESL One Cologne 2020 Asia",
-                "matchimg": "https:\/\/qn.feijing88.com\/egame\/csgo\/league\/d9d1bdc0940952bf4474c3b25cabceb9.png"
-            },
-            {
-                "id": 297,
-                "match": "ESL One Cologne 2020 Oceania",
-                "matchimg": "https:\/\/qn.feijing88.com\/egame\/csgo\/league\/8c92150df45c7aca335542058eebc03d.png"
-            }
-        ]
-    },
-    "\u82f1\u96c4\u8054\u76df": {
-        "type": "\u82f1\u96c4\u8054\u76df",
-        "item": [
-            {
-                "id": 265,
-                "match": "2020 LFL\u590f\u5b63\u8d5b",
-                "matchimg": "https:\/\/qn.feijing88.com\/egame\/lol\/league\/8ad48475406d13edd4e8f688193c5a44.png"
-            },
-            {
-                "id": 226,
-                "match": "2020 HM\u590f\u5b63\u8d5b",
-                "matchimg": "https:\/\/qn.feijing88.com\/egame\/lol\/league\/6a956d6a2510e03da9102ec56cb1d653.png"
-            },
-            {
-                "id": 204,
-                "match": "2020 EBL\u590f\u5b63\u8d5b",
-                "matchimg": "https:\/\/qn.feijing88.com\/egame\/lol\/league\/3e86fb1716ddb3687859de64226c0a93.jpg"
-            },
-            {
-                "id": 196,
-                "match": "2020EBL\u590f\u5b63\u8d5b",
-                "matchimg": "https:\/\/qn.feijing88.com\/egame\/lol\/league\/3e86fb1716ddb3687859de64226c0a93.jpg"
-            }
-        ]
-    },
-    "\u738b\u8005\u8363\u8000": {
-        "type": "\u738b\u8005\u8363\u8000",
-        "item": [
-            {
-                "id": 250,
-                "match": "2020\u738b\u8005\u51a0\u519b\u676f",
-                "matchimg": "https:\/\/qn.feijing88.com\/egame\/kog\/league\/9baacc448e77003ed6b32ae66139f630.png"
-            },
-            {
-                "id": 242,
-                "match": "2020 \u738b\u8005\u51a0\u519b\u676f",
-                "matchimg": "https:\/\/qn.feijing88.com\/egame\/kog\/league\/9baacc448e77003ed6b32ae66139f630.png"
-            },
-            {
-                "id": 193,
-                "match": "2020\u4e16\u754c\u51a0\u519b\u676f",
-                "matchimg": "https:\/\/qn.feijing88.com\/egame\/kog\/league\/9baacc448e77003ed6b32ae66139f630.png"
-            },
-            {
-                "id": 5,
-                "match": "2020 KPL\u6625\u5b63\u8d5b",
-                "matchimg": "https:\/\/qn.feijing88.com\/egame\/kog\/league\/3767c1e22299befd683350035b98ad62.png"
-            }
-        ]
+    ... ...
+    {
+        "id": 5,
+        "eventsimg": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/2020612\/f22fd95faa0648aca48e3348fc3ccc60.png",
+        "events": "2020 LDL\u590f\u5b63\u8d5b",
+        "game": "\u82f1\u96c4\u8054\u76df",
+        "eventsid": 139,
+        "tv": [
+            "\u864e\u7259356",
+            "\u6597\u9c7c194",
+            "\u864e\u72592077",
+            "\u864e\u7259899"
+        ],
+        "now": "\u7b2c\u4e00\u5c400",
+        "BO": "BO3",
+        "pooreconomy": "0K",
+        "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190920\/4a5cd1199d504544abe9513ae2c32493.png",
+        "team1": "VTG",
+        "team1winnum": 0,
+        "team1killnum": 0,
+        "team1special": "",
+        "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190302\/af20d3e7409b499aa1216eaabcf0ab6c.jpg",
+        "team2": "LEG",
+        "team2winnum": 0,
+        "team2killnum": 0,
+        "team2special": "",
+        "created_at": null,
+        "updated_at": null
     }
-}
+]

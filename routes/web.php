@@ -24,6 +24,8 @@ Route::get('GetAllMatch','IndexController@AllMatch');
 Route::get('JustOver','IndexController@JustOver');
 Route::get('NowDate','IndexController@NowDate');
 Route::get('AppointMatch/{id}','IndexController@AppointMatch');
+Route::get('GetAllMatchIng','IndexController@AllMatchIng');
+Route::get('AppointMatchIng/{id}','IndexController@AppointMatchIng');
 
 
 

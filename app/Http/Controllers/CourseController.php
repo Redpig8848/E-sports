@@ -43,10 +43,9 @@ class CourseController extends Controller
             ->where('id',$id)
             ->get()
             ->toArray();
-//        dd($game[0]);
-        return DB::table('allschedule')->whereColumn([
-            ['matchtime','like',$date.'%'],
-        ])
+
+        return DB::table('allschedule')->where('matchtime','like',$date.'%')
+            ->where('gametype',$game[0]->game)
             ->get()
             ->toArray();
     }

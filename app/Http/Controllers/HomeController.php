@@ -173,6 +173,7 @@ class HomeController extends Controller
                         return $data;
                     });
 //                    dd($arr);
+                    DB::table('allmatching')->truncate();
                     DB::table('allmatching')->insert($arr);
 //                    echo $bool;
                     echo '<br>';

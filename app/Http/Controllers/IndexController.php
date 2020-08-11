@@ -9,7 +9,8 @@ class IndexController extends Controller
 {
     //
 
-    function NowDate(){
+    function NowDate()
+    {
         return date('Y年m月d日');
     }
 
@@ -43,8 +44,49 @@ class IndexController extends Controller
     // 首页全部游戏正在进行
     function AllMatchIng()
     {
+        $match = DB::table('allmatching')->get()->toArray();
+        foreach ($match as $key => $value) {
+//            dd($value->tv);
+            if ($value->tv !== "") {
+                $tv = explode('|', $value->tv);
+                $tv = array_filter($tv);
+                $match[$key]->tv = array();
+                foreach ($tv as $item) {
+                    $k = substr($item, 0, strpos($item, '=>'));
+                    array_push($match[$key]->tv, $k);
+                }
 
+            }
+        }
+        return $match;
     }
+
+    // 首页指定游戏正在进行
+    function AppointMatchIng($id){
+        $game = DB::table('games')->select('game')
+            ->where('id', $id)
+            ->get()
+            ->toArray();
+//        dd($game[0]);
+        $match =  DB::table('allmatching')->where('game', $game[0]->game)
+            ->get()
+            ->toArray();
+        foreach ($match as $key => $value) {
+//            dd($value->tv);
+            if ($value->tv !== "") {
+                $tv = explode('|', $value->tv);
+                $tv = array_filter($tv);
+                $match[$key]->tv = array();
+                foreach ($tv as $item) {
+                    $k = substr($item, 0, strpos($item, '=>'));
+                    array_push($match[$key]->tv, $k);
+                }
+
+            }
+        }
+        return $match;
+    }
+
 
     // 首页全部游戏未开始
     function AllMatch()
@@ -53,18 +95,17 @@ class IndexController extends Controller
     }
 
     // 首页指定游戏未开始
-    function AppointMatch($id){
+    function AppointMatch($id)
+    {
         $game = DB::table('games')->select('game')
-            ->where('id',$id)
+            ->where('id', $id)
             ->get()
             ->toArray();
 //        dd($game[0]);
-        return DB::table('allmatch')->where('game',$game[0]->game)
+        return DB::table('allmatch')->where('game', $game[0]->game)
             ->get()
             ->toArray();
     }
-
-
 
 
     // 首页右侧刚刚结束

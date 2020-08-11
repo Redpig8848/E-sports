@@ -97,6 +97,131 @@
         ]
     }
 
+- 首页全部游戏正在进行 ( http://45.157.91.155/GetAllMatchIng )
+
+    
+    [
+        {
+            "id": 1,
+            "eventsimg": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/2020612\/f22fd95faa0648aca48e3348fc3ccc60.png",
+            "events": "2020 LDL\u590f\u5b63\u8d5b",
+            "game": "\u82f1\u96c4\u8054\u76df",
+            "eventsid": 139,
+            "tv": [
+                "\u864e\u7259356",
+                "\u6597\u9c7c244",
+                "\u6597\u9c7c194",
+                "\u864e\u7259821",
+                "\u864e\u72592077"
+            ],
+            "now": "\u7b2c\u4e00\u5c400",
+            "BO": "BO3",
+            "pooreconomy": "0K",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/202083\/c3feb03d14124449ab7d3e227601c2fc.png",
+            "team1": "OMD",
+            "team1winnum": 0,
+            "team1killnum": 0,
+            "team1special": "",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190920\/365503c142524f51965a3adb9a2a6c7d.png",
+            "team2": "LNG.A",
+            "team2winnum": 0,
+            "team2killnum": 0,
+            "team2special": "",
+            "created_at": null,
+            "updated_at": null
+        },
+        ... . ..
+        {
+            "id": 7,
+            "eventsimg": "https:\/\/qn.feijing88.com\/egame\/csgo\/league\/6cb32166930104d7c043ca5f470ce21a.png",
+            "events": "Nine to Five 3 Dawn",
+            "game": "CS:GO",
+            "eventsid": 293,
+            "tv": "",
+            "now": "MIRAGER:26",
+            "BO": "BO3",
+            "pooreconomy": "0K",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/csgo\/team.png",
+            "team1": "Tikitakan",
+            "team1winnum": 0,
+            "team1killnum": 0,
+            "team1special": "https:\/\/www.500bf.com\/static\/index\/img\/cs_firstkill.png|https:\/\/www.500bf.com\/static\/index\/img\/cs_mine.png|https:\/\/www.500bf.com\/static\/index\/img\/cs_16kill.png",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190121\/9dab47b972af4930bcfc87e3c62ef507.jpg",
+            "team2": "Nexus",
+            "team2winnum": 1,
+            "team2killnum": 0,
+            "team2special": "",
+            "created_at": null,
+            "updated_at": null
+        }
+    ]
+
+
+- 首页指定游戏正在进行 ( http://45.157.91.155/AppointMatchIng/$id ) 
+
+
+    [
+        {
+            "id": 1,
+            "eventsimg": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/2020612\/f22fd95faa0648aca48e3348fc3ccc60.png",
+            "events": "2020 LDL\u590f\u5b63\u8d5b",
+            "game": "\u82f1\u96c4\u8054\u76df",
+            "eventsid": 139,
+            "tv": [
+                "\u864e\u7259356",
+                "\u6597\u9c7c244",
+                "\u6597\u9c7c194",
+                "\u864e\u7259821",
+                "\u864e\u72592077"
+            ],
+            "now": "\u7b2c\u4e00\u5c400",
+            "BO": "BO3",
+            "pooreconomy": "0K",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/202083\/c3feb03d14124449ab7d3e227601c2fc.png",
+            "team1": "OMD",
+            "team1winnum": 0,
+            "team1killnum": 0,
+            "team1special": "",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190920\/365503c142524f51965a3adb9a2a6c7d.png",
+            "team2": "LNG.A",
+            "team2winnum": 0,
+            "team2killnum": 0,
+            "team2special": "",
+            "created_at": null,
+            "updated_at": null
+        },
+        ... ...
+        {
+            "id": 5,
+            "eventsimg": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/2020612\/f22fd95faa0648aca48e3348fc3ccc60.png",
+            "events": "2020 LDL\u590f\u5b63\u8d5b",
+            "game": "\u82f1\u96c4\u8054\u76df",
+            "eventsid": 139,
+            "tv": [
+                "\u864e\u7259356",
+                "\u6597\u9c7c194",
+                "\u864e\u72592077",
+                "\u864e\u7259899"
+            ],
+            "now": "\u7b2c\u4e00\u5c400",
+            "BO": "BO3",
+            "pooreconomy": "0K",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190920\/4a5cd1199d504544abe9513ae2c32493.png",
+            "team1": "VTG",
+            "team1winnum": 0,
+            "team1killnum": 0,
+            "team1special": "",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190302\/af20d3e7409b499aa1216eaabcf0ab6c.jpg",
+            "team2": "LEG",
+            "team2winnum": 0,
+            "team2killnum": 0,
+            "team2special": "",
+            "created_at": null,
+            "updated_at": null
+        }
+    ]
+
+
 - 首页全部游戏未开始 ( http://45.157.91.155/GetAllMatch )
 
 
@@ -426,6 +551,47 @@
             "eventsimg": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190930\/8862ad16343245999942776f25ec5ce7.jpg",
             "events": "ESL One Cologne 2020 Europe",
             "eventsid": 295,
+            "created_at": null,
+            "updated_at": null
+        }
+    ]
+
+- 根据时间获取指定游戏 ( http://45.157.91.155/CourseAppoint/$date/$id )
+
+    
+    例：http://127.0.0.1:8000/CourseAppoint/2020-08-26/2
+    [
+        {
+            "id": 6493,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "gametype": "CS:GO",
+            "matchtime": "2020-08-26 14:00",
+            "BO": "BO3",
+            "team1": "ORDER",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190121\/55e8578a0ccf43dc98329eb48364d4df.jpg",
+            "score": "-",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190121\/48b9b58ae0814a97844a62d981bda9f1.jpg",
+            "team2": "AVANT",
+            "eventsimg": "https:\/\/qn.feijing88.com\/egame\/csgo\/league\/8c92150df45c7aca335542058eebc03d.png",
+            "events": "ESL One Cologne 2020 Oceania",
+            "eventsid": 297,
+            "created_at": null,
+            "updated_at": null
+        },
+        {
+            "id": 6494,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "gametype": "CS:GO",
+            "matchtime": "2020-08-26 17:30",
+            "BO": "BO3",
+            "team1": "ViCi",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190121\/0ef4e915c3d7489ca264d1e312d8f110.jpg",
+            "score": "-",
+            "team2img": "https:\/\/qn.feijing88.com\/egame\/csgo\/team\/8c02728d7bbf685212badc8691557a57.png",
+            "team2": "Invictus",
+            "eventsimg": "https:\/\/qn.feijing88.com\/egame\/csgo\/league\/d9d1bdc0940952bf4474c3b25cabceb9.png",
+            "events": "ESL One Cologne 2020 Asia",
+            "eventsid": 298,
             "created_at": null,
             "updated_at": null
         }
