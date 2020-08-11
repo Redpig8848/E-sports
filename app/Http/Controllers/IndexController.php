@@ -63,6 +63,9 @@ class IndexController extends Controller
 
     // 首页指定游戏正在进行
     function AppointMatchIng($id){
+        if ($id == 0){
+            return $this->AllMatchIng();
+        }
         $game = DB::table('games')->select('game')
             ->where('id', $id)
             ->get()
