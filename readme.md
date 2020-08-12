@@ -327,6 +327,142 @@
 
 ### 比分页接口
 
+- 全部游戏正在进行 ( http://45.157.91.155/GetScoreIng )
+
+
+    [
+        {
+            "id": 1,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "game": "CS:GO",
+            "events": "Nine to Five 3 Dawn",
+            "eventsid": "293",
+            "tag": "BO3",
+            "tag1": "\u9635\u5bb9",
+            "tag2": "\u672c\u5c40 ",
+            "tag3": "\u4e0a\u534a\u573a ",
+            "tag4": "\u4e0b\u534a\u573a ",
+            "tag5": "\u52a0\u65f6 ",
+            "tag6": "",
+            "index": "\u6307\u6570",
+            "tv": [
+                "\u864e\u7259356",
+                "\u6597\u9c7c244",
+                "\u6597\u9c7c194",
+                "\u864e\u7259821",
+                "\u864e\u72592077"
+            ],
+            "now": "",
+            "nowtime": "R:",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/csgo\/team.png",
+            "team1": "Tenerife Titans",
+            "team1winnum": 1,
+            "team1lineup": "T",
+            "team1killnum": 8,
+            "team1killspecial": [
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_firstkill.png",
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_mine.png"
+            ],
+            "team1tag3num": "8",
+            "team1tag3special": [
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_firstkill.png",
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_mine.png"
+            ],
+            "team1tag4num": "0",
+            "team1tag4special": [
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_firstkill.png",
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_mine.png"
+            ],
+            "team1tag5num": "0",
+            "team1tag5special": [
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_firstkill.png",
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_mine.png"
+            ],
+            "team1tag6num": "1.11K",
+            "team1indexnum": "2.73",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190404\/8e65baff92994083a977840de410e65c.jpg",
+            "team2": "Apeks",
+            "team2winnum": 0,
+            "team2lineup": "CT",
+            "team2killnum": 10,
+            "team2killspecial": [
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_firstkill.png",
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_mine.png"
+            ],
+            "team2tag3num": "7",
+            "team2tag3special": [
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_firstkill.png",
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_mine.png"
+            ],
+            "team2tag4num": "3",
+            "team2tag4special": [
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_firstkill.png",
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_mine.png"
+            ],
+            "team2tag5num": "0",
+            "team2tag5special": [
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_firstkill.png",
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_mine.png"
+            ],
+            "team2tag6num": "",
+            "team2indexnum": "1.42",
+            "created_at": null,
+            "updated_at": null,
+            "pooimg": "http:\/\/qn.gunqiu.com\/pcweb\/drop_icon.png"
+        },
+         ... ...
+        {
+            "id": 6,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "game": "CS:GO",
+            "events": "ESL Australia & NZ Championship Season 11",
+            "eventsid": "110",
+            "tag": "BO3",
+            "tag1": "\u9635\u5bb9",
+            "tag2": "\u672c\u5c40 ",
+            "tag3": "\u4e0a\u534a\u573a ",
+            "tag4": "\u4e0b\u534a\u573a ",
+            "tag5": "\u52a0\u65f6 ",
+            "tag6": "",
+            "index": "\u6307\u6570",
+            "tv": "",
+            "now": "",
+            "nowtime": "R:",
+            "team1img": "https:\/\/qn.feijing88.com\/egame\/csgo\/team\/35dbd4e5a101fff12c3368615ff040fd.png",
+            "team1": "Paradox",
+            "team1winnum": 0,
+            "team1lineup": "T",
+            "team1killnum": 1,
+            "team1killspecial": "",
+            "team1tag3num": "1",
+            "team1tag3special": "",
+            "team1tag4num": "0",
+            "team1tag4special": "",
+            "team1tag5num": "0",
+            "team1tag5special": "",
+            "team1tag6num": "",
+            "team1indexnum": "1.38",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/csgo\/team.png",
+            "team2": "TRUCKERS WITH ATTITUDE",
+            "team2winnum": 0,
+            "team2lineup": "CT",
+            "team2killnum": 0,
+            "team2killspecial": "",
+            "team2tag3num": "0",
+            "team2tag3special": "",
+            "team2tag4num": "0",
+            "team2tag4special": "",
+            "team2tag5num": "0",
+            "team2tag5special": "",
+            "team2tag6num": "",
+            "team2indexnum": "2.94",
+            "created_at": null,
+            "updated_at": null,
+            "pooimg": ""
+        }
+    ]
+
+
 - 全部游戏未开始 ( http://45.157.91.155/ScoreNotStarted )
 
 
@@ -623,4 +759,90 @@
         "team2": "LNG.A",
         "time": "08\u670810\u65e5 13:00"
     }
+
+### 赛事页面
+
+- 根据ID获取赛事所有比赛 ( http://45.157.91.155/Match/$id )
+
+
+    http://45.157.91.155/Match/33
+    
+    [
+        {
+            "id": 532,
+            "event": "Home Camp",
+            "eventid": "33",
+            "time": "04-24\u00a021:00",
+            "team1img": "https:\/\/qn.feijing88.com\/egame\/dota\/team\/baf4b7e3d5a245068eb6d8071a307b42.png",
+            "team1": "Cyber TRAKTOR",
+            "score": "0-0",
+            "team2img": "https:\/\/qn.feijing88.com\/egame\/dota\/team\/d53a81ded73b42ef96e9a2ed6c90e507.png",
+            "team2": "NOVA",
+            "BO": "BO2",
+            "created_at": null,
+            "updated_at": null
+        },
+        ... ...
+        {
+            "id": 557,
+            "event": "Home Camp",
+            "eventid": "33",
+            "time": "05-05\u00a001:45",
+            "team1img": "https:\/\/qn.feijing88.com\/egame\/dota\/team\/d53a81ded73b42ef96e9a2ed6c90e507.png",
+            "team1": "NOVA",
+            "score": "3-0",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20181126\/d4bf8b386e5747dcb20070f4cb35283f.jpg",
+            "team2": "friends",
+            "BO": "BO5",
+            "created_at": null,
+            "updated_at": null
+        }
+    ]
+
+
+### 资讯页面
+
+- 右边栏正在进行比赛 ( http://45.157.91.155/SidebarIng )
+
+
+    [
+        {
+            "game": "https:\/\/500bf.com\/static\/index\/img\/lol_sel_icon.png",
+            "team1": "OMD",
+            "team1winnum": 0,
+            "team2winnum": 0,
+            "team2": "LNG.A",
+            "events": "2020 LDL\u590f\u5b63\u8d5b",
+            "time": "13:00"
+        },
+        ... ...
+        {
+            "game": "https:\/\/500bf.com\/static\/index\/img\/lol_sel_icon.png",
+            "team1": "87",
+            "team1winnum": 0,
+            "team2winnum": 0,
+            "team2": "WE.A",
+            "events": "2020 LDL\u590f\u5b63\u8d5b",
+            "time": "15:00"
+        }
+    ]
+
+- 右边栏即将开始比赛 ( http://45.157.91.155/SidebarSonn )
+
+
+    [
+        {
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/lol_sel_icon.png",
+            "team1": "OZ",
+            "team2": "ELM",
+            "time": "16:00"
+        },
+        ... ...
+        {
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "team1": "",
+            "team2": "",
+            "time": "21:00"
+        }
+    ]
 

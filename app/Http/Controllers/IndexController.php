@@ -57,6 +57,9 @@ class IndexController extends Controller
                 }
 
             }
+            if ($value->team1special !== ""){
+                $match[$key]->team1special = explode('|',$value->team1special);
+            }
             if ($value->pooreconomy != ""){
                 $match[$key] = strpos($value->pooreconomy,'-') !== false
                     ? array_add((array)$match[$key],'pooimg','http://qn.gunqiu.com/pcweb/up_icon.png')

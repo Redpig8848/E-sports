@@ -33,8 +33,8 @@ function get_week($format='m月d日'){
     return $date;
 }
 
-
-print_r(get_week());
+$array=  'https://www.500bf.com/static/index/img/cs_16kill.png';
+print_r(explode('|',$array));
 
 
 
