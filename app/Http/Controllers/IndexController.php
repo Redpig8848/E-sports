@@ -18,7 +18,8 @@ class IndexController extends Controller
     // 快速导航
     function FastNavigation()
     {
-        $games = DB::table('games')->get()->toArray();
+
+        $games = DB::table('games')->orderBy('id','asc')->get()->toArray();
         return $games;
     }
 
