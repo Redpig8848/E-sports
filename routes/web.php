@@ -67,6 +67,7 @@ Route::get('scoreing','HomeController@scoreing');
 
 Route::get('Schedule','ScheduleController@index');
 Route::get('today','ScheduleController@today');
+Route::get('AllScheduleMatch','MatchSpiderController@AllMatch');
 
 
 

@@ -38,7 +38,7 @@ class IndexController extends Controller
                 ->toArray();
 //            array_unshift($Navigation[$game->game],['game'=>$game->game,'gameid'=>$game->id]);
         }
-        return $Navigation;
+        return (array)$Navigation;
     }
 
     // 首页全部游戏正在进行
