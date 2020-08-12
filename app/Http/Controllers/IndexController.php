@@ -28,9 +28,9 @@ class IndexController extends Controller
     {
         $games = $this->FastNavigation();
         $Navigation = array();
-        foreach ($games as $game) {
-            $Navigation[$game->game] = ['type' => $game->game];
-            $Navigation[$game->game]['item'] = DB::table('match')->select('id', 'match', 'matchimg')
+        foreach ($games as $key=>$game) {
+            $Navigation[$key] = (array)['type' => $game->game];
+            $Navigation[$key]['item'] = (array)DB::table('match')->select('id', 'match', 'matchimg')
                 ->where('game', $game->game)
                 ->orderBy('id', 'desc')
                 ->limit(4)
