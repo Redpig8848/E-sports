@@ -33,167 +33,162 @@ class HomeController extends Controller
     // 首页正在进行全部游戏  （完成）
     public function index()
     {
+        set_time_limit(0);
+        ini_set('memory_limit', '-1');
+        for ($i = 1; $i < 2; $i++) {
+            $this->url[] = 'https://www.500bf.com/';
+        }
+        $this->totalPageCount = 1500;
+        $client = new Client();
+        $requests = function ($total) use ($client) {
+            foreach ($this->url as $uri) {
+                yield function () use ($client, $uri) {
+                    return $client->get($uri, ['verify' => false]);
+                };
+            }
+        };
 
-        $file = fopen(public_path('demo.txt'),'a');
-        fwrite($file,date('Y-m-d H:i:s').chr(10));
-        fclose($file);
-//
-//        set_time_limit(0);
-//        ini_set('memory_limit', '-1');
-//        for ($i = 1; $i < 2; $i++) {
-//            $this->url[] = 'https://www.500bf.com/';
-//        }
-//        $this->totalPageCount = 1500;
-//        $client = new Client();
-//        $requests = function ($total) use ($client) {
-//            foreach ($this->url as $uri) {
-//                yield function () use ($client, $uri) {
-//                    return $client->get($uri, ['verify' => false]);
-//                };
-//            }
-//        };
-//
-//        $pool = new Pool($client, $requests($this->totalPageCount), [
-//            'concurrency' => $this->concurrency,
-//            'fulfilled' => function ($response, $index) {
-//                echo '爬取' . $this->url[$index];
-//                echo '<br>';
-//                ob_flush();
-//                flush();
-//                try {
-////                    dd($response->getBody()->getContents());
-//                    $http = $response->getBody()->getContents();
-////                    $http = iconv('gbk', 'UTF-8', $response->getBody()->getContents());
-//                } catch (\Exception $e) {
-//                    echo '没有找到数据';
-//                }
-//                if (!empty($http)) {
-//                    $crawler = new Crawler();
-//                    $crawler->addHtmlContent($http);
-//                    $arr = $crawler->filter('#index_living > div > div')->each(function ($node, $i) use ($http) {
-//                        $data['eventsimg'] = $node->filter('div > div.header > div.item-league-panel > img')->attr('src');
-//                        $data['events'] = $node->filter('div > div.header > div.item-league-panel > p')->text();
-//                        // 所属游戏
-//                        if (strpos($data['eventsimg'], 'dota') !== false) {
-//                            $data['game'] = 'DOTA2';
-//                        } elseif (strpos($data['eventsimg'], 'csgo') !== false) {
-//                            $data['game'] = 'CS:GO';
-//                        } elseif (strpos($data['eventsimg'], 'lol') !== false) {
-//                            $data['game'] = '英雄联盟';
-//                        } elseif (strpos($data['eventsimg'], 'kog') !== false) {
-//                            $data['game'] = '王者荣耀';
+        $pool = new Pool($client, $requests($this->totalPageCount), [
+            'concurrency' => $this->concurrency,
+            'fulfilled' => function ($response, $index) {
+                echo '爬取' . $this->url[$index];
+                echo '<br>';
+                ob_flush();
+                flush();
+                try {
+//                    dd($response->getBody()->getContents());
+                    $http = $response->getBody()->getContents();
+//                    $http = iconv('gbk', 'UTF-8', $response->getBody()->getContents());
+                } catch (\Exception $e) {
+                    echo '没有找到数据';
+                }
+                if (!empty($http)) {
+                    $crawler = new Crawler();
+                    $crawler->addHtmlContent($http);
+                    $arr = $crawler->filter('#index_living > div > div')->each(function ($node, $i) use ($http) {
+                        $data['eventsimg'] = $node->filter('div > div.header > div.item-league-panel > img')->attr('src');
+                        $data['events'] = $node->filter('div > div.header > div.item-league-panel > p')->text();
+                        // 所属游戏
+                        if (strpos($data['eventsimg'], 'dota') !== false) {
+                            $data['game'] = 'DOTA2';
+                        } elseif (strpos($data['eventsimg'], 'csgo') !== false) {
+                            $data['game'] = 'CS:GO';
+                        } elseif (strpos($data['eventsimg'], 'lol') !== false) {
+                            $data['game'] = '英雄联盟';
+                        } elseif (strpos($data['eventsimg'], 'kog') !== false) {
+                            $data['game'] = '王者荣耀';
+                        } else {
+                            $data['game'] = '英雄联盟';
+                        }
+
+                        // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
+                        $Match = new Match();
+                        $events_id = $Match->GetMatchId($data['events']);
+                        if ($events_id) {
+                            $data['eventsid'] = $events_id;
+                        } else { // 赛事不存在，需新增
+                            $events_onclick = $node->filter('div > div.header > div')->attr('onclick');
+                            $events_link = substr($events_onclick, strpos($events_onclick, 'hrefClicked(\'') + 13);
+                            $events_link = substr($events_link, 0, strpos($events_link, '\')'));
+                            $events_client = new Client();
+                            $events_response = $events_client->get('https://www.500bf.com' . $events_link, ['verify' => false]);
+                            $events_request = $events_response->getBody()->getContents();
+                            $events_crawler = new Crawler();
+                            $events_crawler->addHtmlContent($events_request);
+                            $events['match'] = $data['events'];
+                            $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
+                            $events['matchtime'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.match-time > div > p:nth-child(2)')->text();
+                            $events['teams'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.teamIds > div > p:nth-child(2)')->text();
+                            $events['money'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.prize > div > p:nth-child(2)')->text();
+                            $events['venue'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.address > div > p:nth-child(2)')->text();
+                            $events['organizers'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.organizer > div > p:nth-child(2)')->text();
+
+                            $events['game'] = $data['game'];
+
+                            $events['link'] = 'https://www.500bf.com' . $events_link;
+                            $data['eventsid'] = DB::table('match')->insertGetId($events);
+                        }
+
+
+                        $arr = array();
+                        // 开始处理直播地址
+                        $tv_arr = $node->filter('div > div.header > div.videos-panel > ul > li')->each(function ($node2, $i) use ($arr) {
+                            $arr = array_add($arr, $node2->filter('a > span')->text(), 'https://www.500bf.com' . $node2->filter('a')->attr('href'));
+                            return $arr;
+                        });
+                        $data['tv'] = '';
+                        if (!empty($tv_arr)) {
+                            foreach ($tv_arr as $value) {
+                                $tv_client = new Client();
+                                $tv_response = $tv_client->get(current($value), ['verify' => false]);
+                                $tv_http = $tv_response->getBody()->getContents();
+                                if (strpos($tv_http, '500电竞比分网') !== false) {
+                                    $iframe = substr($tv_http, strpos($tv_http, "class=\"live-iframe\"") + 20);
+                                    $iframe = substr($iframe, 0, strpos($iframe, '">'));
+                                    $data['tv'] = $data['tv'] . key($value) . "=>" . substr($iframe, strpos($iframe, 'http')) . "|";
+                                } else {
+                                    $data['tv'] = $data['tv'] . key($value) . "=>" . current($value) . "|";
+                                }
+//                                echo current($value);
+                            }
+                        }
+
+                        $data['now'] = $node->filter('div > div.item-row-title > div.tag-1 > p')->text();
+                        $data['BO'] = $node->filter('div > div.item-row-title > div.tag-2 > p')->text();
+                        try {
+                            $data['pooreconomy'] = $node->filter('div > div.item-row-title > div.tag-3 > p')->text();
+                        } catch (\Exception $exception) {
+                            $data['pooreconomy'] = '0K';
+                        }
+                        $data['team1img'] = $node->filter('div > div:nth-child(3) > div.tag-1 > img')->attr('src');
+                        $data['team1'] = $node->filter('div > div:nth-child(3) > div.tag-1 > p')->text();
+                        $data['team1winnum'] = (integer)$node->filter('div > div:nth-child(3) > div.tag-2 > p.score')->text();
+                        $data['team1killnum'] = (integer)$node->filter('div > div:nth-child(3) > div.tag-2 > p.kill')->text();
+
+
+                        // 开始处理特殊图标   图标可能为空  可能为一个或多个
+                        $data['team1special'] = $node->filter('div > div:nth-child(3) > div.tag-2 > div > div')->each(function ($node3, $i) {
+                            return 'https://www.500bf.com' . $node3->filter('img')->attr('src');
+                        });
+                        if (is_array($data['team1special']))
+                            $data['team1special'] = implode("|", $data['team1special']);
+
+//                        if (!Empty($team1special_var)){
+//                            $data['team1special'] = $team1special_var;
 //                        } else {
-//                            $data['game'] = '英雄联盟';
+//                            $data['team1special'] = '';
 //                        }
-//
-//                        // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
-//                        $Match = new Match();
-//                        $events_id = $Match->GetMatchId($data['events']);
-//                        if ($events_id) {
-//                            $data['eventsid'] = $events_id;
-//                        } else { // 赛事不存在，需新增
-//                            $events_onclick = $node->filter('div > div.header > div')->attr('onclick');
-//                            $events_link = substr($events_onclick, strpos($events_onclick, 'hrefClicked(\'') + 13);
-//                            $events_link = substr($events_link, 0, strpos($events_link, '\')'));
-//                            $events_client = new Client();
-//                            $events_response = $events_client->get('https://www.500bf.com' . $events_link, ['verify' => false]);
-//                            $events_request = $events_response->getBody()->getContents();
-//                            $events_crawler = new Crawler();
-//                            $events_crawler->addHtmlContent($events_request);
-//                            $events['match'] = $data['events'];
-//                            $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
-//                            $events['matchtime'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.match-time > div > p:nth-child(2)')->text();
-//                            $events['teams'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.teamIds > div > p:nth-child(2)')->text();
-//                            $events['money'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.prize > div > p:nth-child(2)')->text();
-//                            $events['venue'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.address > div > p:nth-child(2)')->text();
-//                            $events['organizers'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.organizer > div > p:nth-child(2)')->text();
-//
-//                            $events['game'] = $data['game'];
-//
-//                            $events['link'] = 'https://www.500bf.com' . $events_link;
-//                            $data['eventsid'] = DB::table('match')->insertGetId($events);
-//                        }
-//
-//
-//                        $arr = array();
-//                        // 开始处理直播地址
-//                        $tv_arr = $node->filter('div > div.header > div.videos-panel > ul > li')->each(function ($node2, $i) use ($arr) {
-//                            $arr = array_add($arr, $node2->filter('a > span')->text(), 'https://www.500bf.com' . $node2->filter('a')->attr('href'));
-//                            return $arr;
-//                        });
-//                        $data['tv'] = '';
-//                        if (!empty($tv_arr)) {
-//                            foreach ($tv_arr as $value) {
-//                                $tv_client = new Client();
-//                                $tv_response = $tv_client->get(current($value), ['verify' => false]);
-//                                $tv_http = $tv_response->getBody()->getContents();
-//                                if (strpos($tv_http, '500电竞比分网') !== false) {
-//                                    $iframe = substr($tv_http, strpos($tv_http, "class=\"live-iframe\"") + 20);
-//                                    $iframe = substr($iframe, 0, strpos($iframe, '">'));
-//                                    $data['tv'] = $data['tv'] . key($value) . "=>" . substr($iframe, strpos($iframe, 'http')) . "|";
-//                                } else {
-//                                    $data['tv'] = $data['tv'] . key($value) . "=>" . current($value) . "|";
-//                                }
-////                                echo current($value);
-//                            }
-//                        }
-//
-//                        $data['now'] = $node->filter('div > div.item-row-title > div.tag-1 > p')->text();
-//                        $data['BO'] = $node->filter('div > div.item-row-title > div.tag-2 > p')->text();
-//                        try {
-//                            $data['pooreconomy'] = $node->filter('div > div.item-row-title > div.tag-3 > p')->text();
-//                        } catch (\Exception $exception) {
-//                            $data['pooreconomy'] = '0K';
-//                        }
-//                        $data['team1img'] = $node->filter('div > div:nth-child(3) > div.tag-1 > img')->attr('src');
-//                        $data['team1'] = $node->filter('div > div:nth-child(3) > div.tag-1 > p')->text();
-//                        $data['team1winnum'] = (integer)$node->filter('div > div:nth-child(3) > div.tag-2 > p.score')->text();
-//                        $data['team1killnum'] = (integer)$node->filter('div > div:nth-child(3) > div.tag-2 > p.kill')->text();
-//
-//
-//                        // 开始处理特殊图标   图标可能为空  可能为一个或多个
-//                        $data['team1special'] = $node->filter('div > div:nth-child(3) > div.tag-2 > div > div')->each(function ($node3, $i) {
-//                            return 'https://www.500bf.com' . $node3->filter('img')->attr('src');
-//                        });
-//                        if (is_array($data['team1special']))
-//                            $data['team1special'] = implode("|", $data['team1special']);
-//
-////                        if (!Empty($team1special_var)){
-////                            $data['team1special'] = $team1special_var;
-////                        } else {
-////                            $data['team1special'] = '';
-////                        }
-//                        $data['team2img'] = $node->filter('div > div:nth-child(4) > div.tag-1 > img')->attr('src');
-//                        $data['team2'] = $node->filter('div > div:nth-child(4) > div.tag-1 > p')->text();
-//                        $data['team2winnum'] = (integer)$node->filter('div > div:nth-child(4) > div.tag-2 > p.score')->text();
-//                        $data['team2killnum'] = (integer)$node->filter('div > div:nth-child(4) > div.tag-2 > p.kill')->text();
-//
-//                        // 开始处理特殊图标   图标可能为空  可能为一个或多个
-//                        $data['team2special'] = $node->filter('div > div:nth-child(4) > div.tag-2 > div > div')->each(function ($node3, $i) {
-//                            return 'https://www.500bf.com' . $node3->filter('img')->attr('src');
-//                        });
-//                        if (is_array($data['team2special']))
-//                            $data['team2special'] = implode("|", $data['team2special']);
-////                        dd($data);
-//                        return $data;
-//                    });
-////                    dd($arr);
-//                    DB::table('allmatching')->truncate();
-//                    DB::table('allmatching')->insert($arr);
-////                    echo $bool;
-//                    echo '<br>';
-//                    $this->countedAndCheckEnded();
-//                }
-//            },
-//            'rejected' => function ($reason, $index) {
-////                    log('test',"rejected" );
-////                    log('test',"rejected reason: " . $reason );
-//                $this->countedAndCheckEnded();
-//            },
-//        ]);
-//
-//        $promise = $pool->promise();
-//        $promise->wait();
+                        $data['team2img'] = $node->filter('div > div:nth-child(4) > div.tag-1 > img')->attr('src');
+                        $data['team2'] = $node->filter('div > div:nth-child(4) > div.tag-1 > p')->text();
+                        $data['team2winnum'] = (integer)$node->filter('div > div:nth-child(4) > div.tag-2 > p.score')->text();
+                        $data['team2killnum'] = (integer)$node->filter('div > div:nth-child(4) > div.tag-2 > p.kill')->text();
+
+                        // 开始处理特殊图标   图标可能为空  可能为一个或多个
+                        $data['team2special'] = $node->filter('div > div:nth-child(4) > div.tag-2 > div > div')->each(function ($node3, $i) {
+                            return 'https://www.500bf.com' . $node3->filter('img')->attr('src');
+                        });
+                        if (is_array($data['team2special']))
+                            $data['team2special'] = implode("|", $data['team2special']);
+//                        dd($data);
+                        return $data;
+                    });
+//                    dd($arr);
+                    DB::table('allmatching')->truncate();
+                    DB::table('allmatching')->insert($arr);
+//                    echo $bool;
+                    echo '<br>';
+                    $this->countedAndCheckEnded();
+                }
+            },
+            'rejected' => function ($reason, $index) {
+//                    log('test',"rejected" );
+//                    log('test',"rejected reason: " . $reason );
+                $this->countedAndCheckEnded();
+            },
+        ]);
+
+        $promise = $pool->promise();
+        $promise->wait();
 
     }
 

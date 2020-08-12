@@ -34,6 +34,7 @@ Route::get('ScoreAppointNotStarted/{id}','ScoreController@ScoreAppointNotStarted
 Route::get('GetScoreOver','ScoreController@ScoreOver');
 Route::get('ScoreAppointOver/{id}','ScoreController@ScoreAppointOver');
 Route::get('GetScoreIng','ScoreController@ScoreIng');
+Route::get('AppointScoreIng/{id}','ScoreController@AppointScoreIng');
 
 
 

@@ -56,12 +56,18 @@ class IndexController extends Controller
                     array_push($match[$key]->tv, $k);
                 }
 
+            } else {
+                $match[$key]->tv = array();
             }
             if ($value->team1special !== ""){
                 $match[$key]->team1special = explode('|',$value->team1special);
+            } else {
+                $match[$key]->team1special = array();
             }
             if ($value->team2special !== ""){
                 $match[$key]->team2special = explode('|',$value->team2special);
+            }else {
+                $match[$key]->team2special = array();
             }
             if ($value->pooreconomy != ""){
                 $match[$key] = strpos($value->pooreconomy,'-') !== false
@@ -98,6 +104,25 @@ class IndexController extends Controller
                     array_push($match[$key]->tv, $k);
                 }
 
+            } else {
+                $match[$key]->tv = array();
+            }
+            if ($value->team1special !== ""){
+                $match[$key]->team1special = explode('|',$value->team1special);
+            } else {
+                $match[$key]->team1special = array();
+            }
+            if ($value->team2special !== ""){
+                $match[$key]->team2special = explode('|',$value->team2special);
+            } else {
+                $match[$key]->team2special = array();
+            }
+            if ($value->pooreconomy != ""){
+                $match[$key] = strpos($value->pooreconomy,'-') !== false
+                    ? array_add((array)$match[$key],'pooimg','http://qn.gunqiu.com/pcweb/up_icon.png')
+                    : array_add((array)$match[$key],'pooimg','http://qn.gunqiu.com/pcweb/drop_icon.png');
+            } else {
+                $match[$key] = array_add((array)$match[$key],'pooimg','');
             }
         }
         return $match;

@@ -462,6 +462,142 @@
         }
     ]
 
+- 指定游戏正在进行 ( http://45.157.91.155/AppointScoreIng/$id )
+
+
+    http://45.157.91.155/AppointScoreIng/2
+    [
+        {
+            "id": 1,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "game": "CS:GO",
+            "events": "Nine to Five 3 Dawn",
+            "eventsid": "293",
+            "tag": "BO3",
+            "tag1": "\u9635\u5bb9",
+            "tag2": "\u672c\u5c40 ",
+            "tag3": "\u4e0a\u534a\u573a ",
+            "tag4": "\u4e0b\u534a\u573a ",
+            "tag5": "\u52a0\u65f6 ",
+            "tag6": "",
+            "index": "\u6307\u6570",
+            "tv": [
+                "\u864e\u7259356",
+                "\u6597\u9c7c244",
+                "\u6597\u9c7c194",
+                "\u864e\u7259821",
+                "\u864e\u72592077"
+            ],
+            "now": "",
+            "nowtime": "R:",
+            "team1img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/csgo\/team.png",
+            "team1": "Tenerife Titans",
+            "team1winnum": 1,
+            "team1lineup": "T",
+            "team1killnum": 8,
+            "team1killspecial": [
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_firstkill.png",
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_mine.png"
+            ],
+            "team1tag3num": "8",
+            "team1tag3special": [
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_firstkill.png",
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_mine.png"
+            ],
+            "team1tag4num": "0",
+            "team1tag4special": [
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_firstkill.png",
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_mine.png"
+            ],
+            "team1tag5num": "0",
+            "team1tag5special": [
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_firstkill.png",
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_mine.png"
+            ],
+            "team1tag6num": "1.11K",
+            "team1indexnum": "2.73",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/20190404\/8e65baff92994083a977840de410e65c.jpg",
+            "team2": "Apeks",
+            "team2winnum": 0,
+            "team2lineup": "CT",
+            "team2killnum": 10,
+            "team2killspecial": [
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_firstkill.png",
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_mine.png"
+            ],
+            "team2tag3num": "7",
+            "team2tag3special": [
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_firstkill.png",
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_mine.png"
+            ],
+            "team2tag4num": "3",
+            "team2tag4special": [
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_firstkill.png",
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_mine.png"
+            ],
+            "team2tag5num": "0",
+            "team2tag5special": [
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_firstkill.png",
+                "https:\/\/www.500bf.com\/static\/index\/img\/cs_mine.png"
+            ],
+            "team2tag6num": "",
+            "team2indexnum": "1.42",
+            "created_at": null,
+            "updated_at": null,
+            "pooimg": "http:\/\/qn.gunqiu.com\/pcweb\/drop_icon.png"
+        },
+        ... ...
+        {
+            "id": 6,
+            "gameimg": "https:\/\/www.500bf.com\/static\/index\/img\/csgo_sel_icon.png",
+            "game": "CS:GO",
+            "events": "ESL Australia & NZ Championship Season 11",
+            "eventsid": "110",
+            "tag": "BO3",
+            "tag1": "\u9635\u5bb9",
+            "tag2": "\u672c\u5c40 ",
+            "tag3": "\u4e0a\u534a\u573a ",
+            "tag4": "\u4e0b\u534a\u573a ",
+            "tag5": "\u52a0\u65f6 ",
+            "tag6": "",
+            "index": "\u6307\u6570",
+            "tv": "",
+            "now": "",
+            "nowtime": "R:",
+            "team1img": "https:\/\/qn.feijing88.com\/egame\/csgo\/team\/35dbd4e5a101fff12c3368615ff040fd.png",
+            "team1": "Paradox",
+            "team1winnum": 0,
+            "team1lineup": "T",
+            "team1killnum": 1,
+            "team1killspecial": "",
+            "team1tag3num": "1",
+            "team1tag3special": "",
+            "team1tag4num": "0",
+            "team1tag4special": "",
+            "team1tag5num": "0",
+            "team1tag5special": "",
+            "team1tag6num": "",
+            "team1indexnum": "1.38",
+            "team2img": "https:\/\/qn.feijing88.com\/feijing-home\/egame\/image\/csgo\/team.png",
+            "team2": "TRUCKERS WITH ATTITUDE",
+            "team2winnum": 0,
+            "team2lineup": "CT",
+            "team2killnum": 0,
+            "team2killspecial": "",
+            "team2tag3num": "0",
+            "team2tag3special": "",
+            "team2tag4num": "0",
+            "team2tag4special": "",
+            "team2tag5num": "0",
+            "team2tag5special": "",
+            "team2tag6num": "",
+            "team2indexnum": "2.94",
+            "created_at": null,
+            "updated_at": null,
+            "pooimg": ""
+        }
+    ]
+
 
 - 全部游戏未开始 ( http://45.157.91.155/ScoreNotStarted )
 
