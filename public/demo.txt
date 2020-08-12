@@ -1,1 +1,2 @@
 2020-08-12 09:14:502020-08-12 09:17:50
+*/1 * * * * /www/server/php/72/bin/php /home/www/E-sports/artisan command:AllMatchIng >> /dev/null 2>&1
