@@ -18,7 +18,6 @@ class IndexController extends Controller
     // 快速导航
     function FastNavigation()
     {
-
         $games = DB::table('games')->orderBy('id','asc')->get()->toArray();
         return $games;
     }
@@ -57,6 +56,13 @@ class IndexController extends Controller
                     array_push($match[$key]->tv, $k);
                 }
 
+            }
+            if ($value->pooreconomy != ""){
+                $match[$key] = strpos($value->pooreconomy,'-') !== false
+                    ? array_add((array)$match[$key],'pooimg','http://qn.gunqiu.com/pcweb/up_icon.png')
+                    : array_add((array)$match[$key],'pooimg','http://qn.gunqiu.com/pcweb/drop_icon.png');
+            } else {
+                $match[$key] = array_add((array)$match[$key],'pooimg','');
             }
         }
         return $match;
