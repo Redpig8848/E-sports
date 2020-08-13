@@ -56,7 +56,8 @@ class MatchSpiderController extends Controller
             'fulfilled' => function ($response, $index) {
 //                echo '爬取' . $this->url[$index];
                 echo '<br>';
-                ob_flush();
+                if(ob_get_level()>0)
+                    ob_flush();
                 flush();
                 try {
 //                    dd($response->getBody()->getContents());
