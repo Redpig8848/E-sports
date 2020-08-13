@@ -76,7 +76,10 @@ Route::get('scoreover','HomeController@scoreover');
 Route::get('scoreing','HomeController@scoreing');
 
 
-Route::get('Schedule','ScheduleController@index');
+Route::get('Schedule','ScheduleController@index'); // 获取今年所有赛事
+
+
+
 Route::get('today','ScheduleController@today');
 Route::get('AllScheduleMatch','MatchSpiderController@AllMatch');
 
@@ -86,7 +89,6 @@ Route::get('AllScheduleMatch','MatchSpiderController@AllMatch');
 
 
 
-Route::get('fns','DemoController@index');
 
 
 

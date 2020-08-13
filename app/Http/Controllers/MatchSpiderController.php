@@ -69,9 +69,25 @@ class MatchSpiderController extends Controller
                         $data['eventid'] = $this->url[$index]->id;
                         $data['time'] = $node->filter('p:nth-child(1)')->text();
                         $data['team1img'] = $node->filter('div:nth-child(2) > img')->attr('src');
+                        $client_img = new Client(['verify' => false]);
+                        $filename = substr($data['team1img'],strrpos($data['team1img'],'/')+1);
+                        if (!file_exists(public_path('static/'.$filename))){
+                            $client_img->get($data['team1img'],['save_to' => public_path('static/'.$filename)]);
+                            $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
+                        }
+
                         $data['team1'] = $node->filter('div:nth-child(2) > p')->text();
                         $data['score'] = $node->filter('p.score')->text();
                         $data['team2img'] = $node->filter('div:nth-child(4) > img')->attr('src');
+
+                        $filename = substr($data['team1img'],strrpos($data['team1img'],'/')+1);
+                        if (!file_exists(public_path('static/'.$filename))){
+                            $client_img->get($data['team1img'],['save_to' => public_path('static/'.$filename)]);
+                            $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
+                        } else {
+                            $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
+                        }
+
                         $data['team2'] = $node->filter('div:nth-child(4) > p')->text();
                         $data['BO'] = $node->filter('p:nth-child(5)')->text();
 //                        dd($data);

@@ -27,7 +27,7 @@ class CreateScoreoverTable extends Migration
             $table->string('eventsimg')->comment('赛事图标');
             $table->string('events')->comment('赛事');
             $table->integer('eventsid')->comment('赛事id');
-            $table->string('index')->comment('指数');
+            $table->string('exponent')->comment('指数');
 
             $table->timestamps();
         });

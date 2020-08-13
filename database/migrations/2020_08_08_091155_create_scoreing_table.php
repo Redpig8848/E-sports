@@ -26,7 +26,7 @@ class CreateScoreingTable extends Migration
             $table->string('tag4');
             $table->string('tag5');
             $table->string('tag6');
-            $table->string('index')->comment('指数');
+            $table->string('exponent')->comment('指数');
             $table->text('tv')->comment('直播地址');
             $table->string('now')->comment('当前局数');
             $table->string('nowtime')->comment('当局时间');
