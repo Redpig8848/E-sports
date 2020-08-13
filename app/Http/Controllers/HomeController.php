@@ -935,7 +935,11 @@ class HomeController extends Controller
                             }
                         }
                         try {
-                            $data['team1tag3special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.tag.first-half > img')->attr('src');
+                            $data['team1tag3special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.tag.first-half > img')->each(function ($node3, $i) {
+                                return 'https://www.500bf.com' . $node3->attr('src');
+                            });
+                            if (is_array($data['team1tag3special']))
+                                $data['team1tag3special'] = implode("|", $data['team1tag3special']);
                         } catch (\Exception $e) {
                             $data['team1tag3special'] = '';
                         }
@@ -950,7 +954,11 @@ class HomeController extends Controller
                         }
 
                         try {
-                            $data['team1tag4special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.tag.sconde-half > img')->attr('src');
+                            $data['team1tag4special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.tag.sconde-half > img')->each(function ($node3, $i) {
+                                return 'https://www.500bf.com' . $node3->attr('src');
+                            });
+                            if (is_array($data['team1tag4special']))
+                                $data['team1tag4special'] = implode("|", $data['team1tag4special']);
                         } catch (\Exception $e) {
                             $data['team1tag4special'] = '';
                         }
@@ -965,7 +973,11 @@ class HomeController extends Controller
                         }
 
                         try {
-                            $data['team1tag5special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.tag.over-time > img')->attr('src');
+                            $data['team1tag5special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.tag.over-time > img')->each(function ($node3, $i) {
+                                return 'https://www.500bf.com' . $node3->attr('src');
+                            });
+                            if (is_array($data['team1tag5special']))
+                                $data['team1tag5special'] = implode("|", $data['team1tag5special']);
                         } catch (\Exception $e) {
                             $data['team1tag5special'] = '';
                         }
@@ -992,7 +1004,11 @@ class HomeController extends Controller
                         $data['team2lineup'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > p:nth-child(3)')->text();
                         $data['team2killnum'] = (integer)$node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div:nth-child(4) > p')->text();
                         try {
-                            $data['team2killspecial'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div:nth-child(4) > img')->attr('src');
+                            $data['team2killspecial'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div:nth-child(4) > img')->each(function ($node3, $i) {
+                                return 'https://www.500bf.com' . $node3->attr('src');
+                            });
+                            if (is_array($data['team2killspecial']))
+                                $data['team2killspecial'] = implode("|", $data['team2killspecial']);
                         } catch (\Exception $e) {
                             $data['team2killspecial'] = '';
                         }
@@ -1010,7 +1026,11 @@ class HomeController extends Controller
                             }
                         }
                         try {
-                            $data['team2tag3special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.tag.first-half > img')->attr('src');
+                            $data['team2tag3special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.tag.first-half > img')->each(function ($node3, $i) {
+                                return 'https://www.500bf.com' . $node3->attr('src');
+                            });
+                            if (is_array($data['team2tag3special']))
+                                $data['team2tag3special'] = implode("|", $data['team2tag3special']);
                         } catch (\Exception $e) {
                             $data['team2tag3special'] = '';
                         }
@@ -1025,7 +1045,11 @@ class HomeController extends Controller
                         }
 
                         try {
-                            $data['team2tag4special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.tag.sconde-half > img')->attr('src');
+                            $data['team2tag4special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.tag.sconde-half > img')->each(function ($node3, $i) {
+                                return 'https://www.500bf.com' . $node3->attr('src');
+                            });
+                            if (is_array($data['team2tag4special']))
+                                $data['team2tag4special'] = implode("|", $data['team2tag4special']);
                         } catch (\Exception $e) {
                             $data['team2tag4special'] = '';
                         }
@@ -1040,7 +1064,11 @@ class HomeController extends Controller
                         }
 
                         try {
-                            $data['team2tag5special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.tag.over-time > img')->attr('src');
+                            $data['team2tag5special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.tag.over-time > img')->each(function ($node3, $i) {
+                                return 'https://www.500bf.com' . $node3->attr('src');
+                            });
+                            if (is_array($data['team2tag5special']))
+                                $data['team2tag5special'] = implode("|", $data['team2tag5special']);
                         } catch (\Exception $e) {
                             $data['team2tag5special'] = '';
                         }
