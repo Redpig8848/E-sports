@@ -210,7 +210,7 @@ class ScoreController extends Controller
     function ScoreAppointOver($id)
     {
         if ($id == 0){
-            DB::table('scoreover')
+            return DB::table('scoreover')
                 ->get()
                 ->toArray();
         }

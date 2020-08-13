@@ -67,21 +67,23 @@ Route::get('SidebarSonn','InformationController@SidebarSonn');
 
 
 //--------------爬虫-----------------//
-Route::get('allmatching','HomeController@index');
+Route::get('allmatching','HomeController@index');  // 首页正在进行   需频繁更新
 
-Route::get('allmatch','HomeController@allmatch');
+Route::get('allmatch','HomeController@allmatch'); // 首页未开始   不用过于频繁
 
-Route::get('scorenot','HomeController@scorenot');
-Route::get('scoreover','HomeController@scoreover');
-Route::get('scoreing','HomeController@scoreing');
-
-
-Route::get('Schedule','ScheduleController@index'); // 获取今年所有赛事
+Route::get('scorenot','HomeController@scorenot');  // 比分页未开始  不用过于频繁
+Route::get('scoreover','HomeController@scoreover'); //  比分页完场  不用过于频繁
+Route::get('scoreing','HomeController@scoreing');  //   比分也正在进行  需频繁
 
 
+Route::get('Schedule','ScheduleController@index'); // 获取今年所有赛事  一年更新一次即可
 
-Route::get('today','ScheduleController@today');
-Route::get('AllScheduleMatch','MatchSpiderController@AllMatch');
+
+
+Route::get('today','ScheduleController@today');   //  更新今天赛程表  一天执行几次即可
+Route::get('after','ScheduleController@after');   //    更新第二天到之后10天的赛程表   几天执行一次即可
+Route::get('AllScheduleMatch','MatchSpiderController@AllMatch'); //
+Route::get('AllScheduleMatch/{link}','MatchSpiderController@AllMatch'); //
 
 
 

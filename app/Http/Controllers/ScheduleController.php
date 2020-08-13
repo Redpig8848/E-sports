@@ -217,7 +217,6 @@ class ScheduleController extends Controller
     {
         set_time_limit(0);
         ini_set('memory_limit', '-1');
-
         $this->url[] = 'https://www.500bf.com/index/index/schedule?date=' . date('Y-m-d') . '&type=0';
 
         $this->totalPageCount = 1500;
@@ -398,7 +397,18 @@ class ScheduleController extends Controller
         set_time_limit(0);
         ini_set('memory_limit', '-1');
 
-        $this->url[] = 'https://www.500bf.com/index/index/schedule?date=' . date('Y-m-d') . '&type=0';
+        $timestamp = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+
+        $stime = strtotime(date('Y-m-d', $timestamp))+86400;
+
+//        $timestamp = mktime(0, 0, 0, 12, 31, date('Y'));
+
+        $etime = strtotime(date('Y-m-d', $timestamp))+864000;
+        while ($stime <= $etime) {
+            $this->url[] = 'https://www.500bf.com/index/index/schedule?date=' . date('Y-m-d', $stime) . '&type=0';
+            $stime = $stime + 86400;
+        }
+//        $this->url[] = 'https://www.500bf.com/index/index/schedule?date=' . date('Y-m-d') . '&type=0';
 
         $this->totalPageCount = 1500;
         $client = new Client();

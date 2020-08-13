@@ -27,24 +27,37 @@ class MatchSpiderController extends Controller
 
 
 
-    function AllMatch(){
-        $this->url = DB::table('match')->get()->toArray();
-
-
+    function AllMatch($links = 'https://500bf.com/index/index/detail/id/268063485.html'){
         set_time_limit(0);
         ini_set('memory_limit', '-1');
         $this->totalPageCount = 1500;
         $client = new Client();
+        if ($links !== 'https://500bf.com/index/index/detail/id/268063485.html'){
+            $this->url = DB::table('match')->get()->toArray();
+            $requests = function ($total) use ($client) {
+                foreach ($this->url as $uri) {
+                    yield function () use ($client, $uri) {
+                        if ($uri->matchimg != "该赛事内容不存在") {
+                            return $client->get($uri->link, ['verify' => false]);
+                        }
+                    };
+                }
+            };
+        }else{
+            $this->url = [$links];
+            $requests = function ($total) use ($client) {
+                foreach ($this->url as $uri) {
+                    yield function () use ($client, $uri) {
+                        return $client->get($uri, ['verify' => false]);
+                    };
+                }
+            };
+        }
+
+
+
+
         DB::table('schedulematch')->truncate();
-        $requests = function ($total) use ($client) {
-            foreach ($this->url as $uri) {
-                yield function () use ($client, $uri) {
-                    if ($uri->matchimg != "该赛事内容不存在") {
-                        return $client->get($uri->link, ['verify' => false]);
-                    }
-                };
-            }
-        };
 
         $pool = new Pool($client, $requests($this->totalPageCount), [
             'concurrency' => $this->concurrency,
@@ -75,7 +88,7 @@ class MatchSpiderController extends Controller
                             $client_img->get($data['team1img'],['save_to' => public_path('static/'.$filename)]);
                             $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
                         }
-
+//                        dd($data);
                         $data['team1'] = $node->filter('div:nth-child(2) > p')->text();
                         $data['score'] = $node->filter('p.score')->text();
                         $data['team2img'] = $node->filter('div:nth-child(4) > img')->attr('src');
