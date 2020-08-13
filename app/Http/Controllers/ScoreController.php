@@ -231,4 +231,14 @@ class ScoreController extends Controller
     }
 
 
+    function ScoreAppointTag($gameid,$tagid){
+        // 0 = 即时
+        if($tagid == 0){
+            return $this->AppointScoreIng($gameid);
+        }elseif ($tagid == 1) { // 1 = 完场
+            return $this->ScoreAppointOver($gameid);
+        }
+    }
+
+
 }

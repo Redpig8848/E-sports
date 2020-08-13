@@ -27,7 +27,7 @@ class MatchSpiderController extends Controller
 
 
 
-    function AllMatch($links = 'https://500bf.com/index/index/detail/id/268063485.html'){
+    function AllMatch($links = ''){
         set_time_limit(0);
         ini_set('memory_limit', '-1');
         $this->totalPageCount = 1500;
