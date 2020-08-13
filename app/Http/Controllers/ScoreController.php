@@ -9,6 +9,12 @@ class ScoreController extends Controller
 {
     // 比分页
 
+    public function GetTag(){
+        return DB::table('scoretag')->get()->toArray();
+    }
+
+
+
     // 全部游戏正在进行
     public function ScoreIng()
     {
