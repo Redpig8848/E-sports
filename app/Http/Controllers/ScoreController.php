@@ -185,6 +185,11 @@ class ScoreController extends Controller
     // 指定获取游戏未开始
     function ScoreAppointNotStarted($id)
     {
+        if ($id == 0){
+            return DB::table('scorenot')
+                ->get()
+                ->toArray();;
+        }
         $game = DB::table('games')->select('game')
             ->where('id', $id)
             ->get()
@@ -204,6 +209,11 @@ class ScoreController extends Controller
     // 指定获取游戏完场
     function ScoreAppointOver($id)
     {
+        if ($id == 0){
+            DB::table('scoreover')
+                ->get()
+                ->toArray();
+        }
         $game = DB::table('games')->select('game')
             ->where('id', $id)
             ->get()

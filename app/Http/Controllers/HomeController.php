@@ -67,6 +67,8 @@ class HomeController extends Controller
                     $crawler->addHtmlContent($http);
                     $arr = $crawler->filter('#index_living > div > div')->each(function ($node, $i) use ($http) {
                         $data['eventsimg'] = $node->filter('div > div.header > div.item-league-panel > img')->attr('src');
+
+
                         $data['events'] = $node->filter('div > div.header > div.item-league-panel > p')->text();
                         // 所属游戏
                         if (strpos($data['eventsimg'], 'dota') !== false) {
