@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\AllMatch;
 use App\Console\Commands\AllMatchIng;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -16,6 +17,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //
         AllMatchIng::class,
+        AllMatch::class,
     ];
 
     /**
@@ -30,6 +32,8 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         $schedule->command('command:AllMatchIng')
             ->everyMinute();
+        $schedule->command('command:AllMatch')
+            ->hourly();
     }
 
     /**
