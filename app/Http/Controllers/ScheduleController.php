@@ -188,6 +188,10 @@ class ScheduleController extends Controller
 
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
+                            if ($events['matchimg'] !== '该赛事内容不存在'){
+                                $matchspider = new MatchSpiderController();
+                                $matchspider->AllMatch($events);
+                            }
                         }
 
 
@@ -355,6 +359,10 @@ class ScheduleController extends Controller
 
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
+                            if ($events['matchimg'] !== '该赛事内容不存在'){
+                                $matchspider = new MatchSpiderController();
+                                $matchspider->AllMatch($events);
+                            }
                         }
 
 
@@ -547,6 +555,10 @@ class ScheduleController extends Controller
 
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
+                            if ($events['matchimg'] !== '该赛事内容不存在'){
+                                $matchspider = new MatchSpiderController();
+                                $matchspider->AllMatch($events);
+                            }
                         }
 
 

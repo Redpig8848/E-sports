@@ -32,29 +32,21 @@ class MatchSpiderController extends Controller
         ini_set('memory_limit', '-1');
         $this->totalPageCount = 1500;
         $client = new Client();
-        if ($links !== 'https://500bf.com/index/index/detail/id/268063485.html'){
+        if ($links == ''){
             $this->url = DB::table('match')->get()->toArray();
-            $requests = function ($total) use ($client) {
-                foreach ($this->url as $uri) {
-                    yield function () use ($client, $uri) {
-                        if ($uri->matchimg != "该赛事内容不存在") {
-                            return $client->get($uri->link, ['verify' => false]);
-                        }
-                    };
-                }
-            };
         }else{
-            $this->url = [$links];
-            $requests = function ($total) use ($client) {
-                foreach ($this->url as $uri) {
-                    yield function () use ($client, $uri) {
-                        return $client->get($uri, ['verify' => false]);
-                    };
-                }
-            };
+            $this->url = $links;
         }
 
-
+        $requests = function ($total) use ($client) {
+            foreach ($this->url as $uri) {
+                yield function () use ($client, $uri) {
+                    if ($uri->matchimg != "该赛事内容不存在") {
+                        return $client->get($uri->link, ['verify' => false]);
+                    }
+                };
+            }
+        };
 
 
         DB::table('schedulematch')->truncate();

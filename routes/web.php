@@ -85,7 +85,7 @@ Route::get('Schedule','ScheduleController@index'); // 获取今年所有赛事  
 Route::get('today','ScheduleController@today');   //  更新今天赛程表  一天执行几次即可
 Route::get('after','ScheduleController@after');   //    更新第二天到之后10天的赛程表   几天执行一次即可
 Route::get('AllScheduleMatch','MatchSpiderController@AllMatch'); //
-Route::get('AllScheduleMatch/{link}','MatchSpiderController@AllMatch'); //
+//Route::get('AllScheduleMatch/{link}','MatchSpiderController@AllMatch'); //
 
 
 

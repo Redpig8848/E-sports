@@ -124,6 +124,10 @@ class HomeController extends Controller
 
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
+                            if ($events['matchimg'] !== '该赛事内容不存在'){
+                                $matchspider = new MatchSpiderController();
+                                $matchspider->AllMatch($events);
+                            }
                         }
 
 
@@ -362,6 +366,10 @@ class HomeController extends Controller
 
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
+                            if ($events['matchimg'] !== '该赛事内容不存在'){
+                                $matchspider = new MatchSpiderController();
+                                $matchspider->AllMatch($events);
+                            }
                         }
 //                        dd($data);
                         return $data;
@@ -531,6 +539,11 @@ class HomeController extends Controller
 
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
+                            if ($events['matchimg'] !== '该赛事内容不存在'){
+                                $matchspider = new MatchSpiderController();
+                                $matchspider->AllMatch($events);
+                            }
+
                         }
 
                         $data['exponent'] = $node->filter('div.odd')->text();
@@ -702,6 +715,10 @@ class HomeController extends Controller
                             $events['game'] = $data['game'];
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
+                            if ($events['matchimg'] !== '该赛事内容不存在'){
+                                $matchspider = new MatchSpiderController();
+                                $matchspider->AllMatch($events);
+                            }
                         }
 
                         $data['exponent'] = $node->filter('div.odd')->text();
@@ -833,6 +850,10 @@ class HomeController extends Controller
 
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
+                            if ($events['matchimg'] !== '该赛事内容不存在'){
+                                $matchspider = new MatchSpiderController();
+                                $matchspider->AllMatch($events);
+                            }
                         }
 
                         $data['tag'] = $node->filter('div > div > div.header > p:nth-child(3)')->text();
