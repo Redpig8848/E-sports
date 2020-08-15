@@ -23,8 +23,10 @@ class CourseController extends Controller
         for ($i=0; $i<7; $i++){
             $date_time = date($format ,strtotime( '+' . $i+1-$week .' days', $time));
             $date_time2 = date('Y-m-d' ,strtotime( '+' . $i+1-$week .' days', $time));
+            $date_time3 = date('Y年m月d日' ,strtotime( '+' . $i+1-$week .' days', $time));
             $date[$i]['date'] = $date_time;
             $date[$i]['date2'] = $date_time2;
+            $date[$i]['date3'] = $date_time3;
             $date[$i]['week'] = $weekname[$i];
         }
         return $date;
