@@ -40,6 +40,6 @@ class AllMatch extends Command
     {
         //
         $home = new HomeController();
-
+        $home->allmatch();
     }
 }

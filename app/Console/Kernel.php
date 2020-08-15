@@ -33,7 +33,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('command:AllMatchIng')
             ->everyMinute();
         $schedule->command('command:AllMatch')
-            ->hourly();
+            ->everyFifteenMinutes();
     }
 
     /**
