@@ -41,6 +41,9 @@ class CourseController extends Controller
 
     // 指定游戏
     function CourseAppoint($date,$id){
+        if ($id == 0){
+            return $this->CourseAll($date);
+        }
         $game = DB::table('games')->select('game')
             ->where('id',$id)
             ->get()
