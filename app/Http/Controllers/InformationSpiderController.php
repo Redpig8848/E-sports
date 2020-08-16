@@ -185,7 +185,7 @@ class InformationSpiderController extends Controller
                             $href_http = $href_client->get('http://dota2.dianjinghu.com'.$href)->getBody()->getContents();
                             $crawler_2->addHtmlContent($href_http);
                             $time = $crawler_2->filter('#news_detail > div.article-top > div.c-title > p')->text();
-                            $data['time'] = substr($time,0,strpos($time,'日')+9);
+                            $data['time'] = substr($time,0,strpos($time,'日')+3);
                             $unix = str_replace(array('年','月'),'-',$data['time']);
                             $data['unix'] = strtotime(str_replace('日','',$unix));
                             $data['body'] = $crawler_2->filter('#news_detail > div.article-top > div.new_conts')->html();

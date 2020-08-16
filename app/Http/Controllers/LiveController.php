@@ -12,7 +12,7 @@ class LiveController extends Controller
 
     function Video($id){
         $matching = DB::table('allmatching')->select('eventsimg','events','BO','tv','team1','team1img',
-            'team1winnum','team2winnum','team2img','team2')
+            'team1winnum','team2winnum','team2img','team2','now')
             ->where('id',$id)
             ->get()
             ->toArray();
