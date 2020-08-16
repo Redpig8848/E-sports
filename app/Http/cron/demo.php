@@ -35,8 +35,9 @@
 //
 //$array=  'https://www.500bf.com/static/index/img/cs_16kill.png';
 //print_r(explode('|',$array));
+$time = '2019-05-18 18:17          ';
 
-print strtotime('2020-06-12 09:46');
+print strtotime($time);
 
 
 

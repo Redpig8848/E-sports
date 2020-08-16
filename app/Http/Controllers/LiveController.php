@@ -24,7 +24,13 @@ class LiveController extends Controller
             ->where('events',$matching[0]->events)
             ->get()
             ->toArray();
-        $strtime = strtotime($matchtime[0]->matchtime);
+        try {
+            $strtime = strtotime($matchtime[0]->matchtime);
+            $date  = date('m月d日 H:i',$strtime);
+        }catch (\Exception $exception){
+            $date = date('m月d日');
+        }
+
         $match = (array)$matching[0];
         $tv = array_filter(explode('|',$match['tv']));
         $tv_array = array();
@@ -33,7 +39,7 @@ class LiveController extends Controller
                 substr($value,strpos($value,'=>')+2));
         }
         $match['tv'] = $tv_array;
-        return array_add($match,'time',date('m月d日 H:i',$strtime));
+        return array_add($match,'time',$date);
 //        dd(array_add($match,'time',date('m月d日 H:i',$strtime)));
 
     }
