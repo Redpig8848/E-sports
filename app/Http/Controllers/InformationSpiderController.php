@@ -74,10 +74,10 @@ class InformationSpiderController extends Controller
                         }
                         $data['title'] = trim($node->filter('div > h4')->text());
                         $num = DB::table('information')->where('title',$data['title'])->count();
-//                        if ($num > 0){
+                        if ($num > 0){
 //                            echo 222;
-//                            exit();
-//                        }
+                            exit();
+                        }
                         $data['gametype'] = '英雄联盟';
                         $data['gametypeid'] = 3;
 
@@ -166,11 +166,11 @@ class InformationSpiderController extends Controller
                             $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
                         }
                         $data['title'] = trim($node->filter('div > dl > dd > h1')->text());
-//                        $num = DB::table('information')->where('title',$data['title'])->count();
-//                        if ($num > 0){
+                        $num = DB::table('information')->where('title',$data['title'])->count();
+                        if ($num > 0){
 //                            echo 222;
-//                            exit();
-//                        }
+                            exit();
+                        }
                         $data['gametype'] = 'DOTA2';
                         $data['gametypeid'] = 1;
 
@@ -262,11 +262,11 @@ class InformationSpiderController extends Controller
                             $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
                         }
                         $data['title'] = trim($node->filter('div > h4')->text());
-//                        $num = DB::table('information')->where('title',$data['title'])->count();
-//                        if ($num > 0){
+                        $num = DB::table('information')->where('title',$data['title'])->count();
+                        if ($num > 0){
 //                            echo 222;
-//                            exit();
-//                        }
+                            exit();
+                        }
                         $data['gametype'] = '王者荣耀';
                         $data['gametypeid'] = 4;
 

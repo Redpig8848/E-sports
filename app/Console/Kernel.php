@@ -6,6 +6,9 @@ use App\Console\Commands\After;
 use App\Console\Commands\AllMatch;
 use App\Console\Commands\AllMatchIng;
 use App\Console\Commands\AllSchedule;
+use App\Console\Commands\DOTA;
+use App\Console\Commands\gok;
+use App\Console\Commands\LOL;
 use App\Console\Commands\ScoreIng;
 use App\Console\Commands\ScoreNot;
 use App\Console\Commands\ScoreOver;
@@ -30,6 +33,9 @@ class Kernel extends ConsoleKernel
         Today::class,
         After::class,
         AllSchedule::class,
+        LOL::class,
+        DOTA::class,
+        gok::class,
     ];
 
     /**
@@ -58,6 +64,12 @@ class Kernel extends ConsoleKernel
             ->daily();
         $schedule->command('command:AllSchedule')
             ->dailyAt('01:00');
+        $schedule->command('command:LOL')
+            ->everyTenMinutes();
+        $schedule->command('command:DOTA')
+            ->everyTenMinutes();
+        $schedule->command('command:gok')
+            ->everyTenMinutes();
     }
 
     /**
