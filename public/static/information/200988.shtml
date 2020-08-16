@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>IEM卡托维兹小组赛：VP胜C9再下一程CSGO官方网站 - 反恐精英:全球攻势 - 公平竞技 风靡全球</title>
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description"
+  content="由Valve开发,完美世界代理的第一人称射击团队竞技游戏CS:GO,是享誉世界的CS正统续作。传承经典,枪林弹雨中争当战场精英。享受公平竞技,FPS枪战对决的酣畅快感!" />
+<meta name="keywords"
+  content="CS,V社,csgo,CS:GO,FPS游戏,反恐精英,CSGO官网,CSGO国服,CSGO下载,CSGO预约,CSGO国服下载,csgo社区服,反恐精英全球攻势,csgo段位,PAL,PAL2020,CSGO PAL" />
+<meta name="baidu-site-verification" content="p6aWSjHOMu" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+<link rel="bookmark" href="/favicon.ico">
+<script src="//static.games.wanmei.com/public/js/wm.js" top="false" bottom="false"></script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?46be175a5f482efa91259d6615336579";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>	<link rel="shortcut icon" type="image/x-icon" href="//www.csgo.com.cn/favicon.ico">
+	<link rel="bookmark" href="//www.csgo.com.cn/favicon.ico">
+	<script src="//static.games.wanmei.com/public/js/wm.js" top="false" bottom="false"></script>
+
+	<script type="text/javascript" src="//static.games.wanmei.com/public/js/jq_183.js"></script>
+	<script type="text/javascript" src="//static.games.wanmei.com/public/js/swfobject.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			// alert("1");
+			var sUserAgent = navigator.userAgent.toLowerCase();
+			var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+			var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+			var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+			var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+			var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+			var bIsAndroid = sUserAgent.match(/android/i) == "android";
+			var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+			var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+			if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+
+				$('head').find('link').remove();
+				$('head').append('<link rel="stylesheet" href="//www.csgo.com.cn/style/mobile/main170527.css?s">' +
+					'<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">');
+				var arr = [];
+				arr.push($('.sub_tit h2').html());
+				arr.push($('.subconfig span').eq(1).html());
+				arr.push($('.wen').html());
+				// arr.push($('.bottom_mobile').html());
+				arr.push($('.subconfig span').eq(0).html());
+				var content = '    <div class="article_header" style="display:none;">' +
+					'    <img src="//www.csgo.com.cn/hd/1610/info/m/images/article_header.jpg">' +
+					'    <a href="javascript:history.back(-1);" class="go_back">返回</a>' +
+					'    </div>' +
+					'<div class="container">' +
+					'    <div class="content_box">' +
+					'      <div class="c_tit">' + arr[0] + '</div>' +
+					'      <div class="c_subtit">' + arr[3] + '  ' + arr[1] + '</div>' +
+					'      <div class="c_txt">' +
+					arr[2] +
+					'      </div>' +
+					'    </div>' +
+					'</div>';
+
+
+				$('.mobile_content').html(content);
+				$('.bg,.navbox,.bottom').hide();
+				$('.pop_wx').eq(0).remove();
+				$('.bottom_mobile').show();
+				$.getScript('/js/mobile/mobile_top.js');
+				$.getScript('/web201611/mobile/js/content.js');
+			} else {
+			}
+		})
+	</script>
+	<link rel="stylesheet" href="//www.csgo.com.cn/web201703/style/base.css?v=20200730">
+    <link rel="stylesheet" href="//www.csgo.com.cn/web201703/style/content.css?v=20200730">
+    
+	
+
+	<script>
+		$(function () {
+			$(".stats-input button").click(function (event) {
+				var _val = $(".stats-input input").val();
+				if (_val != '') {
+					var key = escape(_val);
+					window.open("//www.csgo.com.cn/data/stats/search_result.html?key=" + key);
+				} else {
+					alert("请输入要查询的玩家昵称或ID!");
+				}
+
+			});
+		});
+	</script>
+	<style>#BAIDU_DSPUI_FLOWBAR, .adsbygoogle, .ad, div[class^="ad-widsget"], div[id^="div-gpt-ad-"], a[href*="cpro.baidu.com"], a[href*="@"][href*=".exe"], a[href*="/?/"][href*=".exe"], .adpushwin {
+			display: none !important;
+			max-width: 0 !important;
+			max-height: 0 !important;
+			overflow: hidden !important;
+		}</style>
+</head>
+
+<body>
+<!-- nav Start -->
+<!-- nav Start -->
+<script type="text/javascript" src="//www.csgo.com.cn/web201709/js/login.js"></script>
+<div class="navbox">
+	<div class="nav">
+		<div class="logo">
+			<a href="//www.csgo.com.cn/" class="toweb">
+				<img src="//www.csgo.com.cn/web201608/images/cslogo.png" alt="CSGO官方网站">
+			</a>
+		</div>
+		<div class="nav_list">
+			<a href="//www.csgo.com.cn/">
+				<span></span>
+				<h4>首页</h4><p>HOME</p>
+			</a>
+			<a href="//www.csgo.com.cn/news/index.html">
+				<span></span>
+				<h4>新闻资讯</h4><p>NEWS</p>
+			</a>
+			<!-- <a href="//www.csgo.com.cn/esports/">
+				<span></span>
+				<h4>电竞中心</h4><p>ESPORTS</p>
+			</a> -->
+			<a href="//www.csgo.com.cn/activity/index.html">
+				<span></span>
+				<h4>活动中心</h4><p>EVENT</p>
+			</a>
+			<a href="//www.csgo.com.cn/strategy/index.html">
+				<span></span>
+				<h4>玩家攻略</h4><p>TIPS</p>
+			</a>
+			<a href="//www.csgo.com.cn/hd/1610/info/index.html">
+				<span></span>
+				<h4>游戏资料</h4><p>GUIDES</p>
+			</a>
+			<a href="https://shop.csgo.com.cn">
+				<span></span>
+				<h4>军需商店</h4><p>SHOP</p>
+			</a>
+			<a href="https://members.csgo.com.cn/">
+				<span></span>
+				<h4>个人中心</h4><p>MEMBERS</p>
+			</a>
+			<div class="topbar2 in">
+				<p class="log_in">
+	        <span class="log_btn">
+	          <a href="javascript:;" class="btn_log_in">登录</a>
+	        </span>
+					<span>您好，请</span>
+				</p>
+				<p class="log_out">
+	        <span class="log_btn">
+	          <a href="javascript:;" class="btn_log_out">退出</a>
+	        </span>
+					<span>您好，<em class="userName" id="J_navuserName"></em></span>
+				<div class="pop">
+					<div class="pop_tit">
+						CS:GO账号详情
+						<a href="https://members.csgo.com.cn/" target="_blank"></a>
+					</div>
+					<div class="userInfo_none">
+						暂无账号信息，请到游戏内进行账号绑定。
+					</div>
+					<div class="userInfo">
+						<div class="portrait">
+							<img src="/images/footer/head_default.png" alt="CSGO国服">
+						</div>
+						<div class="user_state">
+							<ul>
+								<li>
+									<span>游戏昵称：</span><em class="personaname"></em>
+								</li>
+								<li>
+									<span>账号状态：</span><em class="online"></em>
+								</li>
+								<li>
+									<span>上次在线：</span><em class="lastonline"></em>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="pop_tit">
+						完美通行证详情
+						<a href="https://members.csgo.com.cn/" target="_blank"></a>
+					</div>
+					<div class="item">
+						<div class="dl clearfix">
+							<div class="dt">完美通行证：</div>
+							<div class="dd"><strong class="userName"></strong></div>
+						</div>
+						<div class="dl clearfix">
+							<div class="dt">账 号 安 全：</div>
+							<div class="dd">
+								<ul class="stateList">
+									<li class="state1"><i></i></li>
+									<li class="state2"><i></i></li>
+									<li class="state3"><i></i></li>
+									<li class="state4"><i></i></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="nav_btn on"><em style="width:200px;margin:0 auto;display:block;font-style: normal;font-family: 'microsoft yahei';">快速指引</em><span></span></div>
+
+	<div class="nav_process_box">
+		<div class="nav_process">
+			<ul class="process">
+				<li class="step_01">
+					<div class="step_btn">
+						<a href="//www.csgo.com.cn/download/index.html" target="_blank">下载国服客户端</a>
+					</div>
+				</li>
+				<li class="step_02">
+					<p>客户端内注册<a href="javascript:;">CS:GO账号</a></p>
+
+					<span></span>
+				</li>
+				<li class="step_03">
+					<p>注册并绑定<a href="javascript:;">完美通行证</a></p>
+					<span></span>
+				</li>
+				<li class="step_04">
+					<p class="size_m p_top">方式1：完成荣耀认证免费获取CS:GO</p>
+					<p class="size_m">方式2：88元付费购买CS:GO</p>
+					<p class="size_m">方式3：国际服玩家直接回归</p>
+				</li>
+				<li class="step_05">
+					<p>立即享受畅爽国服</p>
+				</li>
+			</ul>
+			<div class="process_top01">
+				<span>官网内进行</span>
+			</div>
+			<div class="process_top02">
+				<span>国服客户端进行</span>
+			</div>
+			<div class="process_top03">
+				<span>可用国服客户端登录或在</span>
+				<a href="javascript:;">Steam加参数</a>
+				<span class="notes"></span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="pop_wx">
+	<img src="//www.csgo.com.cn/web201608/images/weixin2.jpg" alt="CSGO微信公众号">
+</div>
+<script type="text/javascript">
+
+  var _paq = window._paq || [];
+	$(function(){
+    function _getSiteCookie(name) {
+      //get wanmei.com cookie
+      var strCookie = document.cookie;
+      var arrCookie = strCookie.split("; ");
+      for (var i = 0; i < arrCookie.length; i++) {
+        var arr = arrCookie[i].split("=");
+        if (arr[0] == name) return arr[1];
+      }
+      return "";
+    }
+    function siteTracking(uid) {
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      //
+      _paq.push(['setUserId', (_getSiteCookie('lgUid') || uid)+'']);
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function () {
+        var u = "https://z.pwesports.cn/";
+        _paq.push(['setTrackerUrl', u + 'matomo.php']);
+        _paq.push(['setSiteId', '11']);
+        var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+        g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
+      })();
+    }
+		//log
+		var HtmlUtil = {
+			htmlEncodeByRegExp:function (str){
+				var s = "";
+				if(str.length == 0) return "";
+				s = str.replace(/&/g,"&amp;");
+				s = s.replace(/</g,"&lt;");
+				s = s.replace(/>/g,"&gt;");
+				s = s.replace(/ /g,"&nbsp;");
+				s = s.replace(/\'/g,"&#39;");
+				s = s.replace(/\"/g,"&quot;");
+				return s;
+			}
+		};
+    var J_navuserName = $('#J_navuserName');
+    var siteuserid = '';
+		//xss防止恶意字符
+		$('.btn_log_in').on('click',function(){
+			login();
+			$('#loginLayer').css({'z-index':9999})
+		})
+		var qurl=window.location.href,
+			res_username = '';
+		$(".btn_log_out").attr('href','https://passport.wanmei.com/sso/logout?service=csgo&serviceurl='+qurl);
+		$.ajax({
+			url:"https://passport.wanmei.com/sso/loginstatus",
+			type:"POST",
+			dataType:"jsonp",
+			jsonp:"jsonpCallback",
+			success:function(data){
+				if(data.code==0){
+          $(".topbar2").removeClass('in').addClass('out');
+					var userId=data.data.id;
+					var userName=data.data.username;
+          siteuserid = userId;
+					res_username = HtmlUtil.htmlEncodeByRegExp(userName),
+					getuserinfo = false,
+					getNickname = false;
+					//$(".log_out .userName").html(userName);
+					var loadAjax01 = function () {
+						return $.ajax({
+							url: "//comment.wanmei.com/query/getNickname",
+							type: "get",
+							dataType: "jsonp",
+							success: function (data) {
+								if (data.code == 1 && data.result != null && data.result != '') {
+									getNickname = true;
+									//$(".log_out .userName").html(data.result);
+									res_username = HtmlUtil.htmlEncodeByRegExp(data.result);
+									if(!getuserinfo) {
+										J_navuserName.html(res_username)
+									}
+								}
+							}
+						});
+					}
+					var loadAjax02 = function () {
+						return	$.ajax({
+							url: 'https://members.csgo.com.cn/ajax/userinfo',
+							xhrFields: {
+								withCredentials: true
+							},
+							sysnc: true,
+							type:"get",
+							success:function(data){
+								//alert(3)
+								if(data.code==0){
+									var steamid=data.data.steamid;
+									//$('.log_out .userName').html(data.data.personaname)
+									if(steamid==null){
+										$(".userInfo_none").show();
+									}else{
+										var personastate=data.data.player.personastate;//在线状态
+										var personaname=data.data.player.personaname;//昵称
+										var imgUrl=data.data.player.avatarmedium;//图片路径
+										if(personastate==1){
+											personastate="在线"
+										}else{
+											personastate="离线"
+										}
+										$(".personaname").html(HtmlUtil.htmlEncodeByRegExp(personaname));//昵称
+										$(".portrait img").attr("src",imgUrl);//设置图片
+										$(".online").html(personastate);
+										res_username = HtmlUtil.htmlEncodeByRegExp(personaname);
+										J_navuserName.html(res_username);
+										getuserinfo = true;
+									}
+									var lastonline=data.data.lastonline;//上次在线时间
+									var identityVerificationStatus=data.data.identityVerificationStatus;//身份认证
+									var identityStatus =data.data.identityStatus ;//已登记防沉迷
+									var userName=data.data.userName;//完美通行证
+									var mobile=data.data.mobilenumber;
+									if(data.data.hasOwnProperty("email")){
+										var email=data.data.email;
+									}
+									if(identityVerificationStatus==2){
+										identityVerificationStatus="已荣耀认证"
+									}else{
+										identityVerificationStatus="未认证"
+									}
+									if(identityStatus==0){
+										identityStatus="已登记防沉迷"
+									}else{
+										identityStatus="未登记"
+									}
+									if(mobile!==""){
+										mobile="已绑定"
+									}else{
+										mobile="未绑定"
+									}
+									if(email!==""){
+										email="已绑定"
+									}else{
+										email="未绑定"
+									}
+									$(".lastonline").html(lastonline);//上次在线时间
+									$(".state4").html("<i></i>"+identityVerificationStatus);//身份认证
+									$(".state1").html("<i></i>"+identityStatus);//已登记防沉迷
+									$(".state2").html("<i></i>"+mobile);
+									$(".state3").html("<i></i>"+email);
+									$(".userName").not('.log_out .userName').html(userName);//完美通行证
+
+								}
+							}
+						});
+					};
+
+					$.when.apply(null, [loadAjax02()])
+						.then(function(st,st2){
+							if(!getuserinfo){
+								J_navuserName.html(res_username)
+							}
+						}, function(){
+							if(!getNickname){
+								J_navuserName.html(res_username)
+							}
+						});
+					$(".topbar2").on("mouseover",function(){
+						$(".pop").slideDown();
+					}).on("mouseleave",function(){
+						$(".pop").slideUp();
+					});
+
+				}
+			}
+		}).always(function (data, status, xhr) {
+      siteTracking(siteuserid);
+    });
+
+		var timer = setTimeout(function(){
+			$('.nav_btn').removeClass('on');
+			$('.nav_process_box').stop().animate({'height':'0px'},300);
+		},10000)
+		$('.nav_btn').on('click',function(){
+			clearTimeout(timer)
+			if($(this).hasClass('on')){
+				$(this).removeClass('on');
+				$('.nav_process_box').stop().animate({'height':'0px'},300);
+			}else{
+				$(this).addClass('on');
+				$('.nav_process_box').stop().animate({'height':'232px'},300);
+			}
+		});
+
+		//给页面绑定滑轮滚动事件
+		if (document.addEventListener) {//firefox
+			document.addEventListener('DOMMouseScroll', scrollFunc, false);
+		}
+		//滚动滑轮触发scrollFunc方法  //ie 谷歌
+		window.onmousewheel = document.onmousewheel = scrollFunc;
+		function scrollFunc(){
+			$('.nav_btn').removeClass('on');
+			$('.nav_process_box').stop().animate({'height':'0px'},300);
+			var top = $(this).scrollTop(); // 当前窗口的滚动距离
+			if(top!==0){
+				$(".navbox").css({"position":"fixed","z-index":100,"top":0})
+				$("body").css({"paddingTop":"82px"})
+			}else{
+				$(".navbox").css({"position":"relative","z-index":100,"top":0})
+				$("body").css({"paddingTop":"0px"})
+			}
+		}
+
+		$('.process li p a').hover(function(){
+			$(this).closest('li').find('span').show();
+		},function(){
+			$(this).closest('li').find('span').hide();
+		})
+
+		$(".process_top03 a").mouseover(function(){
+			$(".process_top03 .notes").show();
+		})
+		$(".process_top03 a").mouseout(function(){
+			$(".process_top03 .notes").hide();
+		})
+
+
+		$('.ico2_wx').hover(function(){
+			$('.pop_wx').show();
+		},function(){
+			$('.pop_wx').hide();
+		})
+	})
+	function showNotice(){
+		var str = '<div class="popup" style="width: 100%;height: 100%;z-index: 2000;position: fixed;top: 0;left: 0;"><span style="width: 513px;height: 301px;margin: -150px 0 0 -256px;background: url(//www.csgo.com.cn/web201703/images/main/popup.png) no-repeat center center;position: absolute;top: 50%;left: 50%;"><a href="javascript:;" class="popup_close" style="width: 48px;height: 48px;position: absolute;top: 0;right: 0;"></a></span></div>'
+		$('body').append(str)
+		$('.popup_close').on('click',function(){
+			$('.popup').remove()
+		});
+	}
+</script>
+<!-- nav End -->
+<!-- nav End -->
+<div class="bg">
+	<div class="container">
+					<div class="esportstit"></div>
+				<!-- 左侧内容 -->
+		<div class="con_left">
+			<div class="artical">
+									<div class="new_header">
+						<p>
+							您的位置：<a href="//www.csgo.com.cn/" target="_blank">首页</a>><a href="//www.csgo.com.cn/esports/">电竞中心</a>
+						</p>
+					</div>
+				
+				<div class="sub_tit">
+					<h2>IEM卡托维兹小组赛：VP胜C9再下一程</h2>
+					<div class="subconfig">
+													<span>作者：</span>
+												<span>时间：2017/03/03</span>
+						<span class="sizeZoom">[字号：
+                             <a onClick="sizeZoom(16)" href="javascript:void(0)">大</a>
+                             <a onClick="sizeZoom('14')" href="javascript:void(0)">中</a>
+                             <a onClick="sizeZoom('12')" href="javascript:void(0)">小</a>
+                             ]</span>
+					</div>
+				</div>
+				<div class="wen fontStyle">
+					<p>本文由5EPlay.Clove-NGP撰写，转载请注明出处。<br/>原文地址：<a href="http://www.5eplay.com/article/iem-katowice-group-vp-c9-again-next" target="_blank">http://www.5eplay.com/article/iem-katowice-group-vp-c9-again-next</a><br/></p><p style="text-align:center"><img src="//www.csgo.com.cn/jpg/170303/10691488521889358.jpg" alt="图片: d2df0b662fa85924866f50394530df79.jpg"/></p><p>2017 IEM卡托维兹第二比赛日的第四轮比赛由C9对战VP ，双方来到Mirage。</p><p>VP先做进攻方，ViP安全双架后，C9的A点遭到4面夹击，VP率先拿下手枪局，但接下来一分，主动找人拼抢的波兰人吃到了沙鹰打脸的苦头，C9凭借Automatic的发挥强起翻盘。VP一波B小2楼快攻夹击换以颜色后，C9判断失误，Pasha拿下四杀和1V2残局并将对手打入经济局，VP以4:1领先。 第6局，Stewie2k在警家箱后秒杀了两个从A2楼冲出的土匪，打掉拱门孤身一人的 T后拿到3杀并帮助C9扳回一分，2：4.第8局，VP拱门攻A受到了巨大的压力，仅剩1滴血的neo混着VIP烟雾到B点下包，2个从B小回防的CT正好撞上准备钻进下黑屋的neo，但他们补抢配合失误，neo两个秒杀完成了不可思议的残局.随后的VP势如破竹，无论真假进攻A区都如进入无人之境，C9直到第12局才拿到自己的第3分，上半场的最终比分锁定在11:4，VP领先。</p><p>下半场snax下水道前压打掉shroud和Skadoodle，让C9假打B区后拱门夹A的战术化为泡影，VP再次获得手枪局的胜利。积累了两局纯ECO经济的C9在长枪局选择一波拱门夹A，但拿着燃烧弹的包匪被藏在2楼上的CT抓到了时机，C9无法拿到雷包，将赛点拱手相让。最后一局仅有短枪的C9一波B2楼爆弹，但抄后路的CT又将包匪打下，最终VP以16:4大比分战胜C9，取得了自己本届赛事的首场胜利。</p><p><br/></p>				</div>
+				<div class="page_cms">
+				</div>
+
+			</div>
+
+			<!--底部微博-->
+<div class="news_bottom">
+	<div class="r_share">
+		<span>分享</span>
+		<a href="javascript:;" class="share_bd" title="分享到贴吧"></a>
+		<!-- <a href="javascript:;" class="share_kj" title="分享到QQ空间"></a> -->
+		<a href="javascript:;" class="share_tx" title="分享到QQ"></a>
+		<a href="javascript:;" class="share_wb" title="分享到微博"></a>
+		<a href="javascript:;" class="share_rr" title="分享到人人网"></a>
+	</div>
+	<div class="wx_box">
+		<div class="wx_code">
+			<img src="//www.csgo.com.cn/web201608/images/list/qrcode.jpg" alt="CSGO">
+		</div>
+		<p>扫一扫关注微信公众号<br>
+			第一时间了解最新资讯
+		</p>
+
+	</div>
+	<h4>关于CS:GO</h4>
+	<p class="aboutGame">《反恐精英：全球攻势》（CS:GO）是由Valve开发、完美世界运营的第一人称射击团队竞技游戏。是《反恐精英》系列游戏的第四款作品。它凭借其纯正的血统延续、全面革新的画质表现、公平的竞技体验，已斩获全球数项大奖。CS:GO目前是世界上玩家数量最多的游戏之一，被ESPN评为2016年度最具潜力的电竞游戏，引领着全球的电子竞技浪潮。</p>
+	<div class="target_list">
+		<a href="http://weibo.com/CSGOPWRD" target="_blank">新浪微博</a>
+	</div>
+</div>			<!--#include virtual="/include/newsfooter201609.html"-->
+
+		</div>
+		<!-- 右侧内容 -->
+		<div class="con_right">
+			<div class="key_btn mengxin_key_btn">
+	<div>
+		<span id="item2"></span>
+	</div>
+	<a href="//www.csgo.com.cn/download/index.html" target="_blank"></a>
+</div><!-- link--kukuri -->
+<div class="count_box mengxin_box">
+	<div class="count_list">
+		<ul>
+			<li class="count_topBtn">
+				<a href="//www.csgo.com.cn/obguide/index.html" target="_blank" class="login_icon">
+					<img src="//www.csgo.com.cn/./web201703/images/mengxin/mianfei_h.png" alt="CSGO国服" class="img1">
+					<img src="//www.csgo.com.cn/./web201703/images/mengxin/mianfei.png" alt="CSGO国服" class="img2">
+					<span>免费畅玩</span>
+				</a>
+			</li>
+			<li class="count_topBtn">
+				<a href="javascript:alert('您所有的账号注册流程，只能在客户端内完成，请您先下载客户端。')" class="count_icon">
+					<img src="//www.csgo.com.cn/./web201703/images/mengxin/zhanghao_h.png" alt="CSGO国服" class="img1">
+					<img src="//www.csgo.com.cn/./web201703/images/mengxin/zhanghao.png" alt="CSGO国服" class="img2">
+					<span>账号注册</span>
+				</a>
+			</li>
+			<li>
+				<a href="https://members.csgo.com.cn/pay/?type=1" target="_blank" class="lock_icon">
+					<img src="//www.csgo.com.cn/./web201703/images/mengxin/youxi_h.png" alt="CSGO国服" class="img1">
+					<img src="//www.csgo.com.cn/./web201703/images/mengxin/youxi.png" alt="CSGO国服" class="img2">
+					<span>游戏充值</span>
+				</a>
+			</li>
+			<li>
+				<a href="//www.csgo.com.cn/news/gamenews/20170913/206234.shtml" target="_blank" class="download_icon">
+					<img src="//www.csgo.com.cn/./web201703/images/mengxin/guoji_h.png" alt="CSGO国服" class="img1">
+					<img src="//www.csgo.com.cn/./web201703/images/mengxin/guoji.png" alt="CSGO国服" class="img2">
+					<span>国际服回归</span>
+				</a>
+			</li>
+			<li>
+				<!--<a href="//www.csgo.com.cn/communityserver/index.html" target="_blank" class="user_icon" >-->
+				<a href="https://csgo.wanmei.com/communityserver" target="_blank" class="user_icon" >
+					<img src="//www.csgo.com.cn/./web201703/images/mengxin/shequ_h.png" alt="CSGO国服" class="img1">
+					<img src="//www.csgo.com.cn/./web201703/images/mengxin/shequ.png" alt="CSGO国服" class="img2">
+					<span>社区服</span>
+				</a>
+			</li>
+			<li>
+				<a href="//passport.wanmei.com/login?location=L2luZHVsZ2Uv" target="_blank" class="question_icon">
+					<img src="//www.csgo.com.cn/./web201703/images/mengxin/fangchengmi_h.png" alt="CSGO国服" class="img1">
+					<img src="//www.csgo.com.cn/./web201703/images/mengxin/fangchengmi.png" alt="CSGO国服" class="img2">
+					<span>防沉迷登记</span>
+				</a>
+			</li>
+			<li>
+				<a href="http://pvp.wanmei.com/?game=csgo2" target="_blank" class="question_icon">
+					<img src="//www.csgo.com.cn/./web201703/images/mengxin/wanmei_h.png" alt="CSGO国服" class="img1">
+					<img src="//www.csgo.com.cn/./web201703/images/mengxin/wanmei.png" alt="CSGO国服" class="img2">
+					<span>完美对战平台</span>
+				</a>
+			</li>
+			<li>
+				<a href="//www.csgo.com.cn/faq/index.html" target="_blank" class="question_icon">
+					<img src="//www.csgo.com.cn/./web201703/images/mengxin/changjian_h.png" alt="CSGO国服" class="img1">
+					<img src="//www.csgo.com.cn/./web201703/images/mengxin/changjian.png" alt="CSGO国服" class="img2">
+					<span>常见问题</span>
+				</a>
+			</li>
+			<div class="hengxian1"></div>
+			<div class="hengxian2"></div>
+			<div class="hengxian3"></div>
+			<div class="shuxianxian"></div>
+		</ul>
+	</div>
+</div>			<!-- <div class="stats-search">
+	<a href="//www.csgo.com.cn/data/stats/index.html" target="_blank" class="stats-titlea"><h2></h2></a>
+	&nbsp;
+	<div class="stats-input">
+		<input type="text" placeholder="输入要查询的玩家昵称或ID" value=""/>
+		<button onclick="_hmt.push([&#39;_trackEvent&#39;, &#39;button&#39;, &#39;click&#39;, &#39;stats&#39;]);"></button>
+	</div>
+</div> -->
+<div class="guides">
+	<div class="guides_tit">
+		<a href="//www.csgo.com.cn/hd/1610/info/index.html" target="_blank" class="titlea">
+			<h2></h2>
+		</a>
+		<a href="//www.csgo.com.cn/hd/1610/info/index.html" target="_blank" title="新手指南" class="list_more">更多<span></span></a>
+	</div>
+	<div class="guides_list">
+		<ul>
+			<li class="guides_list_tit">新兵报到</li>
+			<li><a href="//www.csgo.com.cn/hd/1610/newplayer/index.html" target="_blank">注册、下载与安装</a></li>
+			<li><a href="//www.csgo.com.cn/hd/1610/info/recruit.html" target="_blank">开始游戏</a></li>
+			<li><a href="//www.csgo.com.cn/hd/1610/info/recruit.html?nav=1" target="_blank">游戏界面</a></li>
+			<li><a href="//www.csgo.com.cn/hd/1610/info/recruit.html?nav=2" target="_blank">基本操作</a></li>
+			<li><a href="//www.csgo.com.cn/hd/1610/info/recruit.html?nav=3" target="_blank">设置优化</a></li>
+			<li><a href="//www.csgo.com.cn/hd/1610/info/recruit.html?nav=5" target="_blank">对比CS:GO与CS</a></li>
+			<!--<li><a href="//www.csgo.com.cn/hd/1610/info/recruit.html?nav=4" target="_blank">最低配置</a></li>-->
+
+		</ul>
+		<ul>
+			<li class="guides_list_tit">装备道具</li>
+			<li><a href="//www.csgo.com.cn/hd/1610/info/equipment.html?nav=4" target="_blank">皮肤说明</a></li>
+			<li><a href="//www.csgo.com.cn/hd/1610/info/equipment.html?nav=0" target="_blank">微章</a></li>
+			<li><a href="//www.csgo.com.cn/hd/1610/info/equipment.html?nav=1" target="_blank">印花</a></li>
+			<li><a href="//www.csgo.com.cn/hd/1610/info/equipment.html?nav=2" target="_blank">音乐盒</a></li>
+			<li><a href="//www.csgo.com.cn/hd/1610/info/equipment.html?nav=3" target="_blank">其他</a></li>
+		</ul>
+		<ul>
+			<li class="guides_list_tit">其他系统</li>
+			<li><a href="//www.csgo.com.cn/hd/1610/info/others.html" target="_blank">军衔说明</a></li>
+			<li><a href="//www.csgo.com.cn/hd/1610/info/others.html?nav=1" target="_blank">成就系统</a></li>
+			<li><a href="//www.csgo.com.cn/hd/1610/info/others.html?nav=2" target="_blank">观战系统</a></li>
+			<li><a href="//www.csgo.com.cn/hd/1610/info/others.html?nav=3" target="_blank">控制台</a></li>
+		</ul>
+	</div>
+	<div class="type_box">
+		<div class="type01">
+			<span></span>
+			<p>军衔|等级</p>
+			<a href="//www.csgo.com.cn/data/charts.html" target="_blank"></a>
+		</div>
+		<div class="type02">
+			<span></span>
+			<p>武器箱|收藏品</p>
+			<a href="//www.csgo.com.cn/data/weapons_collection.html" target="_blank"></a>
+		</div>
+		<div class="type03">
+			<span></span>
+			<p>音乐盒试听</p>
+			<a href="//www.csgo.com.cn/data/music_box.html" target="_blank"></a>
+		</div>
+		<div class="type04">
+			<span></span>
+			<p>荣誉展示品</p>
+			<a href="//www.csgo.com.cn/data/honor.html" target="_blank"></a>
+		</div>
+	</div>
+</div>			<div class="ad_banner">
+<a href="//www.csgo.com.cn/hd/1610/newplayer/index.html" target="_blank"><img src="//www.csgo.com.cn/jpg/170409/10691491704959591.jpg" alt="CSGO新兵训练营"></a>
+  
+<a href="//www.csgo.com.cn/hd/1610/info/index.html" target="_blank"><img src="//www.csgo.com.cn/jpg/170409/10691491704959735.jpg" alt="CSGO资料站"></a>
+  
+<a href="//www.csgo.com.cn/show/index.html" target="_blank"><img src="//www.csgo.com.cn/jpg/170409/10691491704959891.jpg" alt="CSGO特色展示"></a>
+  
+<a href="//www.csgo.com.cn/data/index.html" target="_blank"><img src="//www.csgo.com.cn/jpg/170409/10691491704960051.jpg" alt="CSGO数据库"></a>
+
+</div>
+
+<!--${cms.getTag("新闻中心右侧广告1703")}-->			<!--#include virtual="/include/rightnavbtn.html"-->
+			<!--#include virtual="/include/rightnewguide.html"-->
+			<!--#include virtual="/include/rightad.html"-->
+		</div>
+	</div>
+
+	<div class="btn_top"><a href="javascript:void(0)"></a></div>
+
+</div>
+
+<div class="mobile_content"></div>
+<div class="bottom_mobile" style="display: none;">
+	<style>
+	.main_bottom{width: 100%;padding: .1rem .09rem .25rem;background: url("//www.csgo.com.cn/web201611/mobile/img/main/bg_bot.png") no-repeat center top;background-size: 100% auto;}
+	.m_logo{display: none;width: 1.62rem;height: .68rem;margin: 0 auto;margin-bottom: .3rem;background-image: url("/web201611/mobile/img/main/logo_c.png");background-size: 100% 100%;}
+	.gun_bg{display: none;width: 100%;height:1.05rem;margin:0 auto;background: url("//www.csgo.com.cn/web201611/mobile/img/main/gun_bg.png") no-repeat center center;background-size: auto 100%; }
+	.code{width: 1.43rem;height: 1.43rem;margin: 0 auto;margin-bottom: .1rem;padding: .1rem;background: rgba(49,146,230,.3);}
+	.code img{width: 100%;height: 100%;display: block;}
+	/*.code img{width: 100%;height: 100%;display: block;}*/
+	.mouse_bg{display: none;width: 0.98rem;height:0.72rem;margin: 0 auto;margin-top:-.2rem;position: relative;background-image: url("//www.csgo.com.cn/web201611/mobile/img/main/mouse_bg.png");background-size: 100% 100%;}
+	.main_bottom p{width: 100%;height: .34rem;margin-bottom: .35rem;line-height: .17rem;text-align: center;color: #cdd0d9;font-size: .09rem;}
+	.main_bottom p span{color: #566e95;font-size: .09rem;}
+	.main_bottom p.mb_txt{height: .17rem;font-size: .12rem;margin-bottom: .12rem;position: relative;}
+	.main_bottom p.mb_txt:before{content: '';width: .105rem;height: .065rem;margin-left: -.052rem;background: url("//www.csgo.com.cn/web201703/mobile/img/main/icon_jt.png") no-repeat;background-size: 100% 100%;position: absolute;top: -.16rem;left: 50%;}
+	.mb_btn{width: 100%;height: .5rem;margin-bottom: .27rem;text-align: center;}
+	.mb_btn a{width: .43rem;height: .5rem;margin: 0 .05rem;display: inline-block;background-size: 100% 100%;background-position: center center;background-repeat: no-repeat;}
+	.mb_btn a.wechat{background-image: url("//www.csgo.com.cn/web201703/mobile/img/main/icon_wechat.png");}
+	.mb_btn a.weibo{background-image: url("//www.csgo.com.cn/web201703/mobile/img/main/icon_weibo.png");}
+	.mb_btn a.baidu{background-image: url("//www.csgo.com.cn/web201703/mobile/img/main/icon_baidu.png");}
+	.mb_btn a.qzone{background-image: url("//www.csgo.com.cn/web201703/mobile/img/main/icon_qzone.png");}
+	.toTop{width: 2.04rem;height: .22rem;margin: 0 auto;line-height: .2rem;border: 1px solid #566e95;text-align: center;color: #566e95;font-size: .09rem;display: block;}
+
+	.pop_wx {display: none;position: fixed;left: 0;top: 0;width: 100%;height: 100%;background: rgba(0,0,0,0.5);z-index: 999}
+
+	.pop_wx_bd {background-size: 100%;width: 2rem;position: absolute;left: 50%;top: 50%;transform: translate3d(-50%, -50%, 0)}
+
+	.pop_wx_bd img {width: 100%;padding: 10px}
+
+	.pop_wx_close {position: absolute;right: 0;top: 0;width: 0.66667rem;height: 0.66667rem}
+
+	footer{width: 100%;padding: .15rem 0 .13rem;background: #000;}
+  .logo_all{
+    display:block;
+    text-align:center;
+  }
+	.logo_f{width: .96rem;height: .19rem;margin: 0 auto;margin-bottom: .1rem;background-image: url("/images/footer/logo-wanmei20180327.png");background-size: 100% 100%; display:inline-block}
+	.logo_r{width: .76rem;height: .19rem;margin: 0 auto;margin-bottom: .1rem;background-image: url("/images/footer/logo-valve.png");background-size: 100% 100%;display:inline-block}
+	footer p{width: 100%;line-height: .1rem;font-size: .08rem;color: #ccd4df;text-align: center;}
+
+</style>
+<script type="text/javascript" src="//www.wanmei.com/public/js/jq_183.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.tab a').on('click',function(){
+		if($(this).hasClass('on')){ return }
+		var index = $(this).index();
+		$(this).addClass('on').siblings().removeClass('on');
+		$('.list_box .list').removeClass('on').eq(index).addClass('on');
+	})
+	// console.log(123)
+	$(".toTop").on("click", function() {
+		$("html,body").animate({scrollTop:"0px"},500);
+	});
+})
+</script>
+<div class="main_bottom">
+	<div class="m_logo"></div>
+	<div class="gun_bg"></div>
+	<div class="code">
+		<img src="//www.csgo.com.cn/web201608/images/weixin2.jpg" alt="微信公众号">
+	</div>
+	<div class="mouse_bg"></div>
+	<p>长按上方二维码保存至相册，<br>在微信中使用 <span>扫一扫-相册-选择二维码图片</span>，添加关注</p>
+	<p class="mb_txt">一键分享给朋友</p>
+	<div class="mb_btn">
+		<a href="javascript:;" class="wechat"></a>
+		<!-- <a href="javascript:;" class="qzone"></a> -->
+		<a href="javascript:;" class="weibo"></a>
+		<a href="http://tieba.baidu.com/f?kw=csgo&fr=ala0&tpl=5" class="baidu"></a>
+	</div>
+	<a href="javascript:;" class="toTop">返回顶部</a>
+</div>
+<div class="pop_wx">
+	<div class="pop_wx_bd">
+		<div class="pop_wx_close"></div>
+		<img src="/web201607/img/mobile/pop_wx.jpg" alt="CSGO官方网站">
+	</div>
+</div>
+<footer>
+	<div class="logo_all"><div class="logo_f"></div> <div class="logo_r"></div></div>
+	<p>© 完美世界 版权所有　Perfect World. All Rights Reserved.</p>
+	<p>© Valve Corporation, all rights reserved. Licensed to Perfect World Co., Ltd. in China. Valve, the Valve logo, Counter-Strike, and the Counter-Strike logo are trademarks and/or registered trademarks of Valve Corporation.</p>
+</footer>
+	<!--#include virtual="/include/mobile_bot.html"-->
+</div>
+<!--footer-->
+<style>
+	.bottom {
+		font-family: "Microsoft YaHei", "微软雅黑", Arial, "Helvetica Neue", Helvetica, "sans-serif";
+		height: 160px;
+		background-color: #000;
+		background-repeat: no-repeat;
+		z-index: 1;
+		font-size: 12px;
+		color: #959595;
+		position: relative;
+	}
+	.rel1100 {
+		margin: 0 auto;
+		width: 1104px;
+		position: relative;
+	}
+	.foot_dl {
+		position: absolute;
+		top: 40px;
+	}
+	.foot_dl dt {
+		float: left;
+		padding-left: 7px;
+	}
+	.foot_dl dt a {
+		float: left;
+		padding: 0 12px;
+	}
+	.foot_dl dt a.wanmei {
+		border-right: 1px solid #000;
+	}
+	.foot_dl dd {
+		float: right;
+		font-size: 12px;
+		margin: 0;
+		line-height: 1.25;
+		max-width: 796px;
+	}
+	.bottom .rel1100 .certificate {
+		position: absolute;
+		top: 85px;
+		left: 230px;
+		line-height: 1.5;
+		font-size: 12px;
+		color: #555;
+		text-align: center;
+	}
+	.bottom .rel1100 .certificate img{
+		vertical-align: middle;
+	}
+	.bottom .rel1100 .certificate a{
+		color:#53bdfa
+	}
+</style>
+
+<div class="bottom">
+	<div class="rel1100">
+		<dl class="foot_dl">
+			<dt>
+				<a class="wanmei" href="http://www.wanmei.com/" target="_blank">
+					<img src="/images/footer/logo-wanmei20180327.png" alt="完美世界">
+				</a>
+				<a href="http://www.valvesoftware.com/" target="_blank">
+					<img src="/images/footer/logo-valve.png" alt="完美世界">
+				</a>
+			</dt>
+			<dd>&copy; 完美世界 版权所有　Perfect World. All Rights Reserved.<br>©2012 Valve Corporation. All Rights reserved. Licensed to Perfect World Co., Ltd. in China</dd>
+		</dl>
+		<p class="certificate">京ICP备15025398号-2<a href="//www.csgo.com.cn/web201709/cover1709/cultrue.html" target="_blank">《网络文化经营许可证》编号： 京网文[2017]8929-1007号</a> | 京公网安备11010502033648号<br><a href="http://sq.ccm.gov.cn:80/ccnt/sczr/service/business/emark/gameNetTag/4028c08c5a8e023e015aa2573b6a3e20" target="_blank"><img src="/images/footer/icon-gamenettag.png" alt=""> 文网游进字[2017] 0084号</a>  新广出审[2017] 6738号 皖网文许字[2014]1281-020号 ISBN: 978-7-7979-0692-0 | <a href="http://www.wanmei.com/jiazhang/index.htm" target="_blank"> 家长监护</a> | <a href="https://kf.dota2.com.cn/" target="_blank" style="color:#53bdfa;">纠纷处理</a> | <a href="https://img.csgo.com.cn/csgo/a1/c5/a1c579df1b601d19182936f37ffe05331562302036.jpg" target="_blank" style="color:#53bdfa;">营业执照</a></p>
+	</div>
+</div>
+<script type="text/javascript">
+// tracking
+</script>
+<!--#include virtual="/include/footer.html"-->
+<div style="display: none">
+    <img src="/article/r/200988" height="1" width="1">
+</div>
+
+<script src="//static.games.wanmei.com/public/js/wmshare.js" share='{type:"none"}'></script>
+<script type="text/javascript" src="https://safestatic.csgo.com.cn/members/js/main.js"></script>
+<script type="text/javascript" src="//www.csgo.com.cn/web201703/mobile/js/content.js"></script>
+<script type="text/javascript">
+	var articleId = 'comment_replace_value';
+	$(function () {
+		//返回
+		var $top = $('.btn_top')
+		$(window).scroll(function () {
+			var top = $(window).scrollTop()
+			if (top > 500) {
+				$top.show()
+			} else {
+				$top.hide()
+			}
+		})
+
+		$('.btn_top').on('click', function () {
+			$('html,body').animate({scrollTop: 0}, 500);
+		})
+
+		//分享
+		$('.share_bd').click(function () {
+			wmShare.baiduT(wmShare.url)
+		})
+		$('.share_kj').click(function () {
+			wmShare.qqZone(wmShare.url, wmShare.title, wmShare.pic)
+		})
+		$('.share_tx').click(function () {
+			wmShare.qq(wmShare.url, wmShare.title, wmShare.pic)
+		})
+		$('.share_wb').click(function () {
+			wmShare.sinaT(wmShare.url, wmShare.title, wmShare.pic)
+		})
+		$('.share_rr').click(function () {
+			wmShare.renren(wmShare.url)
+		})
+
+
+	})
+</script>
+<script type="text/javascript">
+	var fontSize = {
+		"12": 2,
+		"14": 1,
+		"16": 0
+	}
+
+	function sizeZoom(size) {
+		$('.fontStyle').css('font-size', size + 'px')
+		$('.sizeZoom a').removeClass('red').eq(fontSize[size]).addClass('red')
+	}
+</script>
+<script src="//static.games.wanmei.com/public/js/wmshare.js" share="{type:&quot;none&quot;}"></script>
+
+</body>
+</html>

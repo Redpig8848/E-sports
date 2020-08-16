@@ -317,9 +317,9 @@ class InformationSpiderController extends Controller
     function cs(){
         set_time_limit(0);
         ini_set('memory_limit', '-1');
-        for ($i = 50; $i > 1; $i--) {
-            $this->url[] = 'http://pvp.dianjinghu.com/news/p/all/'.$i.'.html';
-//        $this->url = ['http://pvp.dianjinghu.com/news/p/all/50.html'];
+        for ($i = 10; $i >= 1; $i--) {
+            $this->url[] = 'https://www.csgo.com.cn/news/gameevent/index'.$i.'.html';
+//        $this->url = ['https://www.csgo.com.cn/news/gameevent/index1.html'];
         }
         $this->totalPageCount = 1500;
         $client = new Client();
@@ -349,8 +349,8 @@ class InformationSpiderController extends Controller
                 if (!empty($http)) {
                     $crawler = new Crawler();
                     $crawler->addHtmlContent($http);
-                    $arr = $crawler->filter('body > div.container.oh.pb100 > div.list-left.article-left > a')->each(function ($node, $i) use ($http) {
-                        $data['thumbnail'] = $node->filter('img')->attr('data-original');
+                    $arr = $crawler->filter('body > div.bg.bg_news > div > div.con_left > div > div.list_con > ul > li')->each(function ($node, $i) use ($http) {
+                        $data['thumbnail'] = $node->filter('a > img')->attr('src');
                         $client_img = new Client(['verify' => false]);
                         $filename = substr($data['thumbnail'],strrpos($data['thumbnail'],'/')+1);
                         if (!file_exists(public_path('static/information/'.$filename))){
@@ -359,28 +359,29 @@ class InformationSpiderController extends Controller
                         }else{
                             $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
                         }
-                        $data['title'] = trim($node->filter('div > h4')->text());
+                        $data['title'] = trim($node->filter('div > h3')->text());
 //                        $num = DB::table('information')->where('title',$data['title'])->count();
 //                        if ($num > 0){
 //                            echo 222;
 //                            exit();
 //                        }
-                        $data['gametype'] = '王者荣耀';
-                        $data['gametypeid'] = 4;
+                        $data['gametype'] = 'CS:GO';
+                        $data['gametypeid'] = 2;
 
 
 
-                        $href = $node->attr('href');
+                        $href = $node->filter('div > a')->attr('href');
 
 
                         try {
                             $href_client = new Client(['verify' => false]);
                             $crawler_2 = new Crawler();
-                            $href_http = $href_client->get('http://pvp.dianjinghu.com'.$href)->getBody()->getContents();
+                            $href_http = $href_client->get($href)->getBody()->getContents();
                             $crawler_2->addHtmlContent($href_http);
-                            $time = $crawler_2->filter('#news_detail > div.article-top > div.c-title > p')->text();
-                            $data['time'] = substr($time,0,strpos($time,'日')+3);
-                            $data['body'] = $crawler_2->filter('#news_detail > div.article-top > div.new_conts')->html();
+                            $time = $crawler_2->filter('body > div.bg > div.container > div.con_left > div.artical > div.sub_tit > div > span:nth-child(2)')->text();
+                            $data['time'] = str_replace('时间：','',$time);
+                            $data['unix'] = strtotime($data['time']);
+                            $data['body'] = $crawler_2->filter('body > div.bg > div.container > div.con_left > div.artical > div.wen.fontStyle')->html();
                             $bool = DB::table('information')->insert($data);
                             echo $bool."<br>";
                         }catch (\Exception $exception){

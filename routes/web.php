@@ -92,6 +92,7 @@ Route::get('AllScheduleMatch','MatchSpiderController@AllMatch'); //
 Route::get('lol','InformationSpiderController@lol');
 Route::get('dota','InformationSpiderController@dota');
 Route::get('gok','InformationSpiderController@gok');
+Route::get('csgo','InformationSpiderController@cs');
 
 
 

@@ -6,6 +6,7 @@ use App\Console\Commands\After;
 use App\Console\Commands\AllMatch;
 use App\Console\Commands\AllMatchIng;
 use App\Console\Commands\AllSchedule;
+use App\Console\Commands\cs;
 use App\Console\Commands\DOTA;
 use App\Console\Commands\gok;
 use App\Console\Commands\LOL;
@@ -36,6 +37,7 @@ class Kernel extends ConsoleKernel
         LOL::class,
         DOTA::class,
         gok::class,
+//        cs::class,
     ];
 
     /**
@@ -70,6 +72,8 @@ class Kernel extends ConsoleKernel
             ->everyTenMinutes();
         $schedule->command('command:gok')
             ->everyTenMinutes();
+//        $schedule->command('command:cs')
+//            ->everyTenMinutes();
     }
 
     /**
