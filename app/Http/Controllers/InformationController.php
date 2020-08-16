@@ -47,7 +47,9 @@ class InformationController extends Controller
     }
 
     public function Information(){
-        $information = DB::table('information')->orderBy('unix','desc')->paginate(10);
+        $information = DB::table('information')->select('id','thumbnail','title','gametype','gametypeid','time','unix')
+            ->orderBy('unix','desc')
+            ->paginate(10);
         return $information;
     }
 
@@ -55,12 +57,17 @@ class InformationController extends Controller
         if ($id == 0){
             return $this->Information();
         }
-        $information = DB::table('information')->where('gametypeid',$id)->orderBy('unix','desc')->paginate(10);
+        $information = DB::table('information')->select('id','thumbnail','title','gametype','gametypeid','time','unix')
+            ->where('gametypeid',$id)
+            ->orderBy('unix','desc')
+            ->paginate(10);
         return $information;
     }
 
 
-
+    public function GetInformationBody($id){
+        return DB::table('information')->where('id',$id)->get()->toArray();
+    }
 
 
 }

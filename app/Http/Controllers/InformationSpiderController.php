@@ -68,8 +68,13 @@ class InformationSpiderController extends Controller
                         $client_img = new Client(['verify' => false]);
                         $filename = substr($data['thumbnail'],strrpos($data['thumbnail'],'/')+1);
                         if (!file_exists(public_path('static/information/'.$filename))){
-                            $client_img->get('https://lol.dianjinghu.com'.$data['thumbnail'],['save_to' => public_path('static/information/'.$filename)]);
-                            $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
+                            try {
+                                $client_img->get('https://lol.dianjinghu.com'.$data['thumbnail'],['save_to' => public_path('static/information/'.$filename)]);
+                                $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
+                            }catch (\Exception $exception){
+                                $data['thumbnail'] = '';
+                            }
+
                         }else{
                             $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
                         }
@@ -161,8 +166,13 @@ class InformationSpiderController extends Controller
                         $client_img = new Client(['verify' => false]);
                         $filename = substr($data['thumbnail'],strrpos($data['thumbnail'],'/')+1);
                         if (!file_exists(public_path('static/information/'.$filename))){
-                            $client_img->get('http://dota2.dianjinghu.com'.$data['thumbnail'],['save_to' => public_path('static/information/'.$filename)]);
-                            $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
+                            try {
+                                $client_img->get('http://dota2.dianjinghu.com'.$data['thumbnail'],['save_to' => public_path('static/information/'.$filename)]);
+                                $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
+                            }catch (\Exception $exception){
+                                $data['thumbnail'] = '';
+                            }
+
                         }else{
                             $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
                         }
@@ -257,8 +267,13 @@ class InformationSpiderController extends Controller
                         $client_img = new Client(['verify' => false]);
                         $filename = substr($data['thumbnail'],strrpos($data['thumbnail'],'/')+1);
                         if (!file_exists(public_path('static/information/'.$filename))){
-                            $client_img->get($data['thumbnail'],['save_to' => public_path('static/information/'.$filename)]);
-                            $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
+                            try {
+                                $client_img->get($data['thumbnail'],['save_to' => public_path('static/information/'.$filename)]);
+                                $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
+                            }catch (\Exception $exception){
+                                $data['thumbnail'] = '';
+                            }
+
                         }else{
                             $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
                         }
@@ -355,8 +370,13 @@ class InformationSpiderController extends Controller
                         $client_img = new Client(['verify' => false]);
                         $filename = substr($data['thumbnail'],strrpos($data['thumbnail'],'/')+1);
                         if (!file_exists(public_path('static/information/'.$filename))){
-                            $client_img->get($data['thumbnail'],['save_to' => public_path('static/information/'.$filename)]);
-                            $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
+                            try {
+                                $client_img->get($data['thumbnail'],['save_to' => public_path('static/information/'.$filename)]);
+                                $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
+                            }catch (\Exception $exception){
+                                $data['thumbnail'] = '';
+                            }
+
                         }else{
                             $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
                         }

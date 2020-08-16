@@ -59,6 +59,7 @@ Route::get('SidebarIng','InformationController@SidebarIng');
 Route::get('SidebarSonn','InformationController@SidebarSonn');
 Route::get('Information','InformationController@Information');
 Route::get('AppointInformation/{id}','InformationController@AppointInformation');
+Route::get('GetInformationBody/{id}','InformationController@GetInformationBody');
 
 
 

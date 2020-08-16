@@ -94,7 +94,9 @@ class ScheduleController extends Controller
                             try {
                                 $client_img->get('https://www.500bf.com'.$data['gameimg'],['save_to' => public_path('static/'.$filename)]);
                                 $data['gameimg'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $e){}
+                            }catch (\Exception $e){
+                                $data['gameimg'] = '';
+                            }
                         }else {
                             $data['gameimg'] = 'http://45.157.91.154/static/'.$filename;
                         }
@@ -109,7 +111,9 @@ class ScheduleController extends Controller
                             try{
                             $client_img->get($data['team1img'],['save_to' => public_path('static/'.$filename)]);
                             $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $e){}
+                            }catch (\Exception $e){
+                                $data['team1img'] = '';
+                            }
                         }else{
                             $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
                         }
@@ -127,7 +131,9 @@ class ScheduleController extends Controller
                             try{
                             $client_img->get($data['team2img'],['save_to' => public_path('static/'.$filename)]);
                             $data['team2img'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $e){}
+                            }catch (\Exception $e){
+                                $data['team2img'] = '';
+                            }
                         }else{
                             $data['team2img'] = 'http://45.157.91.154/static/'.$filename;
                         }
@@ -140,7 +146,9 @@ class ScheduleController extends Controller
                             try{
                             $client_img->get($data['eventsimg'],['save_to' => public_path('static/'.$filename)]);
                             $data['eventsimg'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $e){}
+                            }catch (\Exception $e){
+                                $data['eventsimg'] = '';
+                            }
                         }else{
                             $data['eventsimg'] = 'http://45.157.91.154/static/'.$filename;
                         }
@@ -165,8 +173,13 @@ class ScheduleController extends Controller
                                 $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
                                 $filename = substr($events['matchimg'],strrpos($events['matchimg'],'/')+1);
                                 if (!file_exists(public_path('static/'.$filename))){
-                                    $client_img->get($events['matchimg'],['save_to' => public_path('static/'.$filename)]);
-                                    $events['matchimg'] = 'http://45.157.91.154/static/'.$filename;
+                                    try {
+                                        $client_img->get($events['matchimg'],['save_to' => public_path('static/'.$filename)]);
+                                        $events['matchimg'] = 'http://45.157.91.154/static/'.$filename;
+                                    }catch (\Exception $exception){
+                                        $events['matchimg'] = '';
+                                    }
+
                                 }else{
                                     $events['matchimg'] = 'http://45.157.91.154/static/'.$filename;
                                 }
@@ -271,8 +284,13 @@ class ScheduleController extends Controller
                         $client_img = new Client(['verify' => false]);
                         $filename = substr($data['gameimg'],strrpos($data['gameimg'],'/')+1);
                         if (!file_exists(public_path('static/'.$filename))){
-                            $client_img->get('https://www.500bf.com'.$data['gameimg'],['save_to' => public_path('static/'.$filename)]);
-                            $data['gameimg'] = 'http://45.157.91.154/static/'.$filename;
+                            try {
+                                $client_img->get('https://www.500bf.com'.$data['gameimg'],['save_to' => public_path('static/'.$filename)]);
+                                $data['gameimg'] = 'http://45.157.91.154/static/'.$filename;
+                            }catch (\Exception $exception){
+                                $data['gameimg'] = '';
+                            }
+
                         }else{
                             $data['gameimg'] = 'http://45.157.91.154/static/'.$filename;
                         }
@@ -284,8 +302,13 @@ class ScheduleController extends Controller
 
                         $filename = substr($data['team1img'],strrpos($data['team1img'],'/')+1);
                         if (!file_exists(public_path('static/'.$filename))){
-                            $client_img->get($data['team1img'],['save_to' => public_path('static/'.$filename)]);
-                            $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
+                            try {
+                                $client_img->get($data['team1img'],['save_to' => public_path('static/'.$filename)]);
+                                $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
+                            }catch (\Exception $exception){
+                                $data['team1img'] = '';
+                            }
+
                         }else{
                             $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
                         }
@@ -300,8 +323,13 @@ class ScheduleController extends Controller
 
                         $filename = substr($data['team2img'],strrpos($data['team2img'],'/')+1);
                         if (!file_exists(public_path('static/'.$filename))){
-                            $client_img->get($data['team2img'],['save_to' => public_path('static/'.$filename)]);
-                            $data['team2img'] = 'http://45.157.91.154/static/'.$filename;
+                            try {
+                                $client_img->get($data['team2img'],['save_to' => public_path('static/'.$filename)]);
+                                $data['team2img'] = 'http://45.157.91.154/static/'.$filename;
+                            }catch (\Exception $exception){
+                                $data['team2img'] = '';
+                            }
+
                         }else{
                             $data['team2img'] = 'http://45.157.91.154/static/'.$filename;
                         }
@@ -311,8 +339,13 @@ class ScheduleController extends Controller
 
                         $filename = substr($data['eventsimg'],strrpos($data['eventsimg'],'/')+1);
                         if (!file_exists(public_path('static/'.$filename))){
-                            $client_img->get($data['eventsimg'],['save_to' => public_path('static/'.$filename)]);
-                            $data['eventsimg'] = 'http://45.157.91.154/static/'.$filename;
+                            try {
+                                $client_img->get($data['eventsimg'],['save_to' => public_path('static/'.$filename)]);
+                                $data['eventsimg'] = 'http://45.157.91.154/static/'.$filename;
+                            }catch (\Exception $exception){
+                                $data['eventsimg'] = '';
+                            }
+
                         }else{
                             $data['eventsimg'] = 'http://45.157.91.154/static/'.$filename;
                         }
@@ -337,8 +370,13 @@ class ScheduleController extends Controller
                                 $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
                                 $filename = substr($events['matchimg'],strrpos($events['matchimg'],'/')+1);
                                 if (!file_exists(public_path('static/'.$filename))){
-                                    $client_img->get($events['matchimg'],['save_to' => public_path('static/'.$filename)]);
-                                    $events['matchimg'] = 'http://45.157.91.154/static/'.$filename;
+                                    try {
+                                        $client_img->get($events['matchimg'],['save_to' => public_path('static/'.$filename)]);
+                                        $events['matchimg'] = 'http://45.157.91.154/static/'.$filename;
+                                    }catch (\Exception $exception){
+                                        $events['matchimg'] = '';
+                                    }
+
                                 }else{
                                     $events['matchimg'] = 'http://45.157.91.154/static/'.$filename;
                                 }
@@ -467,8 +505,13 @@ class ScheduleController extends Controller
                         $client_img = new Client(['verify' => false]);
                         $filename = substr($data['gameimg'],strrpos($data['gameimg'],'/')+1);
                         if (!file_exists(public_path('static/'.$filename))){
-                            $client_img->get('https://www.500bf.com'.$data['gameimg'],['save_to' => public_path('static/'.$filename)]);
-                            $data['gameimg'] = 'http://45.157.91.154/static/'.$filename;
+                            try {
+                                $client_img->get('https://www.500bf.com'.$data['gameimg'],['save_to' => public_path('static/'.$filename)]);
+                                $data['gameimg'] = 'http://45.157.91.154/static/'.$filename;
+                            }catch (\Exception $exception){
+                                $data['gameimg'] = '';
+                            }
+
                         }else{
                             $data['gameimg'] = 'http://45.157.91.154/static/'.$filename;
                         }
@@ -480,8 +523,13 @@ class ScheduleController extends Controller
 
                         $filename = substr($data['team1img'],strrpos($data['team1img'],'/')+1);
                         if (!file_exists(public_path('static/'.$filename))){
-                            $client_img->get($data['team1img'],['save_to' => public_path('static/'.$filename)]);
-                            $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
+                            try {
+                                $client_img->get($data['team1img'],['save_to' => public_path('static/'.$filename)]);
+                                $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
+                            }catch (\Exception $exception){
+                                $data['team1img'] = '';
+                            }
+
                         }else{
                             $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
                         }
@@ -496,8 +544,13 @@ class ScheduleController extends Controller
 
                         $filename = substr($data['team2img'],strrpos($data['team2img'],'/')+1);
                         if (!file_exists(public_path('static/'.$filename))){
-                            $client_img->get($data['team2img'],['save_to' => public_path('static/'.$filename)]);
-                            $data['team2img'] = 'http://45.157.91.154/static/'.$filename;
+                            try {
+                                $client_img->get($data['team2img'],['save_to' => public_path('static/'.$filename)]);
+                                $data['team2img'] = 'http://45.157.91.154/static/'.$filename;
+                            }catch (\Exception $exception){
+                                $data['team2img'] = '';
+                            }
+
                         }else{
                             $data['team2img'] = 'http://45.157.91.154/static/'.$filename;
                         }
@@ -507,8 +560,13 @@ class ScheduleController extends Controller
 
                         $filename = substr($data['eventsimg'],strrpos($data['eventsimg'],'/')+1);
                         if (!file_exists(public_path('static/'.$filename))){
-                            $client_img->get($data['eventsimg'],['save_to' => public_path('static/'.$filename)]);
-                            $data['eventsimg'] = 'http://45.157.91.154/static/'.$filename;
+                            try {
+                                $client_img->get($data['eventsimg'],['save_to' => public_path('static/'.$filename)]);
+                                $data['eventsimg'] = 'http://45.157.91.154/static/'.$filename;
+                            }catch (\Exception $exception){
+                                $data['eventsimg'] = '';
+                            }
+
                         }else{
                             $data['eventsimg'] = 'http://45.157.91.154/static/'.$filename;
                         }
@@ -533,8 +591,13 @@ class ScheduleController extends Controller
                                 $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
                                 $filename = substr($events['matchimg'],strrpos($events['matchimg'],'/')+1);
                                 if (!file_exists(public_path('static/'.$filename))){
-                                    $client_img->get($events['matchimg'],['save_to' => public_path('static/'.$filename)]);
-                                    $events['matchimg'] = 'http://45.157.91.154/static/'.$filename;
+                                    try {
+                                        $client_img->get($events['matchimg'],['save_to' => public_path('static/'.$filename)]);
+                                        $events['matchimg'] = 'http://45.157.91.154/static/'.$filename;
+                                    }catch (\Exception $exception){
+                                        $events['matchimg'] = '';
+                                    }
+
                                 }else{
                                     $events['matchimg'] = 'http://45.157.91.154/static/'.$filename;
                                 }
