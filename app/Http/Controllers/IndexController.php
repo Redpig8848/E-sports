@@ -119,8 +119,8 @@ class IndexController extends Controller
             }
             if ($value->pooreconomy != ""){
                 $match[$key] = strpos($value->pooreconomy,'-') !== false
-                    ? array_add((array)$match[$key],'pooimg','http://qn.gunqiu.com/pcweb/up_icon.png')
-                    : array_add((array)$match[$key],'pooimg','http://qn.gunqiu.com/pcweb/drop_icon.png');
+                    ? array_add((array)$match[$key],'pooimg','http://45.157.91.154/static/up_icon.png')
+                    : array_add((array)$match[$key],'pooimg','http://45.157.91.154/static/drop_icon.png');
             } else {
                 $match[$key] = array_add((array)$match[$key],'pooimg','');
             }

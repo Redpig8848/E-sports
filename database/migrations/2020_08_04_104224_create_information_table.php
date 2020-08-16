@@ -19,7 +19,8 @@ class CreateInformationTable extends Migration
             $table->string('title')->comment('标题');
             $table->string('gametype')->comment('游戏分类');
             $table->string('gametypeid')->comment('游戏分类ID');
-            $table->time('time')->comment('更新时间');
+            $table->string('time')->comment('更新时间');
+            $table->string('unix')->comment('Unix时间轴');
             $table->text('body')->comment('正文');
             $table->timestamps();
         });

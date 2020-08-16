@@ -34,6 +34,7 @@ class MatchSpiderController extends Controller
         $client = new Client();
         if ($links == ''){
             $this->url = DB::table('match')->get()->toArray();
+            DB::table('schedulematch')->truncate();
         }else{
             $this->url = $links;
         }
@@ -49,11 +50,11 @@ class MatchSpiderController extends Controller
         };
 
 
-        DB::table('schedulematch')->truncate();
+
 
         $pool = new Pool($client, $requests($this->totalPageCount), [
             'concurrency' => $this->concurrency,
-            'fulfilled' => function ($response, $index) {
+            'fulfilled' => function ($response, $index) use($links){
 //                echo '爬取' . $this->url[$index];
                 echo '<br>';
                 if(ob_get_level()>0)

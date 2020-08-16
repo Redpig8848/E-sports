@@ -87,6 +87,9 @@ Route::get('after','ScheduleController@after');   //    更新第二天到之后
 Route::get('AllScheduleMatch','MatchSpiderController@AllMatch'); //
 //Route::get('AllScheduleMatch/{link}','MatchSpiderController@AllMatch'); //
 
+Route::get('lol','InformationSpiderController@lol');
+Route::get('dota','InformationSpiderController@dota');
+Route::get('gok','InformationSpiderController@gok');
 
 
 
