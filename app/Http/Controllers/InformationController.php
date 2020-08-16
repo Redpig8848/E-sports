@@ -49,7 +49,7 @@ class InformationController extends Controller
     public function Information(){
         $information = DB::table('information')->select('id','thumbnail','title','gametype','gametypeid','time','unix')
             ->orderBy('unix','desc')
-            ->paginate(10);
+            ->paginate(30);
         return $information;
     }
 
@@ -60,7 +60,7 @@ class InformationController extends Controller
         $information = DB::table('information')->select('id','thumbnail','title','gametype','gametypeid','time','unix')
             ->where('gametypeid',$id)
             ->orderBy('unix','desc')
-            ->paginate(10);
+            ->paginate(30);
         return $information;
     }
 
