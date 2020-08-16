@@ -46,6 +46,19 @@ class InformationController extends Controller
         return $match;
     }
 
+    public function Information(){
+        $information = DB::table('information')->orderBy('unix','desc')->paginate(10);
+        return $information;
+    }
+
+    public function AppointInformation($id){
+        if ($id == 0){
+            return $this->Information();
+        }
+        $information = DB::table('information')->where('gametypeid',$id)->orderBy('unix','desc')->paginate(10);
+        return $information;
+    }
+
 
 
 

@@ -57,6 +57,8 @@ Route::get('Match/{id}','MatchController@index');
 
 Route::get('SidebarIng','InformationController@SidebarIng');
 Route::get('SidebarSonn','InformationController@SidebarSonn');
+Route::get('Information','InformationController@Information');
+Route::get('AppointInformation/{id}','InformationController@AppointInformation');
 
 
 
