@@ -31,9 +31,10 @@ class InformationSpiderController extends Controller
     function lol(){
         set_time_limit(0);
         ini_set('memory_limit', '-1');
-        for ($i = 10; $i >= 1; $i--) {
-            $this->url[] = 'https://lol.dianjinghu.com/news/p/all/'.$i.'.html';
-        }
+//        for ($i = 10; $i >= 1; $i--) {
+            $this->url = ['https://lol.dianjinghu.com/news/p/all/1.html'];
+//            $this->url[] = 'https://lol.dianjinghu.com/news/p/all/'.$i.'.html';
+//        }
         $this->totalPageCount = 1500;
         $client = new Client();
         $requests = function ($total) use ($client) {
@@ -123,10 +124,10 @@ class InformationSpiderController extends Controller
     function dota(){
         set_time_limit(0);
         ini_set('memory_limit', '-1');
-        for ($i = 10; $i >= 1; $i--) {
-            $this->url[] = 'http://dota2.dianjinghu.com/news/p/all/'.$i.'.html';
-//            $this->url = ['http://dota2.dianjinghu.com/news/p/all/50.html'];
-        }
+//        for ($i = 10; $i >= 1; $i--) {
+//            $this->url[] = 'http://dota2.dianjinghu.com/news/p/all/'.$i.'.html';
+            $this->url = ['http://dota2.dianjinghu.com/news/p/all/1.html'];
+//        }
         $this->totalPageCount = 1500;
         $client = new Client();
         $requests = function ($total) use ($client) {
@@ -219,10 +220,10 @@ class InformationSpiderController extends Controller
     function gok(){
         set_time_limit(0);
         ini_set('memory_limit', '-1');
-        for ($i = 10; $i >= 1; $i--) {
-            $this->url[] = 'http://pvp.dianjinghu.com/news/p/all/'.$i.'.html';
-//        $this->url = ['http://pvp.dianjinghu.com/news/p/all/50.html'];
-        }
+//        for ($i = 10; $i >= 1; $i--) {
+//            $this->url[] = 'http://pvp.dianjinghu.com/news/p/all/'.$i.'.html';
+        $this->url = ['http://pvp.dianjinghu.com/news/p/all/1.html'];
+//        }
         $this->totalPageCount = 1500;
         $client = new Client();
         $requests = function ($total) use ($client) {
@@ -317,10 +318,10 @@ class InformationSpiderController extends Controller
     function cs(){
         set_time_limit(0);
         ini_set('memory_limit', '-1');
-        for ($i = 10; $i >= 1; $i--) {
-            $this->url[] = 'https://www.csgo.com.cn/news/gameevent/index'.$i.'.html';
-//        $this->url = ['https://www.csgo.com.cn/news/gameevent/index1.html'];
-        }
+//        for ($i = 1; $i >= 1; $i--) {
+//            $this->url[] = 'https://www.csgo.com.cn/news/gameevent/index'.$i.'.html';
+        $this->url = ['https://www.csgo.com.cn/news/gameevent/index1.html'];
+//        }
         $this->totalPageCount = 1500;
         $client = new Client();
         $requests = function ($total) use ($client) {
@@ -360,11 +361,11 @@ class InformationSpiderController extends Controller
                             $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
                         }
                         $data['title'] = trim($node->filter('div > h3')->text());
-//                        $num = DB::table('information')->where('title',$data['title'])->count();
-//                        if ($num > 0){
+                        $num = DB::table('information')->where('title',$data['title'])->count();
+                        if ($num > 0){
 //                            echo 222;
-//                            exit();
-//                        }
+                            exit();
+                        }
                         $data['gametype'] = 'CS:GO';
                         $data['gametypeid'] = 2;
 

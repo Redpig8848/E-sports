@@ -37,7 +37,7 @@ class Kernel extends ConsoleKernel
         LOL::class,
         DOTA::class,
         gok::class,
-//        cs::class,
+        cs::class,
     ];
 
     /**
@@ -72,8 +72,8 @@ class Kernel extends ConsoleKernel
             ->everyTenMinutes();
         $schedule->command('command:gok')
             ->everyTenMinutes();
-//        $schedule->command('command:cs')
-//            ->everyTenMinutes();
+        $schedule->command('command:cs')
+            ->everyTenMinutes();
     }
 
     /**
