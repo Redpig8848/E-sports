@@ -39,7 +39,9 @@ class LiveController extends Controller
                 substr($value,strpos($value,'=>')+2));
         }
         $match['tv'] = $tv_array;
-        return array_add($match,'time',$date);
+        $match = array_add($match,'time',$date);
+        $array = [$match];
+        return $array;
 //        dd(array_add($match,'time',date('m月d日 H:i',$strtime)));
 
     }
