@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeSpiderController;
 use Illuminate\Console\Command;
 
 class ScoreIng extends Command
@@ -39,7 +39,7 @@ class ScoreIng extends Command
     public function handle()
     {
         //
-        $home = new HomeController();
+        $home = new HomeSpiderController();
         $home->scoreing();
     }
 }

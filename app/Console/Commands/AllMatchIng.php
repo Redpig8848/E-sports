@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeSpiderController;
 use Illuminate\Console\Command;
 use Illuminate\Routing\Route;
 
@@ -40,7 +40,7 @@ class AllMatchIng extends Command
     public function handle()
     {
         //
-        $home = new HomeController();
+        $home = new HomeSpiderController();
         $home->index();
     }
 }

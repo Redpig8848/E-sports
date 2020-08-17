@@ -16,6 +16,11 @@ Route::get('/', function () {
 });
 
 
+Route::post('register','Auth/ServiceActionController@register');
+
+
+
+
 //-----------获取-------------------//
 
 Route::get('FastNavigation','IndexController@FastNavigation');
@@ -72,13 +77,13 @@ Route::get('GetInformationBody/{id}','InformationController@GetInformationBody')
 
 
 //--------------爬虫-----------------//
-Route::get('allmatching','HomeController@index');  // 首页正在进行   需频繁更新
+Route::get('allmatching','HomeSpiderController@index');  // 首页正在进行   需频繁更新
 
-Route::get('allmatch','HomeController@allmatch'); // 首页未开始   不用过于频繁
+Route::get('allmatch','HomeSpiderController@allmatch'); // 首页未开始   不用过于频繁
 
-Route::get('scorenot','HomeController@scorenot');  // 比分页未开始  不用过于频繁
-Route::get('scoreover','HomeController@scoreover'); //  比分页完场  不用过于频繁
-Route::get('scoreing','HomeController@scoreing');  //   比分也正在进行  需频繁
+Route::get('scorenot','HomeSpiderController@scorenot');  // 比分页未开始  不用过于频繁
+Route::get('scoreover','HomeSpiderController@scoreover'); //  比分页完场  不用过于频繁
+Route::get('scoreing','HomeSpiderController@scoreing');  //   比分也正在进行  需频繁
 
 
 Route::get('Schedule','ScheduleController@index'); // 获取今年所有赛事  一年更新一次即可
@@ -94,6 +99,7 @@ Route::get('lol','InformationSpiderController@lol');
 Route::get('dota','InformationSpiderController@dota');
 Route::get('gok','InformationSpiderController@gok');
 Route::get('csgo','InformationSpiderController@cs');
+
 
 
 
