@@ -21,7 +21,8 @@ class ServiceActionController extends Controller
         $ver_exists = 1;
         $phone_exists = DB::table('users')->where('phone',$request['phone'])->exists();
         if ($phone_exists){
-            return '该手机号已被注册';
+            return response()->json(['data'=>'该手机号已被注册'],422);
+//            return '该手机号已被注册';
         }
         if ($ver_exists){
             $token = str_random(64);
@@ -34,12 +35,12 @@ class ServiceActionController extends Controller
                 'verification_code'=>''
             ));
             if ($id){
-                return $token;
+                return response()->json(['data' => $token],201);
             } else {
-                return '注册错误，请重试';
+                return response()->json(['data'=>'注册错误，请重试'],500);
             }
         } else {
-            return '验证码错误';
+            return response()->json(['data' => '验证码错误'], 422);
         }
     }
 
