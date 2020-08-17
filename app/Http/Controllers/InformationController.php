@@ -66,7 +66,9 @@ class InformationController extends Controller
 
 
     public function GetInformationBody($id){
-        return DB::table('information')->where('id',$id)->get()->toArray();
+        $body =  DB::table('information')->where('id',$id)->get()->toArray();
+        $body[0]->body = str_replace('data-original','src',$body[0]->body);
+        return $body;
     }
 
 
