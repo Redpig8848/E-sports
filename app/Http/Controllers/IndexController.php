@@ -70,11 +70,12 @@ class IndexController extends Controller
             }else {
                 $match[$key]->team2special = array();
             }
-            if ($value->pooreconomy != ""){
+            if ($value->pooreconomy != "" && $value->game != "CS:GO"){
                 $match[$key] = strpos($value->pooreconomy,'-') !== false
                     ? array_add((array)$match[$key],'pooimg','http://qn.gunqiu.com/pcweb/drop_icon.png')
                     : array_add((array)$match[$key],'pooimg','http://qn.gunqiu.com/pcweb/up_icon.png');
             } else {
+                $match[$key]->pooreconomy = '';
                 $match[$key] = array_add((array)$match[$key],'pooimg','');
             }
         }
