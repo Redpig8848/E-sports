@@ -118,11 +118,12 @@ class IndexController extends Controller
             } else {
                 $match[$key]->team2special = array();
             }
-            if ($value->pooreconomy != ""){
+            if ($value->pooreconomy != "" && $value->game != "CS:GO"){
                 $match[$key] = strpos($value->pooreconomy,'-') !== false
                     ? array_add((array)$match[$key],'pooimg','http://45.157.91.154/static/drop_icon.png')
                     : array_add((array)$match[$key],'pooimg','http://45.157.91.154/static/up_icon.png');
             } else {
+                $match[$key]->pooreconomy = '';
                 $match[$key] = array_add((array)$match[$key],'pooimg','');
             }
         }
