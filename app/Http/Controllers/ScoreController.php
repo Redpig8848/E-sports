@@ -183,12 +183,24 @@ class ScoreController extends Controller
             }
 
 
-            if ($value->team1tag6num != "") {
-                $scoreing[$key] = strpos($value->team1tag6num, '-') !== false
-                    ? array_add((array)$scoreing[$key], 'pooimg', 'http://qn.gunqiu.com/pcweb/up_icon.png')
-                    : array_add((array)$scoreing[$key], 'pooimg', 'http://qn.gunqiu.com/pcweb/drop_icon.png');
-            } else {
-                $scoreing[$key] = array_add((array)$scoreing[$key], 'pooimg', '');
+            if ($value->tag3 == '经济差 '){
+                if ($value->team1tag3num != "") {
+                    $scoreing[$key] = strpos($value->team1tag6num, '-') !== false
+                        ? array_add((array)$scoreing[$key], 'pooimg', 'http://qn.gunqiu.com/pcweb/drop_icon.png')
+                        : array_add((array)$scoreing[$key], 'pooimg', 'http://qn.gunqiu.com/pcweb/up_icon.png');
+                } else {
+                    $scoreing[$key] = array_add((array)$scoreing[$key], 'pooimg', '');
+                }
+            }
+
+            if ($value->tag6 == '经济差 '){
+                if ($value->team1tag6num != "") {
+                    $scoreing[$key] = strpos($value->team1tag6num, '-') !== false
+                        ? array_add((array)$scoreing[$key], 'pooimg', 'http://qn.gunqiu.com/pcweb/drop_icon.png')
+                        : array_add((array)$scoreing[$key], 'pooimg', 'http://qn.gunqiu.com/pcweb/up_icon.png');
+                } else {
+                    $scoreing[$key] = array_add((array)$scoreing[$key], 'pooimg', '');
+                }
             }
         }
         return $scoreing;
