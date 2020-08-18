@@ -20,7 +20,7 @@ class ServiceActionController extends Controller
                 ->where('password', $request['password'])
                 ->get()
                 ->toArray();
-            return response()->json(['data' => $data], 200);
+            return response()->json(['data' => $data], 201);
         }
 
         return response()->json(['data' => '手机号或密码错误'], 422);
