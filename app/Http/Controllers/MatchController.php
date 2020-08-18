@@ -24,6 +24,7 @@ class MatchController extends Controller
             if ($v->team2img == 'http://45.157.91.154/static/') {
                 $matchs[$key]->team2img = '';
             }
+            $match[$key]->matchtime = explode(" ",$v->matchtime);
         }
         return array('title' => $match, 'body' => $matchs);
 
