@@ -11,6 +11,7 @@ class InformationController extends Controller
 
     // 右边栏正在进行比赛
     public function SidebarIng(){
+        date_default_timezone_set('Asia/Shanghai');
         $match = DB::table('allmatching')->limit(4)
             ->select('game','team1','team1winnum','team2winnum','team2','events')
             ->get()
@@ -26,7 +27,11 @@ class InformationController extends Controller
                 ->where('events',$item->events)
                 ->get()
                 ->toArray();
-            $time = date('H:i',strtotime($matchtime[0]->matchtime));
+            try {
+                $time = date('H:i',strtotime($matchtime[0]->matchtime));
+            }catch (\Exception $exception){
+                $time = date('H:i');
+            }
             $match[$key]->game = $game[0]->gameimg;
             $match[$key] = array_add((array)$match[$key],'time',$time);
 

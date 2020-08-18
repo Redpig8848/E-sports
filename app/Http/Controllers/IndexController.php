@@ -11,6 +11,7 @@ class IndexController extends Controller
 
     function NowDate()
     {
+        date_default_timezone_set('Asia/Shanghai');
         return date('Y年m月d日');
     }
 

@@ -11,6 +11,7 @@ class CourseController extends Controller
 
     // 获取当前星期的日期
     function GetWeek($format='m月d日'){
+        date_default_timezone_set('Asia/Shanghai');
         $time = time();
         //获取当前周几
         $week = date('w', $time);

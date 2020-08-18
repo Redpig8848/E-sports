@@ -35,14 +35,27 @@
 //
 //$array=  'https://www.500bf.com/static/index/img/cs_16kill.png';
 //print_r(explode('|',$array));
-$time = '2019-05-18 18:17          ';
+//$time = '2019-05-18 18:17          ';
+//
+//print strtotime($time);
+//
 
-print strtotime($time);
+$rand_code = rand(6);
 
-
-
-
-
+$url='http://sms.webchinese.cn/web_api/?Uid=dJHYzCbq98pjT&Key=d41d8cd98f00b204e980&smsMob=18683346545&smsText=您好,您的验证码为'.$rand_code.',请保存好不要随意给其他人,YBE-Game在此欢迎您的加入！';
+echo Get($url);
+function Get($url)
+{
+    $ch = curl_init();
+// curl_init()需要php_curl.dll扩展
+    $timeout = 5;
+    curl_setopt ($ch, CURLOPT_URL, $url);
+    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    $file_contents = curl_exec($ch);
+    curl_close($ch);
+    return $file_contents;
+}
 
 
 
