@@ -17,6 +17,7 @@ class MatchController extends Controller
         $matchs = DB::table('schedulematch')->where('eventid', $id)
             ->get()
             ->toArray();
+//        dd($matchs);
         foreach ($matchs as $key => $v) {
             if ($v->team1img == 'http://45.157.91.154/static/') {
                 $matchs[$key]->team1img = '';
@@ -24,7 +25,8 @@ class MatchController extends Controller
             if ($v->team2img == 'http://45.157.91.154/static/') {
                 $matchs[$key]->team2img = '';
             }
-            $match[$key]->matchtime = explode(" ",$v->matchtime);
+//            dd($v);
+            $matchs[$key]->time = explode(" ",$v->time);
         }
         return array('title' => $match, 'body' => $matchs);
 
