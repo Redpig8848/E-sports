@@ -31,20 +31,23 @@ class ServiceActionController extends Controller
     {
         $ver_exists = DB::table('users')->where('verification_code',$request['code'])->exists();
 //        $ver_exists = 1;
-        $phone_exists = DB::table('users')->where('phone', $request['phone'])->exists();
+        $phone_exists = DB::table('users')->where('phone', $request['phone'])
+            ->where('password','!=','未注册')
+            ->exists();
         if ($phone_exists) {
             return response()->json(['data' => '该手机号已被注册'], 422);
 //            return '该手机号已被注册';
         }
         if ($ver_exists) {
             $token = str_random(64);
-            $id = DB::table('users')->insertGetId(array(
+            $id = DB::table('users')->where('phone',$request['phone'])
+                ->update(array(
                 'name' => str_random(rand(4, 10)),
                 'phone' => $request['phone'],
                 'password' => $request['password'],
                 'remember_token' => '',
                 'api_token' => $token,
-                'verification_code' => ''
+                'verification_code' => '已完成注册',
             ));
             if ($id) {
                 return response()->json(['data' => $token], 201);
@@ -59,6 +62,12 @@ class ServiceActionController extends Controller
 
     public function code(Request $request)
     {
+        $phone_exists = DB::table('users')->where('phone', $request['phone'])
+            ->where('password','!=','未注册')
+            ->exists();
+        if ($phone_exists){
+            return response()->json(['data' => '手机号已被注册'],422);
+        }
         $rand_code = '';
         for($i = 0;$i < 6;$i++) {
             $rand_code = $rand_code.rand(0,9);
@@ -75,9 +84,12 @@ class ServiceActionController extends Controller
         $file_contents = curl_exec($ch);
         curl_close($ch);
         if ($file_contents == 1){
-            $id = DB::table('user')->insertGetId(array(
+            $id = DB::table('users')->insertGetId(array(
+                'name' => str_random(6),
                 'phone' => $request['phone'],
-                'verification_code' => $rand_code
+                'verification_code' => $rand_code,
+                'password' => '未注册',
+                'api_token' => str_random(64)
             ));
             if ($id){
                 return response()->json(['data' => 1],201);
