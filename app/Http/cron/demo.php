@@ -39,10 +39,14 @@
 //
 //print strtotime($time);
 //
+$rand_code = '';
+for($i = 0;$i < 6;$i++) {
+    $rand_code = $rand_code.rand(0,9);
+}
 
-$rand_code = rand(6);
+$str = iconv('utf-8','gbk','您好,您的验证码为'.$rand_code.',请保存好不要随意给其他人,YBE-Game在此欢迎您的加入！');
 
-$url='http://sms.webchinese.cn/web_api/?Uid=dJHYzCbq98pjT&Key=d41d8cd98f00b204e980&smsMob=18683346545&smsText=您好,您的验证码为'.$rand_code.',请保存好不要随意给其他人,YBE-Game在此欢迎您的加入！';
+$url='http://sms.webchinese.cn/web_api/?Uid=dJHYzCbq98pjT&Key=d41d8cd98f00b204e980&smsMob=18683346545&smsText='.$str;
 echo Get($url);
 function Get($url)
 {
