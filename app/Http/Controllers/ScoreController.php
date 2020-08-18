@@ -82,7 +82,7 @@ class ScoreController extends Controller
                 $scoreing[$key]->team2tag5special = array();
             }
 
-            if ($value->tag3 == '经济差'){
+            if ($value->tag3 == '经济差 '){
                 if ($value->team1tag3num != "") {
                     $scoreing[$key] = strpos($value->team1tag6num, '-') !== false
                         ? array_add((array)$scoreing[$key], 'pooimg', 'http://qn.gunqiu.com/pcweb/drop_icon.png')
@@ -92,7 +92,7 @@ class ScoreController extends Controller
                 }
             }
 
-            if ($value->tag6 == '经济差'){
+            if ($value->tag6 == '经济差 '){
                 if ($value->team1tag6num != "") {
                     $scoreing[$key] = strpos($value->team1tag6num, '-') !== false
                         ? array_add((array)$scoreing[$key], 'pooimg', 'http://qn.gunqiu.com/pcweb/drop_icon.png')
