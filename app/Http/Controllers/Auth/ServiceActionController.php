@@ -70,7 +70,7 @@ class ServiceActionController extends Controller
                 return response()->json(['data' => '注册错误，请重试'], 500);
             }
         } else {
-            return response()->json(['data' => '验证码错误'], 422);
+            return response()->json(['data' => '验证码错误'], 423);
         }
     }
 
@@ -125,7 +125,7 @@ class ServiceActionController extends Controller
                 return response()->json(['data' => 1],201);
             }
         }
-        return response()->json(['data' => $file_contents], 422);
+        return response()->json(['data' => $file_contents], 423);
     }
 
 
