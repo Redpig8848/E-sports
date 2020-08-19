@@ -84,13 +84,27 @@ class ServiceActionController extends Controller
         $file_contents = curl_exec($ch);
         curl_close($ch);
         if ($file_contents == 1){
-            $id = DB::table('users')->insertGetId(array(
-                'name' => str_random(6),
-                'phone' => $request['phone'],
-                'verification_code' => $rand_code,
-                'password' => '未注册',
-                'api_token' => str_random(64)
-            ));
+            $code_exists = DB::table('users')->where('phone', $request['phone'])
+                ->where('password','未注册')
+                ->exists();
+            if($code_exists){
+                $id = DB::table('users')->update(array(
+                    'name' => str_random(6),
+                    'phone' => $request['phone'],
+                    'verification_code' => $rand_code,
+                    'password' => '未注册',
+                    'api_token' => str_random(64)
+                ));
+            }else{
+                $id = DB::table('users')->insertGetId(array(
+                    'name' => str_random(6),
+                    'phone' => $request['phone'],
+                    'verification_code' => $rand_code,
+                    'password' => '未注册',
+                    'api_token' => str_random(64)
+                ));
+            }
+
             if ($id){
                 return response()->json(['data' => 1],201);
             }
