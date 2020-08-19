@@ -88,7 +88,8 @@ class ServiceActionController extends Controller
                 ->where('password','未注册')
                 ->exists();
             if($code_exists){
-                $id = DB::table('users')->update(array(
+                $id = DB::table('users')->where('phone',$request['phone'])
+                    ->update(array(
                     'name' => str_random(6),
                     'phone' => $request['phone'],
                     'verification_code' => $rand_code,
