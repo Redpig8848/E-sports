@@ -12,6 +12,7 @@ class ServiceActionController extends Controller
 
     public function login(Request $request)
     {
+        dd($_SERVER["REMOTE_ADDR"]);
         $is = DB::table('users')->where('phone', $request['phone'])
             ->where('password', $request['password'])
             ->exists();
