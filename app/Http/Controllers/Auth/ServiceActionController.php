@@ -44,8 +44,6 @@ class ServiceActionController extends Controller
 
     public function register(Request $request)
     {
-        $token = str_random(64);
-        return response()->json(['data' => $token], 201);
         $ver_exists = DB::table('users')->where('verification_code',$request['code'])->exists();
 //        $ver_exists = 1;
         $phone_exists = DB::table('users')->where('phone', $request['phone'])
