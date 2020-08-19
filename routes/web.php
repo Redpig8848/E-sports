@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::post('register','Auth\ServiceActionController@register');
 Route::post('login','Auth\ServiceActionController@login');
 Route::post('code','Auth\ServiceActionController@code');
+Route::post('code_login','Auth\ServiceActionController@code_login');
 
 
 

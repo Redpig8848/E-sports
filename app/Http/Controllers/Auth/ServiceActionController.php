@@ -27,6 +27,21 @@ class ServiceActionController extends Controller
     }
 
 
+    public function code_login(Request $request)
+    {
+        $is = DB::table('users')->where('api_token', $request['token'])
+            ->exists();
+        if ($is) {
+            $data = DB::table('users')->where('api_token', $request['token'])
+                ->get()
+                ->toArray();
+            return response()->json(['data' => $data], 201);
+        }
+
+        return response()->json(['data' => 'TOKEN错误'], 422);
+    }
+
+
     public function register(Request $request)
     {
         $ver_exists = DB::table('users')->where('verification_code',$request['code'])->exists();
