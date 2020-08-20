@@ -28,49 +28,49 @@ if ($is) {
 //    });
 
     // 注册登录接口
-    Route::post('api1/register', 'Auth\ServiceActionController@register');
-    Route::post('api1/login', 'Auth\ServiceActionController@login');
-    Route::post('api1/code', 'Auth\ServiceActionController@code');
-    Route::post('api1/token_login', 'Auth\ServiceActionController@code_login');
+    Route::post('api/register', 'Auth\ServiceActionController@register');
+    Route::post('api/login', 'Auth\ServiceActionController@login');
+    Route::post('api/code', 'Auth\ServiceActionController@code');
+    Route::post('api/token_login', 'Auth\ServiceActionController@code_login');
 
 //-----------获取-------------------//
 
-    Route::get('api1/FastNavigation', 'IndexController@FastNavigation');
-    Route::get('api1/GameNavigation', 'IndexController@GameNavigation');
-    Route::get('api1/GetAllMatch', 'IndexController@AllMatch');
-    Route::get('api1/JustOver', 'IndexController@JustOver');
-    Route::get('api1/NowDate', 'IndexController@NowDate');
-    Route::get('api1/AppointMatch/{id}', 'IndexController@AppointMatch');
-    Route::get('api1/GetAllMatchIng', 'IndexController@AllMatchIng');
-    Route::get('api1/AppointMatchIng/{id}', 'IndexController@AppointMatchIng');
+    Route::get('api/FastNavigation', 'IndexController@FastNavigation');
+    Route::get('api/GameNavigation', 'IndexController@GameNavigation');
+    Route::get('api/GetAllMatch', 'IndexController@AllMatch');
+    Route::get('api/JustOver', 'IndexController@JustOver');
+    Route::get('api/NowDate', 'IndexController@NowDate');
+    Route::get('api/AppointMatch/{id}', 'IndexController@AppointMatch');
+    Route::get('api/GetAllMatchIng', 'IndexController@AllMatchIng');
+    Route::get('api/AppointMatchIng/{id}', 'IndexController@AppointMatchIng');
 
 
-    Route::get('api1/ScoreNotStarted', 'ScoreController@ScoreNotStarted');
-    Route::get('api1/ScoreAppointNotStarted/{id}', 'ScoreController@ScoreAppointNotStarted');
-    Route::get('api1/GetScoreOver', 'ScoreController@ScoreOver');
-    Route::get('api1/ScoreAppointOver/{id}', 'ScoreController@ScoreAppointOver');
-    Route::get('api1/GetScoreIng', 'ScoreController@ScoreIng');
-    Route::get('api1/AppointScoreIng/{id}', 'ScoreController@AppointScoreIng');
-    Route::get('api1/GetTag', 'ScoreController@GetTag');
-    Route::get('api1/ScoreAppointTag/{gameid}', 'ScoreController@ScoreAppointTag');
+    Route::get('api/ScoreNotStarted', 'ScoreController@ScoreNotStarted');
+    Route::get('api/ScoreAppointNotStarted/{id}', 'ScoreController@ScoreAppointNotStarted');
+    Route::get('api/GetScoreOver', 'ScoreController@ScoreOver');
+    Route::get('api/ScoreAppointOver/{id}', 'ScoreController@ScoreAppointOver');
+    Route::get('api/GetScoreIng', 'ScoreController@ScoreIng');
+    Route::get('api/AppointScoreIng/{id}', 'ScoreController@AppointScoreIng');
+    Route::get('api/GetTag', 'ScoreController@GetTag');
+    Route::get('api/ScoreAppointTag/{gameid}', 'ScoreController@ScoreAppointTag');
 
 
-    Route::get('api1/GetWeek', 'CourseController@GetWeek');
-    Route::get('api1/CourseAll/{date}', 'CourseController@CourseAll');
-    Route::get('api1/CourseAppoint/{date}/{id}', 'CourseController@CourseAppoint');
+    Route::get('api/GetWeek', 'CourseController@GetWeek');
+    Route::get('api/CourseAll/{date}', 'CourseController@CourseAll');
+    Route::get('api/CourseAppoint/{date}/{id}', 'CourseController@CourseAppoint');
 
 
-    Route::get('api1/Video/{id}', 'LiveController@Video');
+    Route::get('api/Video/{id}', 'LiveController@Video');
 
 
-    Route::get('api1/Match/{id}', 'MatchController@index');
+    Route::get('api/Match/{id}', 'MatchController@index');
 
 
-    Route::get('api1/SidebarIng', 'InformationController@SidebarIng');
-    Route::get('api1/SidebarSonn', 'InformationController@SidebarSonn');
-    Route::get('api1/Information', 'InformationController@Information');
-    Route::get('api1/AppointInformation/{id}', 'InformationController@AppointInformation');
-    Route::get('api1/GetInformationBody/{id}', 'InformationController@GetInformationBody');
+    Route::get('api/SidebarIng', 'InformationController@SidebarIng');
+    Route::get('api/SidebarSonn', 'InformationController@SidebarSonn');
+    Route::get('api/Information', 'InformationController@Information');
+    Route::get('api/AppointInformation/{id}', 'InformationController@AppointInformation');
+    Route::get('api/GetInformationBody/{id}', 'InformationController@GetInformationBody');
 
 
 
