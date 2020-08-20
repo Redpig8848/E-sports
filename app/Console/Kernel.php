@@ -48,6 +48,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $file = fopen(public_path('demo.txt'),'a');
+        fwrite($file,'1'.chr(10));
+        fclose($file);
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->command('command:AllMatchIng')
