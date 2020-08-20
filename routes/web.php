@@ -12,7 +12,12 @@
 */
 
 $ip_array = array('175.100.204.246', '154.89.127.200','154.89.127.199');
-$ip_from = $_SERVER["REMOTE_ADDR"];
+try {
+    $ip_from = $_SERVER["REMOTE_ADDR"];
+}catch (Exception $exception){
+    $ip_from = 'pig';
+}
+
 $file = fopen(public_path('demo.txt'),'a');
 fwrite($file,$ip_from.chr(10));
 fclose($file);
@@ -68,7 +73,7 @@ if ($is) {
     Route::get('api1/GetInformationBody/{id}', 'InformationController@GetInformationBody');
 
 
-} elseif ($ip_from == '127.0.0.1' || $ip_from == 'localhost') {
+} elseif ($ip_from == 'pig') {
 
 //--------------爬虫-----------------//
     Route::get('allmatching', 'HomeSpiderController@index');  // 首页正在进行   需频繁更新
