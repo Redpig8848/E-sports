@@ -73,6 +73,53 @@ if ($is) {
     Route::get('api1/GetInformationBody/{id}', 'InformationController@GetInformationBody');
 
 
+
+    // 注册登录接口
+    Route::post('register', 'Auth\ServiceActionController@register');
+    Route::post('login', 'Auth\ServiceActionController@login');
+    Route::post('code', 'Auth\ServiceActionController@code');
+    Route::post('token_login', 'Auth\ServiceActionController@code_login');
+
+//-----------获取-------------------//
+
+    Route::get('FastNavigation', 'IndexController@FastNavigation');
+    Route::get('GameNavigation', 'IndexController@GameNavigation');
+    Route::get('GetAllMatch', 'IndexController@AllMatch');
+    Route::get('JustOver', 'IndexController@JustOver');
+    Route::get('NowDate', 'IndexController@NowDate');
+    Route::get('AppointMatch/{id}', 'IndexController@AppointMatch');
+    Route::get('GetAllMatchIng', 'IndexController@AllMatchIng');
+    Route::get('AppointMatchIng/{id}', 'IndexController@AppointMatchIng');
+
+
+    Route::get('ScoreNotStarted', 'ScoreController@ScoreNotStarted');
+    Route::get('ScoreAppointNotStarted/{id}', 'ScoreController@ScoreAppointNotStarted');
+    Route::get('GetScoreOver', 'ScoreController@ScoreOver');
+    Route::get('ScoreAppointOver/{id}', 'ScoreController@ScoreAppointOver');
+    Route::get('GetScoreIng', 'ScoreController@ScoreIng');
+    Route::get('AppointScoreIng/{id}', 'ScoreController@AppointScoreIng');
+    Route::get('GetTag', 'ScoreController@GetTag');
+    Route::get('ScoreAppointTag/{gameid}', 'ScoreController@ScoreAppointTag');
+
+
+    Route::get('GetWeek', 'CourseController@GetWeek');
+    Route::get('CourseAll/{date}', 'CourseController@CourseAll');
+    Route::get('CourseAppoint/{date}/{id}', 'CourseController@CourseAppoint');
+
+
+    Route::get('Video/{id}', 'LiveController@Video');
+
+
+    Route::get('Match/{id}', 'MatchController@index');
+
+
+    Route::get('SidebarIng', 'InformationController@SidebarIng');
+    Route::get('SidebarSonn', 'InformationController@SidebarSonn');
+    Route::get('Information', 'InformationController@Information');
+    Route::get('AppointInformation/{id}', 'InformationController@AppointInformation');
+    Route::get('GetInformationBody/{id}', 'InformationController@GetInformationBody');
+
+
 } elseif ($ip_from == 'pig') {
 
 //--------------爬虫-----------------//
