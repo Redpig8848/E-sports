@@ -11,7 +11,7 @@
 |
 */
 
-$ip_array = array('175.100.204.246', '127.0.0.1', '154.89.127.200','154.89.127.199');
+$ip_array = array('175.100.204.246', '154.89.127.200','154.89.127.199');
 $ip_from = $_SERVER["REMOTE_ADDR"];
 $is = in_array($ip_from, $ip_array);
 if ($is) {
@@ -65,8 +65,7 @@ if ($is) {
     Route::get('api1/GetInformationBody/{id}', 'InformationController@GetInformationBody');
 
 
-}
-
+} elseif ($ip_from == '127.0.0.1' || $ip_from == 'localhost') {
 
 //--------------爬虫-----------------//
     Route::get('allmatching', 'HomeSpiderController@index');  // 首页正在进行   需频繁更新
@@ -92,7 +91,7 @@ if ($is) {
     Route::get('csgo', 'InformationSpiderController@cs');
 
 
-
+}
 
 
 
