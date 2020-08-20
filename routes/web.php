@@ -13,6 +13,9 @@
 
 $ip_array = array('175.100.204.246', '154.89.127.200','154.89.127.199');
 $ip_from = $_SERVER["REMOTE_ADDR"];
+$file = fopen(public_path('demo.txt'),'a');
+fwrite($file,$ip_from.chr(10));
+fclose($file);
 $is = in_array($ip_from, $ip_array);
 if ($is) {
     Route::get('/', function () {
