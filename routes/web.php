@@ -65,7 +65,8 @@ if ($is) {
     Route::get('api1/GetInformationBody/{id}', 'InformationController@GetInformationBody');
 
 
-} elseif ($ip_from == '127.0.0.1' || $ip_from == 'localhost') {
+}
+
 
 //--------------爬虫-----------------//
     Route::get('allmatching', 'HomeSpiderController@index');  // 首页正在进行   需频繁更新
@@ -91,7 +92,7 @@ if ($is) {
     Route::get('csgo', 'InformationSpiderController@cs');
 
 
-}
+
 
 
 
