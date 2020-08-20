@@ -11,7 +11,7 @@
 |
 */
 
-$ip_array = array('175.100.204.246', '154.89.127.200','154.89.127.199','175.100.204.232');
+$ip_array = array('175.100.204.246', '154.89.127.200','154.89.127.199','175.100.204.232','127.0.0.1');
 try {
     $ip_from = $_SERVER["REMOTE_ADDR"];
 }catch (Exception $exception){
@@ -23,9 +23,9 @@ try {
 //fclose($file);
 $is = in_array($ip_from, $ip_array);
 if ($is) {
-    Route::get('/', function () {
-        return view('welcome');
-    });
+//    Route::get('/', function () {
+//        return view('welcome');
+//    });
 
     // 注册登录接口
     Route::post('api1/register', 'Auth\ServiceActionController@register');
