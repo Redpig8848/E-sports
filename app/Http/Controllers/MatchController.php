@@ -14,6 +14,17 @@ class MatchController extends Controller
         $match = DB::table('match')->where('id', $id)
             ->get()
             ->toArray();
+
+        if ($match[0]->game == "DOTA2"){
+            $game_img = "http://45.157.91.154/static/dota_sel_icon.png";
+        } elseif ($match[0]->game == "CS:GO"){
+            $game_img = "http://45.157.91.154/static/csgo_sel_icon.png";
+        } elseif ($match[0]->game == "英雄联盟"){
+            $game_img = "http://45.157.91.154/static/lol_sel_icon.png";
+        }elseif ($match[0]->game == "王者荣耀"){
+            $game_img = "http://45.157.91.154/static/kog_sel_icon.png";
+        }
+        $match[0] = array_add((array)$match[0],'game_img',$game_img);
         $matchs = DB::table('schedulematch')->where('eventid', $id)
             ->get()
             ->toArray();
