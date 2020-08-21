@@ -131,7 +131,8 @@ class InformationSpiderController extends Controller
         ini_set('memory_limit', '-1');
 //        for ($i = 10; $i >= 1; $i--) {
 //            $this->url[] = 'http://dota2.dianjinghu.com/news/p/all/'.$i.'.html';
-            $this->url = ['http://dota2.dianjinghu.com/news/p/all/1.html'];
+//            $this->url = ['http://dota2.dianjinghu.com/news/p/all/1.html'];
+            $this->url = ['https://www.dota2.com.cn/news/index1.htm'];
 //        }
         $this->totalPageCount = 1500;
         $client = new Client();
@@ -161,13 +162,13 @@ class InformationSpiderController extends Controller
                 if (!empty($http)) {
                     $crawler = new Crawler();
                     $crawler->addHtmlContent($http);
-                    $arr = $crawler->filter('body > div.special-nav > div.wrap > div.dotamain > div > div.boxRight > div.boxNew_mar > a')->each(function ($node, $i) use ($http) {
-                        $data['thumbnail'] = $node->filter('div > dl > dt > img')->attr('data-original');
+                    $arr = $crawler->filter('#news_lists > ul.panes > li.pane.active > a')->each(function ($node, $i) use ($http) {
+                        $data['thumbnail'] = $node->filter('div.news_logo > img')->attr('src');
                         $client_img = new Client(['verify' => false]);
                         $filename = substr($data['thumbnail'],strrpos($data['thumbnail'],'/')+1);
                         if (!file_exists(public_path('static/information/'.$filename))){
                             try {
-                                $client_img->get('http://dota2.dianjinghu.com'.$data['thumbnail'],['save_to' => public_path('static/information/'.$filename)]);
+                                $client_img->get($data['thumbnail'],['save_to' => public_path('static/information/'.$filename)]);
                                 $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
                             }catch (\Exception $exception){
                                 $data['thumbnail'] = '';
@@ -176,7 +177,7 @@ class InformationSpiderController extends Controller
                         }else{
                             $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
                         }
-                        $data['title'] = trim($node->filter('div > dl > dd > h1')->text());
+                        $data['title'] = trim($node->filter('div.news_msg > h2')->text());
                         $num = DB::table('information')->where('title',$data['title'])->count();
                         if ($num > 0){
 //                            echo 222;
@@ -193,13 +194,18 @@ class InformationSpiderController extends Controller
                         try {
                             $href_client = new Client(['verify' => false]);
                             $crawler_2 = new Crawler();
-                            $href_http = $href_client->get('http://dota2.dianjinghu.com'.$href)->getBody()->getContents();
+                            $href_http = $href_client->get($href)->getBody()->getContents();
+//                            dd($href_http);
                             $crawler_2->addHtmlContent($href_http);
-                            $time = $crawler_2->filter('#news_detail > div.article-top > div.c-title > p')->text();
-                            $data['time'] = substr($time,0,strpos($time,'日')+3);
-                            $unix = str_replace(array('年','月'),'-',$data['time']);
-                            $data['unix'] = strtotime(str_replace('日','',$unix));
-                            $data['body'] = $crawler_2->filter('#news_detail > div.article-top > div.new_conts')->html();
+                            $time = $crawler_2->filter('body > div.wrapper > div > div.main.clearfix > div.news > div.news_main > div.title > h3')->text();
+                            $regex="'\d{4}-\d{1,2}-\d{1,2}'is";
+                            preg_match($regex,$time,$time);
+//                            $time = $crawler_2->filter('#news_detail > div.article-top > div.c-title > p')->text();
+                            $data['time'] = $time[0];
+                            $data['unix'] = strtotime($data['time']);
+                            $data['body'] = $crawler_2->filter('body > div.wrapper > div > div.main.clearfix > div.news > div.news_main > div.content')->html();
+                            $no_need = $crawler_2->filter('body > div.wrapper > div > div.main.clearfix > div.news > div.news_main > div.content > div')->html();
+                            $data['body'] = str_replace($no_need,'',$data['body']);
                             $bool = DB::table('information')->insert($data);
                             echo $bool."<br>";
                         }catch (\Exception $exception){
@@ -335,7 +341,7 @@ class InformationSpiderController extends Controller
         ini_set('memory_limit', '-1');
 //        for ($i = 1; $i >= 1; $i--) {
 //            $this->url[] = 'https://www.csgo.com.cn/news/gameevent/index'.$i.'.html';
-        $this->url = ['https://www.csgo.com.cn/news/gameevent/index1.html'];
+        $this->url = ['https://www.csgo.com.cn/news/index1.html'];
 //        }
         $this->totalPageCount = 1500;
         $client = new Client();

@@ -39,33 +39,33 @@
 //
 //print strtotime($time);
 //
-$rand_code = '';
-for($i = 0;$i < 6;$i++) {
-    $rand_code = $rand_code.rand(0,9);
-}
+//$rand_code = '';
+//for($i = 0;$i < 6;$i++) {
+//    $rand_code = $rand_code.rand(0,9);
+//}
+//
+//$str = iconv('utf-8','gbk','您好,您的验证码为'.$rand_code.',请保存好不要随意给其他人,YBE-Game在此欢迎您的加入！');
+//
+//$url='http://sms.webchinese.cn/web_api/?Uid=dJHYzCbq98pjT&Key=d41d8cd98f00b204e980&smsMob=18683346545&smsText='.$str;
+//echo Get($url);
+//function Get($url)
+//{
+//    $ch = curl_init();
+//// curl_init()需要php_curl.dll扩展
+//    $timeout = 5;
+//    curl_setopt ($ch, CURLOPT_URL, $url);
+//    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+//    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+//    $file_contents = curl_exec($ch);
+//    curl_close($ch);
+//    return $file_contents;
+//}
+//
+//
+//
 
-$str = iconv('utf-8','gbk','您好,您的验证码为'.$rand_code.',请保存好不要随意给其他人,YBE-Game在此欢迎您的加入！');
 
-$url='http://sms.webchinese.cn/web_api/?Uid=dJHYzCbq98pjT&Key=d41d8cd98f00b204e980&smsMob=18683346545&smsText='.$str;
-echo Get($url);
-function Get($url)
-{
-    $ch = curl_init();
-// curl_init()需要php_curl.dll扩展
-    $timeout = 5;
-    curl_setopt ($ch, CURLOPT_URL, $url);
-    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-    $file_contents = curl_exec($ch);
-    curl_close($ch);
-    return $file_contents;
-}
-
-
-
-
-
-
+print(file_get_contents('https://www.dota2.com.cn/news/index.htm'));
 
 
 
