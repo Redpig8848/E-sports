@@ -65,10 +65,10 @@
 //
 
 
-print(file_get_contents('https://www.dota2.com.cn/news/index.htm'));
+//print(file_get_contents('https://www.dota2.com.cn/news/index.htm'));
 
 
-
+//print strpos(array(4,5,6),"1111232323")
 
 
 

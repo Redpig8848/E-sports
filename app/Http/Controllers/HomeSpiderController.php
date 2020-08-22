@@ -69,17 +69,42 @@ class HomeSpiderController extends Controller
                     $arr = $crawler->filter('#index_living > div > div')->each(function ($node, $i) use ($http) {
                         $data['eventsimg'] = $node->filter('div > div.header > div.item-league-panel > img')->attr('src');
                         $data['events'] = $node->filter('div > div.header > div.item-league-panel > p')->text();
+
+                        $tema1img = $node->filter('div > div:nth-child(3) > div.tag-1 > img')->attr('src');
+                        $tema2img = $node->filter('div > div:nth-child(4) > div.tag-1 > img')->attr('src');
+                        $find_request = false;
                         // 所属游戏
-                        if (strpos($data['eventsimg'], 'dota') !== false) {
+                        if (strpos($data['eventsimg'], 'dota') !== false || strpos($tema1img, 'dota') !== false ||
+                            strpos($tema2img, 'dota') !== false) {
                             $data['game'] = 'DOTA2';
-                        } elseif (strpos($data['eventsimg'], 'csgo') !== false) {
+                        } elseif (strpos($data['eventsimg'], 'csgo') !== false || strpos($tema1img, 'csgo') !== false ||
+                            strpos($tema2img, 'csgo') !== false) {
                             $data['game'] = 'CS:GO';
-                        } elseif (strpos($data['eventsimg'], 'lol') !== false) {
+                        } elseif (strpos($data['eventsimg'], 'lol') !== false || strpos($tema1img, 'lol') !== false ||
+                            strpos($tema2img, 'lol') !== false) {
                             $data['game'] = '英雄联盟';
-                        } elseif (strpos($data['eventsimg'], 'kog') !== false) {
+                        } elseif (strpos($data['eventsimg'], 'kog') !== false || strpos($tema1img, 'kog') !== false ||
+                            strpos($tema2img, 'kog') !== false) {
                             $data['game'] = '王者荣耀';
                         } else {
-                            $data['game'] = '英雄联盟';
+                            $find_onclick = $node->filter('div > div.header > div')->attr('onclick');
+                            $find_link = substr($find_onclick, strpos($find_onclick, 'hrefClicked(\'') + 13);
+                            $find_link = substr($find_link, 0, strpos($find_link, '\')'));
+                            $find_client = new Client();
+                            $find_response = $find_client->get('https://www.500bf.com' . $find_link, ['verify' => false]);
+                            $find_request = $find_response->getBody()->getContents();
+
+                            if (strpos($find_request,'/dota/team') !== false){
+                                $data['game'] = 'DOTA2';
+                            } elseif (strpos($find_request,'/csgo/team')) {
+                                $data['game'] = 'CS:GO';
+                            } elseif (strpos($find_request,'/lol/team')) {
+                                $data['game'] = '英雄联盟';
+                            } elseif (strpos($find_request,'/kog/team')) {
+                                $data['game'] = '王者荣耀';
+                            }
+
+
                         }
 
                         $client_img = new Client(['verify' => false]);
@@ -103,14 +128,20 @@ class HomeSpiderController extends Controller
                         if ($events_id) {
                             $data['eventsid'] = $events_id;
                         } else { // 赛事不存在，需新增
-                            $events_onclick = $node->filter('div > div.header > div')->attr('onclick');
-                            $events_link = substr($events_onclick, strpos($events_onclick, 'hrefClicked(\'') + 13);
-                            $events_link = substr($events_link, 0, strpos($events_link, '\')'));
-                            $events_client = new Client();
-                            $events_response = $events_client->get('https://www.500bf.com' . $events_link, ['verify' => false]);
-                            $events_request = $events_response->getBody()->getContents();
-                            $events_crawler = new Crawler();
-                            $events_crawler->addHtmlContent($events_request);
+                            if ($find_request){
+                                $events_crawler = new Crawler();
+                                $events_crawler->addHtmlContent($find_request);
+                            } else {
+                                $events_onclick = $node->filter('div > div.header > div')->attr('onclick');
+                                $events_link = substr($events_onclick, strpos($events_onclick, 'hrefClicked(\'') + 13);
+                                $events_link = substr($events_link, 0, strpos($events_link, '\')'));
+                                $events_client = new Client();
+                                $events_response = $events_client->get('https://www.500bf.com' . $events_link, ['verify' => false]);
+                                $events_request = $events_response->getBody()->getContents();
+                                $events_crawler = new Crawler();
+                                $events_crawler->addHtmlContent($events_request);
+                            }
+
                             $events['match'] = $data['events'];
                             $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
                             $filename = substr($events['matchimg'],strrpos($events['matchimg'],'/')+1);
@@ -172,7 +203,7 @@ class HomeSpiderController extends Controller
                         } catch (\Exception $exception) {
                             $data['pooreconomy'] = '0K';
                         }
-                        $data['team1img'] = $node->filter('div > div:nth-child(3) > div.tag-1 > img')->attr('src');
+                        $data['team1img'] = $tema1img;
 
                         $filename = substr($data['team1img'],strrpos($data['team1img'],'/')+1);
                         if (!file_exists(public_path('static/'.$filename))){
@@ -204,7 +235,7 @@ class HomeSpiderController extends Controller
 //                        } else {
 //                            $data['team1special'] = '';
 //                        }
-                        $data['team2img'] = $node->filter('div > div:nth-child(4) > div.tag-1 > img')->attr('src');
+                        $data['team2img'] = $tema2img;
 
                         $filename = substr($data['team2img'],strrpos($data['team2img'],'/')+1);
                         if (!file_exists(public_path('static/'.$filename))){
