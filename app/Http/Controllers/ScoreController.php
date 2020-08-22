@@ -29,11 +29,11 @@ class ScoreController extends Controller
                 foreach ($tv as $key_2 => $item) {
                     $k = substr($item, 0, strpos($item, '=>'));
                     $tv_link = substr($item, strpos($item, '=>') + 2);
-                    array_push($scoreing[$key]->tv, $key_2,array('name'=>$k,'link'=>$tv_link));
+                    $scoreing[$key]->tv = array_add($scoreing[$key]->tv, $key_2,array('name'=>$k,'link'=>$tv_link));
                 }
                 foreach ($scoreing[$key]->tv as $tv_value){
 //                    dd(is_int(strpos($tv_value['name'],'斗2鱼')));
-                    if ($con == 0 && !is_int(strpos($tv_value['name'],'斗鱼')) && $tv_value['name'] !== null){
+                    if ($con == 0 && !is_int(strpos($tv_value['name'],'斗鱼'))){
                         $scoreing[$key]->tv[0] = array('name' => $tv_value['name'],'link'=>$tv_value['link']);
                     }
                 }
@@ -138,11 +138,11 @@ class ScoreController extends Controller
                 foreach ($tv as $key_2 => $item) {
                     $k = substr($item, 0, strpos($item, '=>'));
                     $tv_link = substr($item, strpos($item, '=>') + 2);
-                    array_push($scoreing[$key]->tv, $key_2,array('name'=>$k,'link'=>$tv_link));
+                    $scoreing[$key]->tv = array_add($scoreing[$key]->tv, $key_2,array('name'=>$k,'link'=>$tv_link));
                 }
                 foreach ($scoreing[$key]->tv as $tv_value){
 //                    dd(is_int(strpos($tv_value['name'],'斗2鱼')));
-                    if ($con == 0 && !is_int(strpos($tv_value['name'],'斗鱼')) && $tv_value['name'] !== null){
+                    if ($con == 0 && !is_int(strpos($tv_value['name'],'斗鱼'))){
                         $scoreing[$key]->tv[0] = array('name' => $tv_value['name'],'link'=>$tv_value['link']);
                     }
                 }
