@@ -5,92 +5,27 @@
         "events": "OMEGA League",
         "game": "\u82f1\u96c4\u8054\u76df",
         "eventsid": 1,
-        "tv": [
-            {
-                "name": "\u864e\u7259899",
-                "link": "https:\/\/esportsapi.feijing88.com\/live\/v2\/?v=d376c2138fe484f89822fd05777b1761b158c6a16f5de3dfb97f2ed7bc1cda758fbc124007515905e45238ace124c38efac0cdfba37e6b903341e51956a7ec570d32323772d45e42cbd9d1ce02cbc847"
-            },
-            {
-                "name": "\u864e\u7259899",
-                "link": "https:\/\/esportsapi.feijing88.com\/live\/v2\/?v=d376c2138fe484f89822fd05777b1761b158c6a16f5de3dfb97f2ed7bc1cda758fbc124007515905e45238ace124c38efac0cdfba37e6b903341e51956a7ec570d32323772d45e42cbd9d1ce02cbc847"
-            }
-        ],
-        "now": "\u7b2c\u4e00\u5c4052",
+        "tv": [],
+        "now": "\u7b2c\u4e09\u5c4029",
         "BO": "BO3",
-        "pooreconomy": "14.68K",
-        "team1img": "http:\/\/45.157.91.154\/static\/ad41ba741295483fbf3627223e36197e.jpg",
-        "team1": "Neon Esports",
+        "pooreconomy": "14.246K",
+        "team1img": "http:\/\/45.157.91.154\/static\/33afc83e596b98df2cce377bad240e55.png",
+        "team1": "TP",
         "team1winnum": 1,
-        "team1killnum": 45,
-        "team1special": [],
-        "team2img": "http:\/\/45.157.91.154\/static\/9a92e0f2fe4ddde5e56d3bbc46f9f6df.png",
-        "team2": "Execration",
-        "team2winnum": 0,
-        "team2killnum": 53,
-        "team2special": [
-            "https:\/\/www.500bf.com\/static\/index\/img\/first_kill.png",
+        "team1killnum": 14,
+        "team1special": [
             "https:\/\/www.500bf.com\/static\/index\/img\/ten_kill_icon.png"
         ],
-        "created_at": null,
-        "updated_at": null,
-        "pooimg": "http:\/\/qn.gunqiu.com\/pcweb\/up_icon.png"
-    },
-    {
-        "id": 7,
-        "eventsimg": "http:\/\/45.157.91.154\/static\/ddcd67777afa4bf6a1d2453e3637b98f.jpg",
-        "events": "ESL One \u6cf0\u56fd\u7ad92020",
-        "game": "\u82f1\u96c4\u8054\u76df",
-        "eventsid": 330,
-        "tv": [
-            {
-                "name": "\u864e\u7259762",
-                "link": "https:\/\/esportsapi.feijing88.com\/live\/v2\/?v=bef20918f38f2b9ca84946185bbf01153293e78295abc51a1d81060b97cf51c0b722dcf19f461b7ec5d4b79e0fc5e3d33a0a5b26caefb9814460c295d226127166a73658903c2baefbfcbb0d2f1510ec"
-            }
-        ],
-        "now": "\u7b2c\u4e00\u5c4048",
-        "BO": "BO3",
-        "pooreconomy": "6.451K",
-        "team1img": "http:\/\/45.157.91.154\/static\/a9cd110e256b410d9f2bbb0d1d0474bf.png",
-        "team1": "BOOM Esports",
-        "team1winnum": 0,
-        "team1killnum": 28,
-        "team1special": [
-            "https:\/\/www.500bf.com\/static\/index\/img\/first_kill.png"
-        ],
-        "team2img": "http:\/\/45.157.91.154\/static\/1e2b902d56c4b5ff8e3f5ffe93974602.png",
-        "team2": "Team Trust",
-        "team2winnum": 1,
+        "team2img": "http:\/\/45.157.91.154\/static\/233aa5cef8e54284a047bcecc8c31798.jpg",
+        "team2": "bc",
+        "team2winnum": 2,
         "team2killnum": 32,
         "team2special": [
-            "https:\/\/www.500bf.com\/static\/index\/img\/ten_kill_icon.png"
+            "https:\/\/www.500bf.com\/static\/index\/img\/first_kill.png"
         ],
         "created_at": null,
         "updated_at": null,
-        "pooimg": "http:\/\/qn.gunqiu.com\/pcweb\/up_icon.png"
-    },
-    {
-        "id": 2,
-        "eventsimg": "http:\/\/45.157.91.154\/static\/9dc3313bec7dacccb5a35d2a64197bc0.png",
-        "events": "Nine to Five 3",
-        "game": "CS:GO",
-        "eventsid": 319,
-        "tv": [],
-        "now": "R:",
-        "BO": "BO3",
-        "pooreconomy": "",
-        "team1img": "http:\/\/45.157.91.154\/static\/7004553c82bb4fc5800f8dad7c0ed669.jpg",
-        "team1": "CR4ZY",
-        "team1winnum": 1,
-        "team1killnum": 0,
-        "team1special": [],
-        "team2img": "http:\/\/45.157.91.154\/static\/2f3c6bfb10db4167ac0c53bd579e19f1.jpg",
-        "team2": "AVEZ",
-        "team2winnum": 0,
-        "team2killnum": 0,
-        "team2special": [],
-        "created_at": null,
-        "updated_at": null,
-        "pooimg": ""
+        "pooimg": "http:\/\/45.157.91.154\/static\/up_icon.png"
     },
     {
         "id": 3,
@@ -99,115 +34,23 @@
         "game": "\u82f1\u96c4\u8054\u76df",
         "eventsid": 3,
         "tv": [
-            {
-                "name": "\u6597\u9c7c244",
-                "link": "https:\/\/www.500bf.com\/index\/index\/living\/match_id\/268076901\/idx\/0.html"
-            }
+            "\u6597\u9c7c244"
         ],
         "now": "\u7b2c\u4e00\u5c400",
         "BO": "BO3",
         "pooreconomy": "0K",
-        "team1img": "http:\/\/45.157.91.154\/static\/27a8d2d2a3a547fea4b3d8ac67ce5f94.jpg",
-        "team1": "FPB",
-        "team1winnum": 1,
+        "team1img": "http:\/\/45.157.91.154\/static\/dcc0882817df47578e5f3e8cd8e2eb4e.png",
+        "team1": "DMO.Y",
+        "team1winnum": 0,
         "team1killnum": 0,
         "team1special": [],
-        "team2img": "http:\/\/45.157.91.154\/static\/69ac2d92026323ead9ff397cd4f3d256.png",
-        "team2": "OSE",
+        "team2img": "http:\/\/45.157.91.154\/static\/fedb91d7a1d3976e968e14cdce722c97.png",
+        "team2": "JDM",
         "team2winnum": 0,
         "team2killnum": 0,
         "team2special": [],
         "created_at": null,
         "updated_at": null,
-        "pooimg": "http:\/\/qn.gunqiu.com\/pcweb\/up_icon.png"
-    },
-    {
-        "id": 4,
-        "eventsimg": "http:\/\/45.157.91.154\/static\/f22fd95faa0648aca48e3348fc3ccc60.png",
-        "events": "2020 LDL\u590f\u5b63\u8d5b",
-        "game": "\u82f1\u96c4\u8054\u76df",
-        "eventsid": 3,
-        "tv": [
-            {
-                "name": "\u864e\u7259899",
-                "link": "https:\/\/esportsapi.feijing88.com\/live\/v2\/?v=d376c2138fe484f89822fd05777b1761b158c6a16f5de3dfb97f2ed7bc1cda758fbc124007515905e45238ace124c38efac0cdfba37e6b903341e51956a7ec570d32323772d45e42cbd9d1ce02cbc847"
-            }
-        ],
-        "now": "\u7b2c\u4e00\u5c400",
-        "BO": "BO3",
-        "pooreconomy": "0K",
-        "team1img": "http:\/\/45.157.91.154\/static\/7207491421431d48f007984ffc2e5b9b.png",
-        "team1": "WZ",
-        "team1winnum": 0,
-        "team1killnum": 0,
-        "team1special": [],
-        "team2img": "http:\/\/45.157.91.154\/static\/bb70b75da2284c5697308136b00cbb02.jpg",
-        "team2": "LGE",
-        "team2winnum": 1,
-        "team2killnum": 0,
-        "team2special": [],
-        "created_at": null,
-        "updated_at": null,
-        "pooimg": "http:\/\/qn.gunqiu.com\/pcweb\/up_icon.png"
-    },
-    {
-        "id": 5,
-        "eventsimg": "http:\/\/45.157.91.154\/static\/21f0b0438ddc37213aed3e608128192e.png",
-        "events": "2020 LCK\u590f\u5b63\u8d5b",
-        "game": "\u82f1\u96c4\u8054\u76df",
-        "eventsid": 5,
-        "tv": [
-            {
-                "name": "\u864e\u725918",
-                "link": "https:\/\/esportsapi.feijing88.com\/live\/v2\/?v=5aadcd100ffadda6d77576e792f69c2a056ab7ea7201415664db0610c8bacc4e55bdaf5b1bc5f23ba0329b309c1acc58239d26b183904458c3ee0f4633b10880"
-            }
-        ],
-        "now": "\u7b2c\u4e00\u5c4035",
-        "BO": "BO3",
-        "pooreconomy": "5.2K",
-        "team1img": "http:\/\/45.157.91.154\/static\/8c971936c27b430d96c94045f1b51c64.jpg",
-        "team1": "SB",
-        "team1winnum": 1,
-        "team1killnum": 10,
-        "team1special": [
-            "https:\/\/www.500bf.com\/static\/index\/img\/first_kill.png",
-            "https:\/\/www.500bf.com\/static\/index\/img\/ten_kill_icon.png"
-        ],
-        "team2img": "http:\/\/45.157.91.154\/static\/089d56fd5d904baca8cf52968a998303.png",
-        "team2": "HLE",
-        "team2winnum": 0,
-        "team2killnum": 6,
-        "team2special": [],
-        "created_at": null,
-        "updated_at": null,
-        "pooimg": "http:\/\/qn.gunqiu.com\/pcweb\/up_icon.png"
-    },
-    {
-        "id": 6,
-        "eventsimg": "http:\/\/45.157.91.154\/static\/37aed5fd124748afb98736f99ff4d766.png",
-        "events": "OMEGA League",
-        "game": "\u82f1\u96c4\u8054\u76df",
-        "eventsid": 1,
-        "tv": [],
-        "now": "\u7b2c\u4e00\u5c4017",
-        "BO": "BO3",
-        "pooreconomy": "2.194K",
-        "team1img": "http:\/\/45.157.91.154\/static\/9a92e0f2fe4ddde5e56d3bbc46f9f6df.png",
-        "team1": "Execration",
-        "team1winnum": 0,
-        "team1killnum": 17,
-        "team1special": [
-            "https:\/\/www.500bf.com\/static\/index\/img\/ten_kill_icon.png"
-        ],
-        "team2img": "http:\/\/45.157.91.154\/static\/ad41ba741295483fbf3627223e36197e.jpg",
-        "team2": "Neon Esports",
-        "team2winnum": 0,
-        "team2killnum": 8,
-        "team2special": [
-            "https:\/\/www.500bf.com\/static\/index\/img\/first_kill.png"
-        ],
-        "created_at": null,
-        "updated_at": null,
-        "pooimg": "http:\/\/qn.gunqiu.com\/pcweb\/up_icon.png"
+        "pooimg": "http:\/\/45.157.91.154\/static\/up_icon.png"
     }
 ]
