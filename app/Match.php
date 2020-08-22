@@ -11,8 +11,12 @@ class Match extends Model
 
 
 
-    public function GetMatchId($events){
-        $events_id = $this->where('match',$events)->select('id')->get()->toArray();
+    public function GetMatchId($events,$game){
+        $events_id = $this->where('match',$events)
+            ->where('game',$game)
+            ->select('id')
+            ->get()
+            ->toArray();
         return $events_id ? $events_id[0]['id'] : false;
 
 

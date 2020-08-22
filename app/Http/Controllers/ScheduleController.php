@@ -156,7 +156,7 @@ class ScheduleController extends Controller
                         $data['events'] = $node->filter('div.leagues > p')->text();
                         // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
                         $Match = new Match();
-                        $events_id = $Match->GetMatchId($data['events']);
+                        $events_id = $Match->GetMatchId($data['events'],$data['gametype']);
                         if ($events_id) {
                             $data['eventsid'] = $events_id;
                         } else { // 赛事不存在，需新增
@@ -353,7 +353,7 @@ class ScheduleController extends Controller
                         $data['events'] = $node->filter('div.leagues > p')->text();
                         // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
                         $Match = new Match();
-                        $events_id = $Match->GetMatchId($data['events']);
+                        $events_id = $Match->GetMatchId($data['events'],$data['gametype']);
                         if ($events_id) {
                             $data['eventsid'] = $events_id;
                         } else { // 赛事不存在，需新增
@@ -574,7 +574,7 @@ class ScheduleController extends Controller
                         $data['events'] = $node->filter('div.leagues > p')->text();
                         // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
                         $Match = new Match();
-                        $events_id = $Match->GetMatchId($data['events']);
+                        $events_id = $Match->GetMatchId($data['events'],$data['gametype']);
                         if ($events_id) {
                             $data['eventsid'] = $events_id;
                         } else { // 赛事不存在，需新增
