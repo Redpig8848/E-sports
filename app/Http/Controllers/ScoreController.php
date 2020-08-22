@@ -33,7 +33,7 @@ class ScoreController extends Controller
                 }
                 foreach ($scoreing[$key]->tv as $tv_value){
 //                    dd(is_int(strpos($tv_value['name'],'斗2鱼')));
-                    if ($con == 0 && !is_int(strpos($tv_value['name'],'斗鱼'))){
+                    if ($con == 0 && !is_int(strpos($tv_value['name'],'斗鱼')) && $tv_value['name'] !== null){
                         $scoreing[$key]->tv[0] = array('name' => $tv_value['name'],'link'=>$tv_value['link']);
                     }
                 }
@@ -142,7 +142,7 @@ class ScoreController extends Controller
                 }
                 foreach ($scoreing[$key]->tv as $tv_value){
 //                    dd(is_int(strpos($tv_value['name'],'斗2鱼')));
-                    if ($con == 0 && !is_int(strpos($tv_value['name'],'斗鱼'))){
+                    if ($con == 0 && !is_int(strpos($tv_value['name'],'斗鱼')) && $tv_value['name'] !== null){
                         $scoreing[$key]->tv[0] = array('name' => $tv_value['name'],'link'=>$tv_value['link']);
                     }
                 }
