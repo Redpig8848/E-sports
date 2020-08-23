@@ -39,11 +39,15 @@ class MatchSpiderController extends Controller
             $this->url = $links;
         }
 
-        $requests = function ($total) use ($client) {
+        $requests = function ($total) use ($client,$links) {
             foreach ($this->url as $uri) {
-                yield function () use ($client, $uri) {
-                    if ($uri->matchimg != "该赛事内容不存在") {
-                        return $client->get($uri->link, ['verify' => false]);
+                yield function () use ($client, $uri, $links) {
+                    if($links == ''){
+                        if ($uri->matchimg != "该赛事内容不存在") {
+                            return $client->get($uri->link, ['verify' => false]);
+                        }
+                    } else {
+                        return $client->get($uri, ['verify' => false]);
                     }
                 };
             }

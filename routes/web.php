@@ -120,7 +120,8 @@ if ($is) {
     Route::get('GetInformationBody/{id}', 'InformationController@GetInformationBody');
 
 
-} elseif ($ip_from == 'pig') {
+}
+elseif ($ip_from == 'pig') {
 
 //--------------爬虫-----------------//
     Route::get('allmatching', 'HomeSpiderController@index');  // 首页正在进行   需频繁更新

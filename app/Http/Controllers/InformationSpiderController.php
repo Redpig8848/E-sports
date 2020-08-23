@@ -468,6 +468,10 @@ class InformationSpiderController extends Controller
     function body($html){
         $body = substr($html,strpos($html,"<div class=\"new_conts\">"));
         $body = substr($body,0,strrpos($body,'<div id="adv_bd_2"'));
+
+        $body = str_replace('data-original="/static','data-original="https://lol.dianjinghu.com//static',$body);
+
+
         return $body;
     }
 
