@@ -36,7 +36,7 @@ class MatchSpiderController extends Controller
             $this->url = DB::table('match')->get()->toArray();
             DB::table('schedulematch')->truncate();
         }else{
-            $this->url = $links;
+            $this->url = $links['link'];
         }
 
         $requests = function ($total) use ($client,$links) {
