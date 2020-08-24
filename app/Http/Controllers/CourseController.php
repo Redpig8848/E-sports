@@ -8,7 +8,23 @@ use Illuminate\Support\Facades\DB;
 class CourseController extends Controller
 {
     // 赛程页面
+    function compareByTimeStamp($time1, $time2)
 
+    {
+
+        if (strtotime($time1) < strtotime($time2))
+
+            return 1;
+
+        else if (strtotime($time1) > strtotime($time2))
+
+            return -1;
+
+        else
+
+            return 0;
+
+    }
     // 获取当前星期的日期
     function GetWeek($format='m月d日'){
         date_default_timezone_set('Asia/Shanghai');
@@ -36,6 +52,7 @@ class CourseController extends Controller
     // 全部游戏
     function CourseAll($date){
         return DB::table('allschedule')->where('matchtime','like',$date.'%')
+            ->orderBy('matchtime','asc')
             ->get()
             ->toArray();
     }
@@ -52,6 +69,7 @@ class CourseController extends Controller
 
         return DB::table('allschedule')->where('matchtime','like',$date.'%')
             ->where('gametype',$game[0]->game)
+            ->orderBy('matchtime','asc')
             ->get()
             ->toArray();
     }
