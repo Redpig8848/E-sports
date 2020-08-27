@@ -33,7 +33,7 @@ class IndexController extends Controller
             $Navigation[$key] = (array)['type' => $game->game];
             $Navigation[$key]['item'] = (array)DB::table('match')->select('id', 'match', 'matchimg')
                 ->where('game', $game->game)
-                ->orderBy('id', 'desc')
+                ->orderBy('matchtime', 'desc')
                 ->limit(4)
                 ->get()
                 ->toArray();
