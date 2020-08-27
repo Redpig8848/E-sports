@@ -17,7 +17,7 @@ try {
 }catch (Exception $exception){
     $ip_from = 'pig';
 }
-
+//$ip_from = 'pig';
 //$file = fopen(public_path('demo.txt'),'a');
 //fwrite($file,$ip_from.chr(10));
 //fclose($file);
@@ -145,6 +145,10 @@ elseif ($ip_from == 'pig') {
     Route::get('dota', 'InformationSpiderController@dota');
     Route::get('gok', 'InformationSpiderController@gok');
     Route::get('csgo', 'InformationSpiderController@cs');
+
+
+
+    Route::get('gettv', 'TVSpiderController@tv');
 
 
 }

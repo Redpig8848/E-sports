@@ -1,4 +1,8 @@
 <?php
+use GuzzleHttp\Client;
+
+
+
 
 //$timestamp = mktime(0,0,0,1,1,date('Y'));
 //
@@ -65,12 +69,13 @@
 //
 
 
-//print(file_get_contents('https://www.dota2.com.cn/news/index.htm'));
+//print(file_get_contents('https://www.fnscore.com/detail/match/dota-4/match-lgwiX00003368.html?liveIndex=0&leagueId=L006573'));
 
 
 //print strpos(array(4,5,6),"1111232323")
 
-
+$client = new Client();
+$client->get('https://www.fnscore.com/detail/match/dota-4/match-lgwiX00003368.html?liveIndex=0&leagueId=L006573',['verify' => false]);
 
 
 

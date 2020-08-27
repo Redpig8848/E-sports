@@ -341,7 +341,8 @@ class InformationSpiderController extends Controller
         ini_set('memory_limit', '-1');
 //        for ($i = 1; $i >= 1; $i--) {
 //            $this->url[] = 'https://www.csgo.com.cn/news/gameevent/index'.$i.'.html';
-        $this->url = ['https://www.csgo.com.cn/news/index1.html'];
+//        $this->url = ['https://www.csgo.com.cn/news/index1.html'];
+        $this->url = ['https://csgo.5eplay.com/article'];
 //        }
         $this->totalPageCount = 1500;
         $client = new Client();
@@ -371,8 +372,8 @@ class InformationSpiderController extends Controller
                 if (!empty($http)) {
                     $crawler = new Crawler();
                     $crawler->addHtmlContent($http);
-                    $arr = $crawler->filter('body > div.bg.bg_news > div > div.con_left > div > div.list_con > ul > li')->each(function ($node, $i) use ($http) {
-                        $data['thumbnail'] = $node->filter('a > img')->attr('src');
+                    $arr = $crawler->filter('#article-list-box > li')->each(function ($node, $i) use ($http) {
+                        $data['thumbnail'] = $node->filter('a > div.video-img > img')->attr('src');
                         $client_img = new Client(['verify' => false]);
                         $filename = substr($data['thumbnail'],strrpos($data['thumbnail'],'/')+1);
                         if (!file_exists(public_path('static/information/'.$filename))){
@@ -386,7 +387,7 @@ class InformationSpiderController extends Controller
                         }else{
                             $data['thumbnail'] = 'http://45.157.91.154/static/information/'.$filename;
                         }
-                        $data['title'] = trim($node->filter('div > h3')->text());
+                        $data['title'] = trim($node->filter('a > div.video-info > p.video-title')->text());
                         $num = DB::table('information')->where('title',$data['title'])->count();
                         if ($num > 0){
 //                            echo 222;
@@ -397,7 +398,7 @@ class InformationSpiderController extends Controller
 
 
 
-                        $href = $node->filter('div > a')->attr('href');
+                        $href = $node->filter('a')->attr('href');
 
 
                         try {
@@ -405,10 +406,12 @@ class InformationSpiderController extends Controller
                             $crawler_2 = new Crawler();
                             $href_http = $href_client->get($href)->getBody()->getContents();
                             $crawler_2->addHtmlContent($href_http);
-                            $time = $crawler_2->filter('body > div.bg > div.container > div.con_left > div.artical > div.sub_tit > div > span:nth-child(2)')->text();
-                            $data['time'] = str_replace('时间：','',$time);
+                            $time = $crawler_2->filter('body > div.content.articlePage > div.article-main.clearfix > div.article-left.floatL > div.article-left-top > div.hd > div.article-info')->text();
+                            preg_match('/\d+-\d+-\d+ \d+:\d+:\d+/',$time,$times);
+
+                            $data['time'] = $times[0];
                             $data['unix'] = strtotime($data['time']);
-                            $data['body'] = $crawler_2->filter('body > div.bg > div.container > div.con_left > div.artical > div.wen.fontStyle')->html();
+                            $data['body'] = $crawler_2->filter('body > div.content.articlePage > div.article-main.clearfix > div.article-left.floatL > div.article-left-top > div.article-text')->html();
                             $bool = DB::table('information')->insert($data);
                             echo $bool."<br>";
                         }catch (\Exception $exception){
