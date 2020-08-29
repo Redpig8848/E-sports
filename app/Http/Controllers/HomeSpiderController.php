@@ -1203,7 +1203,16 @@ class HomeSpiderController extends Controller
                             if (is_array($data['team2tag3special']))
                                 $data['team2tag3special'] = implode("|", $data['team2tag3special']);
                         } catch (\Exception $e) {
-                            $data['team2tag3special'] = '';
+                            try {
+                                $data['team2tag3special'] = $node->filter('div > div.content > div.team-info > div:nth-child(2) > div:nth-child(5) > img')->each(function ($node3, $i) {
+                                    return 'https://www.500bf.com' . $node3->attr('src');
+                                });
+                                if (is_array($data['team2tag3special']))
+                                    $data['team2tag3special'] = implode("|", $data['team2tag3special']);
+                            }catch (\Exception $e){
+                                $data['team2tag3special'] = '';
+                            }
+
                         }
                         if ($data['tag4'] !== ''){
                             try {
