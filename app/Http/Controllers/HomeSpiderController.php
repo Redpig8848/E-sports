@@ -1103,11 +1103,19 @@ class HomeSpiderController extends Controller
                         try {
                             $data['team1tag3special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.tag.first-half > img')->each(function ($node3, $i) {
                                 return 'https://www.500bf.com' . $node3->attr('src');
-                            });
+                            });//div > div.content > div.team-info > div:nth-child(2) > div:nth-child(5) > img
                             if (is_array($data['team1tag3special']))
                                 $data['team1tag3special'] = implode("|", $data['team1tag3special']);
                         } catch (\Exception $e) {
-                            $data['team1tag3special'] = '';
+                            try {
+                                $data['team1tag3special'] = $node->filter('div > div.content > div.team-info > div:nth-child(1) > div:nth-child(5) > img')->each(function ($node3, $i) {
+                                    return 'https://www.500bf.com' . $node3->attr('src');
+                                });//
+                                if (is_array($data['team1tag3special']))
+                                    $data['team1tag3special'] = implode("|", $data['team1tag3special']);
+                            }catch (\Exception $exception){
+                                $data['team1tag3special'] = '';
+                            }
                         }
                         if ($data['tag4'] !== ''){
                             try {
@@ -1246,11 +1254,19 @@ class HomeSpiderController extends Controller
                         try {
                             $data['team2tag5special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.tag.over-time > img')->each(function ($node3, $i) {
                                 return 'https://www.500bf.com' . $node3->attr('src');
-                            });
+                            });#div > div.content > div.team-info > div:nth-child(2) > div:nth-child(7) > img
                             if (is_array($data['team2tag5special']))
                                 $data['team2tag5special'] = implode("|", $data['team2tag5special']);
                         } catch (\Exception $e) {
-                            $data['team2tag5special'] = '';
+                            try {
+                                $data['team2tag5special'] = $node->filter('div > div.content > div.team-info > div:nth-child(2) > div:nth-child(7) > img')->each(function ($node3, $i) {
+                                    return 'https://www.500bf.com' . $node3->attr('src');
+                                });#
+                                if (is_array($data['team2tag5special']))
+                                    $data['team2tag5special'] = implode("|", $data['team2tag5special']);
+                            }catch (\Exception $e){
+                                $data['team2tag5special'] = '';
+                            }
                         }
                         $data['team2tag6num'] = '';
                         $data['team2indexnum'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.tag.bet > p')->text();
