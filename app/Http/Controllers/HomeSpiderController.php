@@ -1139,7 +1139,7 @@ class HomeSpiderController extends Controller
                         }
 
                         try {
-                            $data['team1tag5special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.tag.over-time > img')->each(function ($node3, $i) {
+                            $data['team1tag5special'] = $node->filter('div > div.content > div.team-info > div:nth-child(1) > div:nth-child(7) > img')->each(function ($node3, $i) {
                                 return 'https://www.500bf.com' . $node3->attr('src');
                             });
                             if (is_array($data['team1tag5special']))
@@ -1216,7 +1216,7 @@ class HomeSpiderController extends Controller
                         }
 
                         try {
-                            $data['team2tag4special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.tag.sconde-half > img')->each(function ($node3, $i) {
+                            $data['team2tag4special'] = $node->filter('div > div.content > div.team-info > div:nth-child(2) > div:nth-child(6) > img')->each(function ($node3, $i) {
                                 return 'https://www.500bf.com' . $node3->attr('src');
                             });
                             if (is_array($data['team2tag4special']))
