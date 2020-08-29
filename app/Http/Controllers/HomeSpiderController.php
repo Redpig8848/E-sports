@@ -1131,10 +1131,20 @@ class HomeSpiderController extends Controller
                             $data['team1tag4special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(1) > div.tag.sconde-half > img')->each(function ($node3, $i) {
                                 return 'https://www.500bf.com' . $node3->attr('src');
                             });
+
                             if (is_array($data['team1tag4special']))
                                 $data['team1tag4special'] = implode("|", $data['team1tag4special']);
+                            echo $data['team1tag4special'];
                         } catch (\Exception $e) {
-                            $data['team1tag4special'] = '';
+                            try {
+                                $data['team1tag4special'] = $node->filter('div > div.content > div.team-info > div:nth-child(1) > div:nth-child(6) > img')->each(function ($node3, $i) {
+                                    return 'https://www.500bf.com' . $node3->attr('src');
+                                });
+                                if (is_array($data['team1tag4special']))
+                                    $data['team1tag4special'] = implode("|", $data['team1tag4special']);
+                            }catch (\Exception $exception){
+                                $data['team1tag4special'] = '';
+                            }
                         }
                         if($data['tag5'] !== ''){
                             try {
@@ -1208,10 +1218,12 @@ class HomeSpiderController extends Controller
                             $data['team2tag3special'] = $node->filter('div > div > div.content > div.team-info > div:nth-child(2) > div.tag.first-half > img')->each(function ($node3, $i) {
                                 return 'https://www.500bf.com' . $node3->attr('src');
                             });
+
                             if (is_array($data['team2tag3special']))
                                 $data['team2tag3special'] = implode("|", $data['team2tag3special']);
+                            echo 'data:'.$data['team2tag3special']."<br>";
                         } catch (\Exception $e) {
-                            try {
+                            try {#div > div.content > div.team-info > div:nth-child(2) > div:nth-child(5) > img
                                 $data['team2tag3special'] = $node->filter('div > div.content > div.team-info > div:nth-child(2) > div:nth-child(5) > img')->each(function ($node3, $i) {
                                     return 'https://www.500bf.com' . $node3->attr('src');
                                 });
@@ -1257,6 +1269,7 @@ class HomeSpiderController extends Controller
                             });#div > div.content > div.team-info > div:nth-child(2) > div:nth-child(7) > img
                             if (is_array($data['team2tag5special']))
                                 $data['team2tag5special'] = implode("|", $data['team2tag5special']);
+                            echo $data['team2tag5special'];
                         } catch (\Exception $e) {
                             try {
                                 $data['team2tag5special'] = $node->filter('div > div.content > div.team-info > div:nth-child(2) > div:nth-child(7) > img')->each(function ($node3, $i) {
