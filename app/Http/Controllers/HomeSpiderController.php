@@ -557,7 +557,7 @@ class HomeSpiderController extends Controller
                             }
 
                         }else{
-                            $data['gameimg'] = 'http://45.157.91.154/static/'.$filename;
+                            $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
                         }
 
                         $data['team2img'] = $node->filter('div.away-team > img')->attr('src');
@@ -572,7 +572,7 @@ class HomeSpiderController extends Controller
                             }
 
                         }else{
-                            $data['gameimg'] = 'http://45.157.91.154/static/'.$filename;
+                            $data['team2img'] = 'http://45.157.91.154/static/'.$filename;
                         }
 
                         $data['team2'] = $node->filter('div.away-team > p')->text();
@@ -588,7 +588,7 @@ class HomeSpiderController extends Controller
                             }
 
                         }else{
-                            $data['gameimg'] = 'http://45.157.91.154/static/'.$filename;
+                            $data['eventsimg'] = 'http://45.157.91.154/static/'.$filename;
                         }
 
                         $data['events'] = $node->filter('div.leagues > p')->text();
