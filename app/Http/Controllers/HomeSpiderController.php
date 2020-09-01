@@ -1322,4 +1322,221 @@ class HomeSpiderController extends Controller
 
     }
 
+
+    public function TVPagMatchDetails()
+    {
+        set_time_limit(0);
+        ini_set('memory_limit', '-1');
+        $this->url[] = 'https://500bf.com/index/index/living_bat?type=1&match_id=268076395&tab_index=1&map_index=1';
+        $this->totalPageCount = 1500;
+        $client = new Client();
+        $requests = function ($total) use ($client) {
+            foreach ($this->url as $uri) {
+                yield function () use ($client, $uri) {
+                    return $client->get($uri, ['verify' => false]);
+                };
+            }
+        };
+
+        $pool = new Pool($client, $requests($this->totalPageCount), [
+            'concurrency' => $this->concurrency,
+            'fulfilled' => function ($response, $index) {
+                echo '爬取' . $this->url[$index];
+                echo '<br>';
+                if(ob_get_level()>0)
+                    ob_flush();
+                flush();
+                try {
+//                    dd($response->getBody()->getContents());
+                    $http = $response->getBody()->getContents();
+//                    $http = iconv('gbk', 'UTF-8', $response->getBody()->getContents());
+                } catch (\Exception $e) {
+                    echo '没有找到数据';
+                }
+                if (!empty($http)) {
+                    $crawler = new Crawler();
+                    $crawler->addHtmlContent($http);
+                    $client_img = new Client(['verify' => false]);
+
+                    $team1img = $crawler->filter('body > div > div.bat-data > div:nth-child(1) > div.bat-info0 > div.home > img')->attr('src');
+                    $filename = substr($team1img,strrpos($team1img,'/')+1);
+                    if (!file_exists(public_path('static/matchdetails/'.$filename))){
+                        try {
+                            $client_img->get($team1img,['save_to' => public_path('static/matchdetails/'.$filename)]);
+                            $data['team1img'] = 'http://45.157.91.154/static/matchdetails/'.$filename;
+                        }catch (\Exception $exception){
+                            $data['team1img'] = '';
+                        }
+
+                    }else{
+                        $data['team1img'] = 'http://45.157.91.154/static/matchdetails/'.$filename;
+                    }
+
+                    $data['team1'] = $crawler->filter('body > div > div.bat-data > div:nth-child(1) > div.bat-info0 > div.home > span')->text();
+                    $data['team1special'] = $crawler->filter('body > div > div.bat-data > div:nth-child(1) > div.bat-info0 > div.icons > img')->each(function ($node,$i){
+                        return 'https://500bf.com'.$node->attr('src');
+                    });
+                    if (is_array($data['team1special'])){
+                        foreach ($data['team1special'] as $key=>$item){
+                            $filename = substr($item,strrpos($item,'/')+1);
+                            if (!file_exists(public_path('static/matchdetails/'.$filename))){
+                                try {
+                                    $client_img->get($item,['save_to' => public_path('static/matchdetails/'.$filename)]);
+                                    $data['team1special'][$key] = 'http://45.157.91.154/static/matchdetails/'.$filename;
+                                }catch (\Exception $exception){}
+
+                            }else{
+                                $data['team1special'][$key] = 'http://45.157.91.154/static/matchdetails/'.$filename;
+                            }
+                        }
+                        $data['team1special'] = implode('|',$data['team1special']);
+                    }
+                    $data['team1score'] = $crawler->filter('body > div > div.bat-data > div:nth-child(1) > div.bat-info0 > span')->text();
+                    $data['team1tags'] = $crawler->filter('body > div > div.bat-data > div:nth-child(1) > div.bat-info1 > div > div')->each(function ($node,$i){
+                        $array['img'] = 'https://500bf.com'.$node->filter('img')->attr('src');
+                        $array['num'] = $node->filter('span')->text();
+                        return $array;
+                    });
+                    if (is_array($data['team1tags'])){
+                        foreach ($data['team1tags'] as $key=>$item){
+                            $filename = substr($item['img'],strrpos($item['img'],'/')+1);
+                            if (!file_exists(public_path('static/matchdetails/'.$filename))){
+                                try {
+                                    $client_img->get($item['img'],['save_to' => public_path('static/matchdetails/'.$filename)]);
+                                    $data['team1tags'][$key]['img'] = 'http://45.157.91.154/static/matchdetails/'.$filename;
+                                }catch (\Exception $exception){}
+                            }else{
+                                $data['team1tags'][$key]['img'] = 'http://45.157.91.154/static/matchdetails/'.$filename;
+                            }
+                            $data['team1tags'][$key] = implode('^',$item);
+                        }
+                        $data['team1tags'] = implode('|',$data['team1tags']);
+                    }
+
+                    $data['team1ban'] = $crawler->filter('body > div > div.bat-data > div:nth-child(1) > div.ban.img-right > img')->each(function ($node,$i){
+                        return $node->attr('src');
+                    });
+
+                    if (is_array($data['team1ban'])) {
+                        foreach ($data['team1ban'] as $key => $datum) {
+                            $filename = substr($datum, strrpos($datum, '/') + 1);
+                            if (!file_exists(public_path('static/matchdetails' . $filename))) {
+                                try {
+                                    $client_img->get($datum, ['save_to' => public_path('static/matchdetails/' . $filename)]);
+                                    $data['team1ban'][$key] = 'http://45.157.91.154/static/matchdetails/' . $filename;
+                                } catch (\Exception $exception) {
+                                }
+                            } else {
+                                $data['team1ban'][$key] = 'http://45.157.91.154/static/matchdetails/' . $filename;
+                            }
+                        }
+                        $data['team1ban'] = implode('|',$data['team1ban']);
+                    }
+
+                    $data['team1pick'] = $crawler->filter('body > div > div.bat-data > div:nth-child(1) > div.pick.img-right > img')->each(function ($node,$i){
+                        return $node->attr('src');
+                    });
+                    if (is_array($data['team1pick'])){
+                        foreach ($data['team1pick'] as $key=>$datum) {
+                            $filename  = substr($datum,strrpos($datum,'/')+1);
+                            if (!file_exists(public_path('static/matchdetails'.$filename))){
+                                try {
+                                    $client_img->get($datum,['save_to' => public_path('static/matchdetails/'.$filename)]);
+                                    $data['team1pick'][$key] = 'http://45.157.91.154/static/matchdetails/' . $filename;
+                                }catch (\Exception $exception){}
+                            }else{
+                                $data['team1pick'][$key] = 'http://45.157.91.154/static/matchdetails/' . $filename;
+                            }
+                        }
+                        $data['team1pick'] = implode('|',$data['team1pick']);
+                    }
+
+                    $data['status'] = $crawler->filter('body > div > div.bat-data > div.center-panel > div > span:nth-child(1)')->text();
+                    $data['matchtime'] = $crawler->filter('body > div > div.bat-data > div.center-panel > div > span:nth-child(2)')->text();
+                    $data['team2score'] = $crawler->filter('body > div > div.bat-data > div:nth-child(3) > div.bat-info0 > span')->text();
+                    $data['team2special'] = $crawler->filter('body > div > div.bat-data > div:nth-child(3) > div.bat-info0 > div.icons > img')->each(function ($node,$i){
+                        return 'https://500bf.com'.$node->attr('src');
+                    });
+                    if (is_array($data['team2special'])){
+                        foreach ($data['team2special'] as $key => $datum) {
+                            $filename = substr($datum,strrpos($datum,'/')+1);
+                            if (!file_exists(public_path('static/matchdetails'.$filename))){
+                                try {
+                                    $client_img->get($datum,['save_to' => public_path('static/matchdetails/'.$filename)]);
+                                    $data['team2special'][$key] = 'http://45.157.91.154/static/matchdetails/' . $filename;
+                                }catch (\Exception $exception){}
+                            }else{
+                                $data['team2special'][$key] = 'http://45.157.91.154/static/matchdetails/' . $filename;
+                            }
+                        }
+                        $data['team2special'] = implode('|',$data['team2special']);
+                    }
+                    $data['team2'] = $crawler->filter('body > div > div.bat-data > div:nth-child(3) > div.bat-info0 > div.home > span')->text();
+                    $data['team2img'] = $crawler->filter('body > div > div.bat-data > div:nth-child(3) > div.bat-info0 > div.home > img')->attr('src');
+                    try {
+                        $filename = substr($data['team2img'],strrpos($data['team2img'],'/')+1);
+                        $client_img->get($data['team2img'],['save_to' => public_path('static/matchdetails/'.$filename)]);
+                        $data['team2img'] = 'http://45.157.91.154/static/matchdetails/' . $filename;
+                    }catch (\Exception $exception){}
+
+                    $data['team2tags'] = $crawler->filter('body > div > div.bat-data > div:nth-child(3) > div.bat-info1 > div > div')->each(function ($node,$i){
+                        $array['img'] = 'https://500bf.com' . $node->filter('img')->attr('src');
+                        $array['num'] = $node->filter('span')->text();
+                        return $array;
+                    });
+                    if (is_array($data['team2tags'])){
+                        foreach ($data['team2tags'] as $key => $teamtag) {
+                            $filename = substr($teamtag,strrpos($teamtag,'/')+1);
+                            $client_img->get($teamtag,['save_to' => public_path('static/matchdetails/'.$filename)]);
+                        }
+                    }
+
+
+
+
+
+
+
+
+                    dd($data);
+
+
+
+
+
+
+
+
+                    $arr = $crawler->filter('#score_living > div > div > div.live_container > div')->each(function ($node, $i) use ($http) {
+                        $data = ';';
+
+//                        dd($data);
+                        return $data;
+                    });
+//                    dd($arr);
+//                    DB::table('scoreing')->truncate();
+//                    DB::table('scoreing')->insert($arr);
+
+
+//                    $bool = DB::table('title')->insert($arr);
+//                    echo $bool;
+                    echo '<br>';
+                    $this->countedAndCheckEnded();
+                }
+            },
+            'rejected' => function ($reason, $index) {
+//                    log('test',"rejected" );
+//                    log('test',"rejected reason: " . $reason );
+                $this->countedAndCheckEnded();
+            },
+        ]);
+
+        $promise = $pool->promise();
+        $promise->wait();
+
+    }
+
+
+
+
 }
