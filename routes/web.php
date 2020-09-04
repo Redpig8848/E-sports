@@ -150,6 +150,7 @@ elseif ($ip_from == 'pig') {
 
     Route::get('gettv', 'TVSpiderController@tv');
     Route::get('TVPagMatchDetails', 'HomeSpiderController@TVPagMatchDetails');
+    Route::get('demo', 'HomeSpiderController@demo');
 
 
 }
