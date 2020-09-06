@@ -883,7 +883,7 @@ class HomeSpiderController extends Controller
 //                        dd($data);
                         return $data;
                     });
-                    dd($arr);
+//                    dd($arr);
                     DB::table('scoreover')->truncate();
                     DB::table('scoreover')->insert($arr);
 
