@@ -11,7 +11,7 @@
 |
 */
 
-$ip_array = array('175.100.204.246', '154.89.127.200','154.89.127.199','175.100.204.232','127.0.0.1');
+$ip_array = array('175.100.204.246', '154.89.127.200','154.89.127.199','175.100.204.232','127.0.0.1','122.10.38.202');
 try {
     $ip_from = $_SERVER["REMOTE_ADDR"];
 }catch (Exception $exception){
@@ -150,7 +150,7 @@ elseif ($ip_from == 'pig') {
 
     Route::get('gettv', 'TVSpiderController@tv');
     Route::get('TVPagMatchDetails', 'HomeSpiderController@TVPagMatchDetails');
-    Route::get('demo', 'HomeSpiderController@demo');
+    Route::get('demo', 'DemoController@index');
 
 
 }
