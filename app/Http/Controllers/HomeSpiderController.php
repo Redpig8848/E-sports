@@ -794,22 +794,34 @@ class HomeSpiderController extends Controller
 
                         $data['team2'] = $node->filter('div.away-team > p')->text();
                         $data['eventsimg'] = $node->filter('div.leagues > img')->attr('src');
+                        $data['events'] = $node->filter('div.leagues > p')->text();
 
                         $filename = substr($data['eventsimg'], strrpos($data['eventsimg'], '/') + 1);
-                        if (!file_exists(public_path('static/' . $filename))) {
+                        if ($filename == 'csgo_sel_icon.png' || $filename == 'dota_sel_icon.png' || $filename == 'lol_sel_icon.png' || $filename == 'kog_sel_icon.png') {
+                            $match_img = DB::table('match')->where('match', $data['events'])
+                                ->select('matchimg')
+                                ->get()
+                                ->toArray();
                             try {
-                                $resp = $client_img->get($data['eventsimg'], ['save_to' => public_path('static/' . $filename)]);
-                                if ($resp->getStatusCode() == 200) {
-                                    $data['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
-                                }
-                            } catch (\Exception $exception) {
+                                $data['eventsimg'] = $match_img[0]->matchimg;
+                            } catch (\Exception $exception){
+                                $data['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
                             }
-
                         } else {
-                            $data['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
+                            if (!file_exists(public_path('static/' . $filename))) {
+                                try {
+                                    $resp = $client_img->get($data['eventsimg'], ['save_to' => public_path('static/' . $filename)]);
+                                    if ($resp->getStatusCode() == 200) {
+                                        $data['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
+                                    }
+                                } catch (\Exception $exception) {
+                                }
+
+                            } else {
+                                $data['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
+                            }
                         }
 
-                        $data['events'] = $node->filter('div.leagues > p')->text();
 
                         // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
                         $Match = new Match();
@@ -871,6 +883,7 @@ class HomeSpiderController extends Controller
 //                        dd($data);
                         return $data;
                     });
+                    dd($arr);
                     DB::table('scoreover')->truncate();
                     DB::table('scoreover')->insert($arr);
 
@@ -1697,7 +1710,7 @@ class HomeSpiderController extends Controller
                             if (!file_exists(public_path('static/matchdetails/' . $filename))) {
                                 try {
                                     $resp = $client_img->get($camp['heroimg'], ['save_to' => public_path('static/matchdetails/' . $filename)]);
-                                    if ($resp->getStatusCode() == 200){
+                                    if ($resp->getStatusCode() == 200) {
                                         $data['camp2hero' . $heronum] = 'http://45.157.91.154/static/matchdetails/' . $filename . '|' . $camp['heroname'] . '|'
                                             . $camp['tag1'] . '|' . $camp['tag2'] . '|' . $camp['tag3'] . '|' . $camp['tag4'] . '|' . $camp['tag5'] . '|' . $camp['tag6'];
                                     } else {
@@ -1720,7 +1733,7 @@ class HomeSpiderController extends Controller
                                 if (!file_exists(public_path('static/matchdetails/' . $equipment_name))) {
                                     try {
                                         $resp = $client_img->get($equipment, ['save_to' => public_path('static/matchdetails/' . $equipment_name)]);
-                                        if ($resp->getStatusCode() == 200){
+                                        if ($resp->getStatusCode() == 200) {
                                             $data['camp2hero' . $heronum . 'equipment'] = $data['camp2hero' . $heronum . 'equipment'] . 'http://45.157.91.154/static/matchdetails/' . $equipment_name;
                                         } else {
                                             $data['camp2hero' . $heronum . 'equipment'] = $equipment;

@@ -26,23 +26,23 @@ class MatchSpiderController extends Controller
     }
 
 
-
-    function AllMatch($links = ''){
+    function AllMatch($links = '')
+    {
         set_time_limit(0);
         ini_set('memory_limit', '-1');
         $this->totalPageCount = 1500;
         $client = new Client();
-        if ($links == ''){
+        if ($links == '') {
             $this->url = DB::table('match')->get()->toArray();
             DB::table('schedulematch')->truncate();
-        }else{
+        } else {
             $this->url = $links['link'];
         }
-
-        $requests = function ($total) use ($client,$links) {
-            foreach ($this->url as $uri) {
+        if (is_string($this->url)) {
+            $requests = function ($total) use ($client, $links) {
+                $uri = $this->url;
                 yield function () use ($client, $uri, $links) {
-                    if($links == ''){
+                    if ($links == '') {
                         if ($uri->matchimg != "该赛事内容不存在") {
                             return $client->get($uri->link, ['verify' => false]);
                         }
@@ -50,18 +50,30 @@ class MatchSpiderController extends Controller
                         return $client->get($uri, ['verify' => false]);
                     }
                 };
-            }
-        };
-
-
+            };
+        } else {
+            $requests = function ($total) use ($client, $links) {
+                foreach ($this->url as $uri) {
+                    yield function () use ($client, $uri, $links) {
+                        if ($links == '') {
+                            if ($uri->matchimg != "该赛事内容不存在") {
+                                return $client->get($uri->link, ['verify' => false]);
+                            }
+                        } else {
+                            return $client->get($uri, ['verify' => false]);
+                        }
+                    };
+                }
+            };
+        }
 
 
         $pool = new Pool($client, $requests($this->totalPageCount), [
             'concurrency' => $this->concurrency,
-            'fulfilled' => function ($response, $index) use($links){
+            'fulfilled' => function ($response, $index) use ($links) {
 //                echo '爬取' . $this->url[$index];
                 echo '<br>';
-                if(ob_get_level()>0)
+                if (ob_get_level() > 0)
                     ob_flush();
                 flush();
                 try {
@@ -75,40 +87,40 @@ class MatchSpiderController extends Controller
                 if (!empty($http)) {
                     $crawler = new Crawler();
                     $crawler->addHtmlContent($http);
-                    $arr = $crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-container > div > div.match-panel-container > div.match-panel-item')->each(function ($node, $i) use ($http,$index) {
+                    $arr = $crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-container > div > div.match-panel-container > div.match-panel-item')->each(function ($node, $i) use ($http, $index) {
                         $data['event'] = $this->url[$index]->match;
                         $data['eventid'] = $this->url[$index]->id;
                         $data['time'] = $node->filter('p:nth-child(1)')->text();
                         $data['team1img'] = $node->filter('div:nth-child(2) > img')->attr('src');
                         $client_img = new Client(['verify' => false]);
-                        $filename = substr($data['team1img'],strrpos($data['team1img'],'/')+1);
-                        if (!file_exists(public_path('static/'.$filename))){
+                        $filename = substr($data['team1img'], strrpos($data['team1img'], '/') + 1);
+                        if (!file_exists(public_path('static/' . $filename))) {
                             try {
-                                $client_img->get($data['team1img'],['save_to' => public_path('static/'.$filename)]);
-                                $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $exception){
+                                $client_img->get($data['team1img'], ['save_to' => public_path('static/' . $filename)]);
+                                $data['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                            } catch (\Exception $exception) {
                                 $data['team1img'] = '';
                             }
 
                         } else {
-                            $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
+                            $data['team1img'] = 'http://45.157.91.154/static/' . $filename;
                         }
 //                        dd($data);
                         $data['team1'] = $node->filter('div:nth-child(2) > p')->text();
                         $data['score'] = $node->filter('p.score')->text();
                         $data['team2img'] = $node->filter('div:nth-child(4) > img')->attr('src');
 
-                        $filename = substr($data['team2img'],strrpos($data['team2img'],'/')+1);
-                        if (!file_exists(public_path('static/'.$filename))){
+                        $filename = substr($data['team2img'], strrpos($data['team2img'], '/') + 1);
+                        if (!file_exists(public_path('static/' . $filename))) {
                             try {
-                                $client_img->get($data['team2img'],['save_to' => public_path('static/'.$filename)]);
-                                $data['team2img'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $exception){
+                                $client_img->get($data['team2img'], ['save_to' => public_path('static/' . $filename)]);
+                                $data['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                            } catch (\Exception $exception) {
                                 $data['team2img'] = '';
                             }
 
                         } else {
-                            $data['team2img'] = 'http://45.157.91.154/static/'.$filename;
+                            $data['team2img'] = 'http://45.157.91.154/static/' . $filename;
                         }
 
                         $data['team2'] = $node->filter('div:nth-child(4) > p')->text();
@@ -136,9 +148,6 @@ class MatchSpiderController extends Controller
         $promise = $pool->promise();
         $promise->wait();
     }
-
-
-
 
 
 }
