@@ -166,7 +166,8 @@ class HomeSpiderController extends Controller
                             $events['organizers'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.organizer > div > p:nth-child(2)')->text();
 
                             $events['game'] = $data['game'];
-
+                            $endtime = substr($events['matchtime'],strpos($events['matchtime'],'- ')+2);
+                            $events['timestamp'] = strtotime($endtime);
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
                             if ($events['matchimg'] !== '该赛事内容不存在') {
