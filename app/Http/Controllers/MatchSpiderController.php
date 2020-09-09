@@ -88,9 +88,14 @@ class MatchSpiderController extends Controller
                 if (!empty($http)) {
                     $crawler = new Crawler();
                     $crawler->addHtmlContent($http);
-                    $arr = $crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-container > div > div.match-panel-container > div.match-panel-item')->each(function ($node, $i) use ($http, $index) {
-                        $data['event'] = $this->url[$index]->match;
-                        $data['eventid'] = $this->url[$index]->id;
+                    $arr = $crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-container > div > div.match-panel-container > div.match-panel-item')->each(function ($node, $i) use ($http, $index,$links) {
+                        try {
+                            $data['event'] = $this->url[$index]->match;
+                            $data['eventid'] = $this->url[$index]->id;
+                        } catch (\Exception $exception){
+                            $data['event'] = $links['match'];
+                            $data['eventid'] = $links['matchid'];
+                        }
                         $data['time'] = $node->filter('p:nth-child(1)')->text();
                         $data['team1img'] = $node->filter('div:nth-child(2) > img')->attr('src');
                         $client_img = new Client(['verify' => false]);
