@@ -178,10 +178,15 @@ class HomeSpiderController extends Controller
 
                         $arr = array();
                         // 开始处理直播地址
-                        $tv_arr = $node->filter('div > div.header > div.videos-panel > ul > li')->each(function ($node2, $i) use ($arr) {
-                            $arr = array_add($arr, $node2->filter('a > span')->text(), 'https://www.500bf.com' . $node2->filter('a')->attr('href'));
-                            return $arr;
-                        });
+                        try{
+                            $tv_arr = $node->filter('div > div.header > div.videos-panel > ul > li')->each(function ($node2, $i) use ($arr) {
+                                $arr = array_add($arr, $node2->filter('a > span')->text(), 'https://www.500bf.com' . $node2->filter('a')->attr('href'));
+                                return $arr;
+                            });
+                        }catch (\Exception $exception){
+                            $tv_arr = null;
+                        }
+
                         $data['tv'] = '';
                         if (!empty($tv_arr)) {
                             foreach ($tv_arr as $value) {
@@ -1053,17 +1058,22 @@ class HomeSpiderController extends Controller
                         $arr = array();
                         // 开始处理直播地址 #div > div.header > div > div > ul > li   div > div.header > div.videos-panel.video-panel > ul > li
                         #div > div.header > div.videos-panel.video-panel > ul > li
-                        if ($data['game'] == '英雄联盟') {
-                            $tv_arr = $node->filter('div > div.header > div.videos-panel.video-panel > ul > li')->each(function ($node2, $i) use ($arr) {
-                                $arr = array_add($arr, $node2->filter('a > span')->text(), 'https://www.500bf.com' . $node2->filter('a')->attr('href'));
-                                return $arr;
-                            });
-                        } else {
-                            $tv_arr = $node->filter('div > div.header > div > div > ul > li')->each(function ($node2, $i) use ($arr) {
-                                $arr = array_add($arr, $node2->filter('a > span')->text(), 'https://www.500bf.com' . $node2->filter('a')->attr('href'));
-                                return $arr;
-                            });
+                        try {
+                            if ($data['game'] == '英雄联盟') {
+                                $tv_arr = $node->filter('div > div.header > div.videos-panel.video-panel > ul > li')->each(function ($node2, $i) use ($arr) {
+                                    $arr = array_add($arr, $node2->filter('a > span')->text(), 'https://www.500bf.com' . $node2->filter('a')->attr('href'));
+                                    return $arr;
+                                });
+                            } else {
+                                $tv_arr = $node->filter('div > div.header > div > div > ul > li')->each(function ($node2, $i) use ($arr) {
+                                    $arr = array_add($arr, $node2->filter('a > span')->text(), 'https://www.500bf.com' . $node2->filter('a')->attr('href'));
+                                    return $arr;
+                                });
+                            }
+                        }catch (\Exception $exception) {
+                            $tv_arr = null;
                         }
+
 
                         $data['tv'] = '';
                         if (!empty($tv_arr)) {

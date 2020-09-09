@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Pool;
 use Illuminate\Http\Request;
 use Symfony\Component\DomCrawler\Crawler;
+use function foo\func;
 
 class FnscoreSpiderController extends Controller
 {
@@ -21,7 +22,6 @@ class FnscoreSpiderController extends Controller
     // 首页正在进行全部游戏
     public function index()
     {
-
 
         set_time_limit(0);
         ini_set('memory_limit', '-1');
@@ -46,6 +46,7 @@ class FnscoreSpiderController extends Controller
             $json_arr = $json;
         }
 //        dd($json_arr);
+
         $arr = array();
         if (count($json_arr) > 0) {
             foreach ($json_arr as $key => $item) {
@@ -98,8 +99,6 @@ class FnscoreSpiderController extends Controller
                     $match['game'] = $arr[$key]['game'];
                     $match['link'] = $link;
 
-                    dd($match);
-
                     $http = $client->get($link, ['verify' => false,
                         'headers' => [
                             'Content-Type' => 'text/html; charset=utf-8',
@@ -111,7 +110,27 @@ class FnscoreSpiderController extends Controller
                     $crawler = new Crawler();
                     $crawler->addHtmlContent($content);
                     $t = $crawler->filter('#__layout > div > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.title > h3')->text();
+                    $a = $crawler->filter('#__layout > div > div.detail-wrapper.default-continer > div.detail-container > div.match-panel-wrapper > div.match-panel-container > div')->each(function ($node,$i){
+                        if ($i > 0){
 
+                        }
+
+                    });
+                    if (count($a) == 0){
+                        $a = $crawler->filter('#__layout > div > div.detail-wrapper.default-continer > div.detail-container > div.league-group-rank > div > div.league-info-panel > div.match-progress > div')->each(function ($node,$i){
+                            if ($i > 0){
+                                $array['time'] = $node->filter('p:nth-child(1)')->text();
+                                $array['team1img'] = $node->filter('div:nth-child(2) > img')->attr('src');
+                                $array['team1'] = $node->filter('div:nth-child(2) > p')->text();
+                                $array['score'] = $node->filter('p:nth-child(3)')->text();
+                                $array['team2img'] = $node->filter('div:nth-child(4) > img')->attr('src');
+                                $array['team2'] = $node->filter('div:nth-child(4) > p')->text();
+                                $array['BO'] = $node->filter('p:nth-child(5)')->text();
+                                return $array;
+                            }
+                        });
+                    }
+                    dd($a);
 
                 }
 
