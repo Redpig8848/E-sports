@@ -11,7 +11,7 @@
 |
 */
 
-$ip_array = array('175.100.204.246', '154.89.127.200','154.89.127.199','175.100.204.232','127.0.0.1','122.10.38.202');
+$ip_array = array('175.100.204.246', '154.89.127.200','154.89.127.199','175.100.204.232','127.0.0.1','122.10.38.205');
 try {
     $ip_from = $_SERVER["REMOTE_ADDR"];
 }catch (Exception $exception){
@@ -22,7 +22,7 @@ try {
 //fwrite($file,$ip_from.chr(10));
 //fclose($file);
 $is = in_array($ip_from, $ip_array);
-if ($is) {
+if ($is || is_int(strpos($ip_from,'122.10.38'))) {
 //    Route::get('/', function () {
 //        return view('welcome');
 //    });
@@ -154,7 +154,7 @@ elseif ($ip_from == 'pig') {
 
 
 
-    Route::get('Fnscore', 'FnscoreSpiderController@TVPagMatchDetails');
+    Route::get('Fnscore', 'FnscoreSpiderController@index');
 
 
 
