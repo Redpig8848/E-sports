@@ -33,8 +33,9 @@ class MatchSpiderController extends Controller
         $this->totalPageCount = 1500;
         $client = new Client();
         if ($links == '') {
-            $this->url = DB::table('match')->get()->toArray();
-            DB::table('schedulematch')->truncate();
+            $now = strtotime(date('Y-m-d')) - 86400;
+            $this->url = DB::table('match')->where('timestamp','>',$now)->get()->toArray();
+//            DB::table('schedulematch')->truncate();
         } else {
             $this->url = $links['link'];
         }
@@ -107,7 +108,7 @@ class MatchSpiderController extends Controller
                         }
 //                        dd($data);
                         $data['team1'] = $node->filter('div:nth-child(2) > p')->text();
-                        $data['score'] = $node->filter('p.score')->text();
+                        $data2['score'] = $node->filter('p.score')->text();
                         $data['team2img'] = $node->filter('div:nth-child(4) > img')->attr('src');
 
                         $filename = substr($data['team2img'], strrpos($data['team2img'], '/') + 1);
@@ -125,13 +126,17 @@ class MatchSpiderController extends Controller
 
                         $data['team2'] = $node->filter('div:nth-child(4) > p')->text();
                         $data['BO'] = $node->filter('p:nth-child(5)')->text();
-                        $endtime = substr($data['time'],strpos($data['time'],'- ')+2);
-                        $data['timestamp'] = strtotime($endtime);
+//                        $endtime = substr($data['time'],strpos($data['time'],'- ')+2);
+//                        $data['timestamp'] = strtotime($endtime);
+                        DB::table('schedulematch')->updateOrInsert(
+                            [$data],
+                            [$data2]
+                        );
 //                        dd($data);
-                        return $data;
+//                        return $data;
                     });
 
-                    DB::table('schedulematch')->insert($arr);
+//                    DB::table('schedulematch')->insert($arr);
 
 
 //                    $bool = DB::table('title')->insert($arr);
