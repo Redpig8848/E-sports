@@ -38,6 +38,7 @@ class MatchSpiderController extends Controller
         } else {
             $this->url = $links['link'];
         }
+        dd();
         if (is_string($this->url)) {
             $requests = function ($total) use ($client, $links) {
                 $uri = $this->url;
@@ -125,6 +126,8 @@ class MatchSpiderController extends Controller
 
                         $data['team2'] = $node->filter('div:nth-child(4) > p')->text();
                         $data['BO'] = $node->filter('p:nth-child(5)')->text();
+                        $endtime = substr($data['time'],strpos($data['time'],'- ')+2);
+                        $data['timestamp'] = strtotime($endtime);
 //                        dd($data);
                         return $data;
                     });
