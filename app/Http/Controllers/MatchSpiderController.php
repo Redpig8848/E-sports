@@ -38,7 +38,6 @@ class MatchSpiderController extends Controller
         } else {
             $this->url = $links['link'];
         }
-        dd();
         if (is_string($this->url)) {
             $requests = function ($total) use ($client, $links) {
                 $uri = $this->url;
