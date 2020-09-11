@@ -411,11 +411,10 @@ class ScheduleController extends Controller
 //                        dd($data);
                         return $data;
                     });
-                    foreach ($arr as $item) {
-                        DB::table('allschedule')->where('matchtime', '=', $item['matchtime'])
-                            ->delete();
-                        DB::table('allschedule')->insert($item);
-                    }
+
+                    DB::table('allschedule')->where('matchtime', 'like', date('Y-m-d') . '%')->delete();
+
+                    DB::table('allschedule')->insert($arr);
 
                     echo '<br>';
                     $this->countedAndCheckEnded();
@@ -446,8 +445,12 @@ class ScheduleController extends Controller
 //        $timestamp = mktime(0, 0, 0, 12, 31, date('Y'));
 
         $etime = strtotime(date('Y-m-d', $timestamp)) + 864000;
+        $this->times = array();
+        $i = 0;
         while ($stime <= $etime) {
             $this->url[] = 'https://www.500bf.com/index/index/schedule?date=' . date('Y-m-d', $stime) . '&type=0';
+            $this->times[$i] = date('Y-m-d', $stime);
+            $i++;
             $stime = $stime + 86400;
         }
 //        $this->url[] = 'https://www.500bf.com/index/index/schedule?date=' . date('Y-m-d') . '&type=0';
@@ -627,12 +630,10 @@ class ScheduleController extends Controller
                         return $data;
                     });
 //                    dd($arr);
-                    foreach ($arr as $item) {
-                        DB::table('allschedule')->where('matchtime', '=', $item['matchtime'])
-                            ->delete();
-                        DB::table('allschedule')->insert($item);
-                    }
+                    DB::table('allschedule')->where('matchtime', 'like', $this->times[$index] . '%')
+                        ->delete();
 
+                    DB::table('allschedule')->insert($arr);
                     echo '<br>';
                     $this->countedAndCheckEnded();
                 }

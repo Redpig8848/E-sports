@@ -92,4 +92,7 @@ use GuzzleHttp\Client;
 //$time = time();
 //echo date('Y-m-d H:i:s',1599383700);
 //echo strtotime('2020-09-23');
-echo substr('2020-09-09 - 2020-09-13',strpos('2020-09-09 - 2020-09-13', '- ')+2);
+//echo substr('2020-09-09 - 2020-09-13',strpos('2020-09-09 - 2020-09-13', '- ')+2);
+
+
+
