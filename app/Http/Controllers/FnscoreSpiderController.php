@@ -112,7 +112,11 @@ class FnscoreSpiderController extends Controller
                     $t = $crawler->filter('#__layout > div > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.title > h3')->text();
                     $a = $crawler->filter('#__layout > div > div.detail-wrapper.default-continer > div.detail-container > div.match-panel-wrapper > div.match-panel-container > div')->each(function ($node,$i){
                         if ($i > 0){
+                            $array['time'] = $node->filter('p:nth-child(1)')->text();
+                            $array['team1img'] = $node->filter('div:nth-child(2) > img')->attr('src');
 
+
+                            return $array;
                         }
 
                     });

@@ -190,21 +190,25 @@ class HomeSpiderController extends Controller
                         }
 
                         $data['tv'] = '';
-                        if (!empty($tv_arr)) {
-                            foreach ($tv_arr as $value) {
-                                $tv_client = new Client();
-                                $tv_response = $tv_client->get(current($value), ['verify' => false]);
-                                $tv_http = $tv_response->getBody()->getContents();
-                                if (strpos($tv_http, '500电竞比分网') !== false) {
-                                    $iframe = substr($tv_http, strpos($tv_http, "class=\"live-iframe\"") + 20);
-                                    $iframe = substr($iframe, 0, strpos($iframe, '">'));
-                                    $data['tv'] = $data['tv'] . key($value) . "=>" . substr($iframe, strpos($iframe, 'http')) . "|";
-                                } else {
-                                    $data['tv'] = $data['tv'] . key($value) . "=>" . current($value) . "|";
-                                }
+
+                        try {
+                            if (!empty($tv_arr)) {
+                                foreach ($tv_arr as $value) {
+                                    $tv_client = new Client();
+                                    $tv_response = $tv_client->get(current($value), ['verify' => false]);
+                                    $tv_http = $tv_response->getBody()->getContents();
+                                    if (strpos($tv_http, '500电竞比分网') !== false) {
+                                        $iframe = substr($tv_http, strpos($tv_http, "class=\"live-iframe\"") + 20);
+                                        $iframe = substr($iframe, 0, strpos($iframe, '">'));
+                                        $data['tv'] = $data['tv'] . key($value) . "=>" . substr($iframe, strpos($iframe, 'http')) . "|";
+                                    } else {
+                                        $data['tv'] = $data['tv'] . key($value) . "=>" . current($value) . "|";
+                                    }
 //                                echo current($value);
+                                }
                             }
-                        }
+                        }catch (\Exception $exception){}
+
 
                         $data['now'] = $node->filter('div > div.item-row-title > div.tag-1 > p')->text();
                         $data['BO'] = $node->filter('div > div.item-row-title > div.tag-2 > p')->text();
@@ -456,7 +460,8 @@ class HomeSpiderController extends Controller
                             $events['organizers'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.organizer > div > p:nth-child(2)')->text();
 
                             $events['game'] = $data['game'];
-
+                            $endtime = substr($events['matchtime'],strpos($events['matchtime'],'- ')+2);
+                            $events['timestamp'] = strtotime($endtime);
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
                             if ($events['matchimg'] !== '该赛事内容不存在') {
@@ -658,7 +663,8 @@ class HomeSpiderController extends Controller
 
                             }
                             $events['game'] = $data['game'];
-
+                            $endtime = substr($events['matchtime'],strpos($events['matchtime'],'- ')+2);
+                            $events['timestamp'] = strtotime($endtime);
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
                             if ($events['matchimg'] !== '该赛事内容不存在') {
@@ -879,6 +885,8 @@ class HomeSpiderController extends Controller
 
                             $events['game'] = $data['game'];
                             $events['link'] = 'https://www.500bf.com' . $events_link;
+                            $endtime = substr($events['matchtime'],strpos($events['matchtime'],'- ')+2);
+                            $events['timestamp'] = strtotime($endtime);
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
                             if ($events['matchimg'] !== '该赛事内容不存在') {
                                 $matchspider = new MatchSpiderController();
@@ -1026,7 +1034,8 @@ class HomeSpiderController extends Controller
 
                             }
                             $events['game'] = $data['game'];
-
+                            $endtime = substr($events['matchtime'],strpos($events['matchtime'],'- ')+2);
+                            $events['timestamp'] = strtotime($endtime);
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
                             if ($events['matchimg'] !== '该赛事内容不存在') {
@@ -1075,24 +1084,26 @@ class HomeSpiderController extends Controller
                         }catch (\Exception $exception) {
                             $tv_arr = null;
                         }
-
-
                         $data['tv'] = '';
-                        if (!empty($tv_arr)) {
-                            foreach ($tv_arr as $value) {
-                                $tv_client = new Client();
-                                $tv_response = $tv_client->get(current($value), ['verify' => false]);
-                                $tv_http = $tv_response->getBody()->getContents();
-                                if (strpos($tv_http, '500电竞比分网') !== false) {
-                                    $iframe = substr($tv_http, strpos($tv_http, "class=\"live-iframe\"") + 20);
-                                    $iframe = substr($iframe, 0, strpos($iframe, '">'));
-                                    $data['tv'] = $data['tv'] . key($value) . "=>" . substr($iframe, strpos($iframe, 'http')) . "|";
-                                } else {
-                                    $data['tv'] = $data['tv'] . key($value) . "=>" . current($value) . "|";
-                                }
+                        try {
+                            if (!empty($tv_arr)) {
+                                foreach ($tv_arr as $value) {
+                                    $tv_client = new Client();
+                                    $tv_response = $tv_client->get(current($value), ['verify' => false]);
+                                    $tv_http = $tv_response->getBody()->getContents();
+                                    if (strpos($tv_http, '500电竞比分网') !== false) {
+                                        $iframe = substr($tv_http, strpos($tv_http, "class=\"live-iframe\"") + 20);
+                                        $iframe = substr($iframe, 0, strpos($iframe, '">'));
+                                        $data['tv'] = $data['tv'] . key($value) . "=>" . substr($iframe, strpos($iframe, 'http')) . "|";
+                                    } else {
+                                        $data['tv'] = $data['tv'] . key($value) . "=>" . current($value) . "|";
+                                    }
 //                                echo current($value);
+                                }
                             }
-                        }
+                        }catch (\Exception $exception){}
+
+
                         $data['now'] = $node->filter('div > div > div.content > div.match-info > p:nth-child(1)')->text();
                         $data['nowtime'] = $node->filter('div > div > div.content > div.match-info > p:nth-child(2)')->text();
 
