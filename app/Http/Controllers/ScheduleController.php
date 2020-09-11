@@ -59,7 +59,7 @@ class ScheduleController extends Controller
             'fulfilled' => function ($response, $index) {
                 echo '爬取' . $this->url[$index];
                 echo '<br>';
-                if(ob_get_level()>0)
+                if (ob_get_level() > 0)
                     ob_flush();
                 flush();
                 try {
@@ -89,16 +89,16 @@ class ScheduleController extends Controller
                         }
 
                         $client_img = new Client(['verify' => false]);
-                        $filename = substr($data['gameimg'],strrpos($data['gameimg'],'/')+1);
-                        if (!file_exists(public_path('static/'.$filename))){
+                        $filename = substr($data['gameimg'], strrpos($data['gameimg'], '/') + 1);
+                        if (!file_exists(public_path('static/' . $filename))) {
                             try {
-                                $client_img->get('https://www.500bf.com'.$data['gameimg'],['save_to' => public_path('static/'.$filename)]);
-                                $data['gameimg'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $e){
+                                $client_img->get('https://www.500bf.com' . $data['gameimg'], ['save_to' => public_path('static/' . $filename)]);
+                                $data['gameimg'] = 'http://45.157.91.154/static/' . $filename;
+                            } catch (\Exception $e) {
                                 $data['gameimg'] = '';
                             }
-                        }else {
-                            $data['gameimg'] = 'http://45.157.91.154/static/'.$filename;
+                        } else {
+                            $data['gameimg'] = 'http://45.157.91.154/static/' . $filename;
                         }
 
                         $data['matchtime'] = $node->filter('p.match-item-time')->text();
@@ -106,16 +106,16 @@ class ScheduleController extends Controller
                         $data['team1'] = $node->filter('div.home-team > p')->text();
                         $data['team1img'] = $node->filter('div.home-team > img')->attr('src');
 
-                        $filename = substr($data['team1img'],strrpos($data['team1img'],'/')+1);
-                        if (!file_exists(public_path('static/'.$filename))){
-                            try{
-                            $client_img->get($data['team1img'],['save_to' => public_path('static/'.$filename)]);
-                            $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $e){
+                        $filename = substr($data['team1img'], strrpos($data['team1img'], '/') + 1);
+                        if (!file_exists(public_path('static/' . $filename))) {
+                            try {
+                                $client_img->get($data['team1img'], ['save_to' => public_path('static/' . $filename)]);
+                                $data['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                            } catch (\Exception $e) {
                                 $data['team1img'] = '';
                             }
-                        }else{
-                            $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
+                        } else {
+                            $data['team1img'] = 'http://45.157.91.154/static/' . $filename;
                         }
 
                         try {
@@ -126,37 +126,37 @@ class ScheduleController extends Controller
 
                         $data['team2img'] = $node->filter('div.away-team > img')->attr('src');
 
-                        $filename = substr($data['team2img'],strrpos($data['team2img'],'/')+1);
-                        if (!file_exists(public_path('static/'.$filename))){
-                            try{
-                            $client_img->get($data['team2img'],['save_to' => public_path('static/'.$filename)]);
-                            $data['team2img'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $e){
+                        $filename = substr($data['team2img'], strrpos($data['team2img'], '/') + 1);
+                        if (!file_exists(public_path('static/' . $filename))) {
+                            try {
+                                $client_img->get($data['team2img'], ['save_to' => public_path('static/' . $filename)]);
+                                $data['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                            } catch (\Exception $e) {
                                 $data['team2img'] = '';
                             }
-                        }else{
-                            $data['team2img'] = 'http://45.157.91.154/static/'.$filename;
+                        } else {
+                            $data['team2img'] = 'http://45.157.91.154/static/' . $filename;
                         }
 
                         $data['team2'] = $node->filter('div.away-team > p')->text();
                         $data['eventsimg'] = $node->filter('div.leagues > img')->attr('src');
 
-                        $filename = substr($data['eventsimg'],strrpos($data['eventsimg'],'/')+1);
-                        if (!file_exists(public_path('static/'.$filename))){
-                            try{
-                            $client_img->get($data['eventsimg'],['save_to' => public_path('static/'.$filename)]);
-                            $data['eventsimg'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $e){
+                        $filename = substr($data['eventsimg'], strrpos($data['eventsimg'], '/') + 1);
+                        if (!file_exists(public_path('static/' . $filename))) {
+                            try {
+                                $client_img->get($data['eventsimg'], ['save_to' => public_path('static/' . $filename)]);
+                                $data['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
+                            } catch (\Exception $e) {
                                 $data['eventsimg'] = '';
                             }
-                        }else{
-                            $data['eventsimg'] = 'http://45.157.91.154/static/'.$filename;
+                        } else {
+                            $data['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
                         }
 
                         $data['events'] = $node->filter('div.leagues > p')->text();
                         // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
                         $Match = new Match();
-                        $events_id = $Match->GetMatchId($data['events'],$data['gametype']);
+                        $events_id = $Match->GetMatchId($data['events'], $data['gametype']);
                         if ($events_id) {
                             $data['eventsid'] = $events_id;
                         } else { // 赛事不存在，需新增
@@ -171,17 +171,17 @@ class ScheduleController extends Controller
                                 $events_crawler->addHtmlContent($events_request);
                                 $events['match'] = $data['events'];
                                 $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
-                                $filename = substr($events['matchimg'],strrpos($events['matchimg'],'/')+1);
-                                if (!file_exists(public_path('static/'.$filename))){
+                                $filename = substr($events['matchimg'], strrpos($events['matchimg'], '/') + 1);
+                                if (!file_exists(public_path('static/' . $filename))) {
                                     try {
-                                        $client_img->get($events['matchimg'],['save_to' => public_path('static/'.$filename)]);
-                                        $events['matchimg'] = 'http://45.157.91.154/static/'.$filename;
-                                    }catch (\Exception $exception){
+                                        $client_img->get($events['matchimg'], ['save_to' => public_path('static/' . $filename)]);
+                                        $events['matchimg'] = 'http://45.157.91.154/static/' . $filename;
+                                    } catch (\Exception $exception) {
                                         $events['matchimg'] = '';
                                     }
 
-                                }else{
-                                    $events['matchimg'] = 'http://45.157.91.154/static/'.$filename;
+                                } else {
+                                    $events['matchimg'] = 'http://45.157.91.154/static/' . $filename;
                                 }
                                 $events['matchtime'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.match-time > div > p:nth-child(2)')->text();
                                 $events['teams'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.teamIds > div > p:nth-child(2)')->text();
@@ -199,10 +199,11 @@ class ScheduleController extends Controller
                             }
 
                             $events['game'] = $data['gametype'];
-
+                            $endtime = substr($events['matchtime'], strpos($events['matchtime'], '- ') + 2);
+                            $events['timestamp'] = strtotime($endtime);
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
-                            if ($events['matchimg'] !== '该赛事内容不存在'){
+                            if ($events['matchimg'] !== '该赛事内容不存在') {
                                 $matchspider = new MatchSpiderController();
                                 $matchspider->AllMatch($events);
                             }
@@ -252,7 +253,7 @@ class ScheduleController extends Controller
             'fulfilled' => function ($response, $index) {
                 echo '爬取' . $this->url[$index];
                 echo '<br>';
-                if(ob_get_level()>0)
+                if (ob_get_level() > 0)
                     ob_flush();
                 flush();
                 try {
@@ -282,17 +283,17 @@ class ScheduleController extends Controller
                         }
 
                         $client_img = new Client(['verify' => false]);
-                        $filename = substr($data['gameimg'],strrpos($data['gameimg'],'/')+1);
-                        if (!file_exists(public_path('static/'.$filename))){
+                        $filename = substr($data['gameimg'], strrpos($data['gameimg'], '/') + 1);
+                        if (!file_exists(public_path('static/' . $filename))) {
                             try {
-                                $client_img->get('https://www.500bf.com'.$data['gameimg'],['save_to' => public_path('static/'.$filename)]);
-                                $data['gameimg'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $exception){
+                                $client_img->get('https://www.500bf.com' . $data['gameimg'], ['save_to' => public_path('static/' . $filename)]);
+                                $data['gameimg'] = 'http://45.157.91.154/static/' . $filename;
+                            } catch (\Exception $exception) {
                                 $data['gameimg'] = '';
                             }
 
-                        }else{
-                            $data['gameimg'] = 'http://45.157.91.154/static/'.$filename;
+                        } else {
+                            $data['gameimg'] = 'http://45.157.91.154/static/' . $filename;
                         }
 
                         $data['matchtime'] = $node->filter('p.match-item-time')->text();
@@ -300,17 +301,17 @@ class ScheduleController extends Controller
                         $data['team1'] = $node->filter('div.home-team > p')->text();
                         $data['team1img'] = $node->filter('div.home-team > img')->attr('src');
 
-                        $filename = substr($data['team1img'],strrpos($data['team1img'],'/')+1);
-                        if (!file_exists(public_path('static/'.$filename))){
+                        $filename = substr($data['team1img'], strrpos($data['team1img'], '/') + 1);
+                        if (!file_exists(public_path('static/' . $filename))) {
                             try {
-                                $client_img->get($data['team1img'],['save_to' => public_path('static/'.$filename)]);
-                                $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $exception){
+                                $client_img->get($data['team1img'], ['save_to' => public_path('static/' . $filename)]);
+                                $data['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                            } catch (\Exception $exception) {
                                 $data['team1img'] = '';
                             }
 
-                        }else{
-                            $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
+                        } else {
+                            $data['team1img'] = 'http://45.157.91.154/static/' . $filename;
                         }
 
                         try {
@@ -321,39 +322,39 @@ class ScheduleController extends Controller
 
                         $data['team2img'] = $node->filter('div.away-team > img')->attr('src');
 
-                        $filename = substr($data['team2img'],strrpos($data['team2img'],'/')+1);
-                        if (!file_exists(public_path('static/'.$filename))){
+                        $filename = substr($data['team2img'], strrpos($data['team2img'], '/') + 1);
+                        if (!file_exists(public_path('static/' . $filename))) {
                             try {
-                                $client_img->get($data['team2img'],['save_to' => public_path('static/'.$filename)]);
-                                $data['team2img'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $exception){
+                                $client_img->get($data['team2img'], ['save_to' => public_path('static/' . $filename)]);
+                                $data['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                            } catch (\Exception $exception) {
                                 $data['team2img'] = '';
                             }
 
-                        }else{
-                            $data['team2img'] = 'http://45.157.91.154/static/'.$filename;
+                        } else {
+                            $data['team2img'] = 'http://45.157.91.154/static/' . $filename;
                         }
 
                         $data['team2'] = $node->filter('div.away-team > p')->text();
                         $data['eventsimg'] = $node->filter('div.leagues > img')->attr('src');
 
-                        $filename = substr($data['eventsimg'],strrpos($data['eventsimg'],'/')+1);
-                        if (!file_exists(public_path('static/'.$filename))){
+                        $filename = substr($data['eventsimg'], strrpos($data['eventsimg'], '/') + 1);
+                        if (!file_exists(public_path('static/' . $filename))) {
                             try {
-                                $client_img->get($data['eventsimg'],['save_to' => public_path('static/'.$filename)]);
-                                $data['eventsimg'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $exception){
+                                $client_img->get($data['eventsimg'], ['save_to' => public_path('static/' . $filename)]);
+                                $data['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
+                            } catch (\Exception $exception) {
                                 $data['eventsimg'] = '';
                             }
 
-                        }else{
-                            $data['eventsimg'] = 'http://45.157.91.154/static/'.$filename;
+                        } else {
+                            $data['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
                         }
 
                         $data['events'] = $node->filter('div.leagues > p')->text();
                         // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
                         $Match = new Match();
-                        $events_id = $Match->GetMatchId($data['events'],$data['gametype']);
+                        $events_id = $Match->GetMatchId($data['events'], $data['gametype']);
                         if ($events_id) {
                             $data['eventsid'] = $events_id;
                         } else { // 赛事不存在，需新增
@@ -368,17 +369,17 @@ class ScheduleController extends Controller
                                 $events_crawler->addHtmlContent($events_request);
                                 $events['match'] = $data['events'];
                                 $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
-                                $filename = substr($events['matchimg'],strrpos($events['matchimg'],'/')+1);
-                                if (!file_exists(public_path('static/'.$filename))){
+                                $filename = substr($events['matchimg'], strrpos($events['matchimg'], '/') + 1);
+                                if (!file_exists(public_path('static/' . $filename))) {
                                     try {
-                                        $client_img->get($events['matchimg'],['save_to' => public_path('static/'.$filename)]);
-                                        $events['matchimg'] = 'http://45.157.91.154/static/'.$filename;
-                                    }catch (\Exception $exception){
+                                        $client_img->get($events['matchimg'], ['save_to' => public_path('static/' . $filename)]);
+                                        $events['matchimg'] = 'http://45.157.91.154/static/' . $filename;
+                                    } catch (\Exception $exception) {
                                         $events['matchimg'] = '';
                                     }
 
-                                }else{
-                                    $events['matchimg'] = 'http://45.157.91.154/static/'.$filename;
+                                } else {
+                                    $events['matchimg'] = 'http://45.157.91.154/static/' . $filename;
                                 }
                                 $events['matchtime'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.match-time > div > p:nth-child(2)')->text();
                                 $events['teams'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.teamIds > div > p:nth-child(2)')->text();
@@ -396,10 +397,11 @@ class ScheduleController extends Controller
                             }
 
                             $events['game'] = $data['gametype'];
-
+                            $endtime = substr($events['matchtime'], strpos($events['matchtime'], '- ') + 2);
+                            $events['timestamp'] = strtotime($endtime);
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
-                            if ($events['matchimg'] !== '该赛事内容不存在'){
+                            if ($events['matchimg'] !== '该赛事内容不存在') {
                                 $matchspider = new MatchSpiderController();
                                 $matchspider->AllMatch($events);
                             }
@@ -409,18 +411,10 @@ class ScheduleController extends Controller
 //                        dd($data);
                         return $data;
                     });
-//                    dd($arr);
                     foreach ($arr as $item) {
-                        $id = DB::table('allschedule')->where([
-                            ['matchtime', '=', $item['matchtime']],
-                            ['team1', '=', $item['team1']],
-                            ['events', '=', $item['events']],
-                        ])->select('id')->get()->toArray();
-                        if ($id) {
-                            DB::table('allschedule')->where('id', $id[0]->id)->update(['score' => $item['score']]);
-                        } else {
-                            DB::table('allschedule')->insert($item);
-                        }
+                        DB::table('allschedule')->where('matchtime', '=', $item['matchtime'])
+                            ->delete();
+                        DB::table('allschedule')->insert($item);
                     }
 
                     echo '<br>';
@@ -447,11 +441,11 @@ class ScheduleController extends Controller
 
         $timestamp = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
 
-        $stime = strtotime(date('Y-m-d', $timestamp))+86400;
+        $stime = strtotime(date('Y-m-d', $timestamp)) + 86400;
 
 //        $timestamp = mktime(0, 0, 0, 12, 31, date('Y'));
 
-        $etime = strtotime(date('Y-m-d', $timestamp))+864000;
+        $etime = strtotime(date('Y-m-d', $timestamp)) + 864000;
         while ($stime <= $etime) {
             $this->url[] = 'https://www.500bf.com/index/index/schedule?date=' . date('Y-m-d', $stime) . '&type=0';
             $stime = $stime + 86400;
@@ -473,7 +467,7 @@ class ScheduleController extends Controller
             'fulfilled' => function ($response, $index) {
                 echo '爬取' . $this->url[$index];
                 echo '<br>';
-                if(ob_get_level()>0)
+                if (ob_get_level() > 0)
                     ob_flush();
                 flush();
                 try {
@@ -503,17 +497,17 @@ class ScheduleController extends Controller
                         }
 
                         $client_img = new Client(['verify' => false]);
-                        $filename = substr($data['gameimg'],strrpos($data['gameimg'],'/')+1);
-                        if (!file_exists(public_path('static/'.$filename))){
+                        $filename = substr($data['gameimg'], strrpos($data['gameimg'], '/') + 1);
+                        if (!file_exists(public_path('static/' . $filename))) {
                             try {
-                                $client_img->get('https://www.500bf.com'.$data['gameimg'],['save_to' => public_path('static/'.$filename)]);
-                                $data['gameimg'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $exception){
+                                $client_img->get('https://www.500bf.com' . $data['gameimg'], ['save_to' => public_path('static/' . $filename)]);
+                                $data['gameimg'] = 'http://45.157.91.154/static/' . $filename;
+                            } catch (\Exception $exception) {
                                 $data['gameimg'] = '';
                             }
 
-                        }else{
-                            $data['gameimg'] = 'http://45.157.91.154/static/'.$filename;
+                        } else {
+                            $data['gameimg'] = 'http://45.157.91.154/static/' . $filename;
                         }
 
                         $data['matchtime'] = $node->filter('p.match-item-time')->text();
@@ -521,17 +515,17 @@ class ScheduleController extends Controller
                         $data['team1'] = $node->filter('div.home-team > p')->text();
                         $data['team1img'] = $node->filter('div.home-team > img')->attr('src');
 
-                        $filename = substr($data['team1img'],strrpos($data['team1img'],'/')+1);
-                        if (!file_exists(public_path('static/'.$filename))){
+                        $filename = substr($data['team1img'], strrpos($data['team1img'], '/') + 1);
+                        if (!file_exists(public_path('static/' . $filename))) {
                             try {
-                                $client_img->get($data['team1img'],['save_to' => public_path('static/'.$filename)]);
-                                $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $exception){
+                                $client_img->get($data['team1img'], ['save_to' => public_path('static/' . $filename)]);
+                                $data['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                            } catch (\Exception $exception) {
                                 $data['team1img'] = '';
                             }
 
-                        }else{
-                            $data['team1img'] = 'http://45.157.91.154/static/'.$filename;
+                        } else {
+                            $data['team1img'] = 'http://45.157.91.154/static/' . $filename;
                         }
 
                         try {
@@ -542,39 +536,39 @@ class ScheduleController extends Controller
 
                         $data['team2img'] = $node->filter('div.away-team > img')->attr('src');
 
-                        $filename = substr($data['team2img'],strrpos($data['team2img'],'/')+1);
-                        if (!file_exists(public_path('static/'.$filename))){
+                        $filename = substr($data['team2img'], strrpos($data['team2img'], '/') + 1);
+                        if (!file_exists(public_path('static/' . $filename))) {
                             try {
-                                $client_img->get($data['team2img'],['save_to' => public_path('static/'.$filename)]);
-                                $data['team2img'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $exception){
+                                $client_img->get($data['team2img'], ['save_to' => public_path('static/' . $filename)]);
+                                $data['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                            } catch (\Exception $exception) {
                                 $data['team2img'] = '';
                             }
 
-                        }else{
-                            $data['team2img'] = 'http://45.157.91.154/static/'.$filename;
+                        } else {
+                            $data['team2img'] = 'http://45.157.91.154/static/' . $filename;
                         }
 
                         $data['team2'] = $node->filter('div.away-team > p')->text();
                         $data['eventsimg'] = $node->filter('div.leagues > img')->attr('src');
 
-                        $filename = substr($data['eventsimg'],strrpos($data['eventsimg'],'/')+1);
-                        if (!file_exists(public_path('static/'.$filename))){
+                        $filename = substr($data['eventsimg'], strrpos($data['eventsimg'], '/') + 1);
+                        if (!file_exists(public_path('static/' . $filename))) {
                             try {
-                                $client_img->get($data['eventsimg'],['save_to' => public_path('static/'.$filename)]);
-                                $data['eventsimg'] = 'http://45.157.91.154/static/'.$filename;
-                            }catch (\Exception $exception){
+                                $client_img->get($data['eventsimg'], ['save_to' => public_path('static/' . $filename)]);
+                                $data['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
+                            } catch (\Exception $exception) {
                                 $data['eventsimg'] = '';
                             }
 
-                        }else{
-                            $data['eventsimg'] = 'http://45.157.91.154/static/'.$filename;
+                        } else {
+                            $data['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
                         }
 
                         $data['events'] = $node->filter('div.leagues > p')->text();
                         // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
                         $Match = new Match();
-                        $events_id = $Match->GetMatchId($data['events'],$data['gametype']);
+                        $events_id = $Match->GetMatchId($data['events'], $data['gametype']);
                         if ($events_id) {
                             $data['eventsid'] = $events_id;
                         } else { // 赛事不存在，需新增
@@ -589,17 +583,17 @@ class ScheduleController extends Controller
                                 $events_crawler->addHtmlContent($events_request);
                                 $events['match'] = $data['events'];
                                 $events['matchimg'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-logo > img')->attr('src');
-                                $filename = substr($events['matchimg'],strrpos($events['matchimg'],'/')+1);
-                                if (!file_exists(public_path('static/'.$filename))){
+                                $filename = substr($events['matchimg'], strrpos($events['matchimg'], '/') + 1);
+                                if (!file_exists(public_path('static/' . $filename))) {
                                     try {
-                                        $client_img->get($events['matchimg'],['save_to' => public_path('static/'.$filename)]);
-                                        $events['matchimg'] = 'http://45.157.91.154/static/'.$filename;
-                                    }catch (\Exception $exception){
+                                        $client_img->get($events['matchimg'], ['save_to' => public_path('static/' . $filename)]);
+                                        $events['matchimg'] = 'http://45.157.91.154/static/' . $filename;
+                                    } catch (\Exception $exception) {
                                         $events['matchimg'] = '';
                                     }
 
-                                }else{
-                                    $events['matchimg'] = 'http://45.157.91.154/static/'.$filename;
+                                } else {
+                                    $events['matchimg'] = 'http://45.157.91.154/static/' . $filename;
                                 }
 
                                 $events['matchtime'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.match-time > div > p:nth-child(2)')->text();
@@ -618,10 +612,11 @@ class ScheduleController extends Controller
                             }
 
                             $events['game'] = $data['gametype'];
-
+                            $endtime = substr($events['matchtime'], strpos($events['matchtime'], '- ') + 2);
+                            $events['timestamp'] = strtotime($endtime);
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
-                            if ($events['matchimg'] !== '该赛事内容不存在'){
+                            if ($events['matchimg'] !== '该赛事内容不存在') {
                                 $matchspider = new MatchSpiderController();
                                 $matchspider->AllMatch($events);
                             }
@@ -633,16 +628,9 @@ class ScheduleController extends Controller
                     });
 //                    dd($arr);
                     foreach ($arr as $item) {
-                        $id = DB::table('allschedule')->where([
-                            ['matchtime', '=', $item['matchtime']],
-                            ['team1', '=', $item['team1']],
-                            ['events', '=', $item['events']],
-                        ])->select('id')->get()->toArray();
-                        if ($id) {
-                            DB::table('allschedule')->where('id', $id[0]->id)->update(['score' => $item['score']]);
-                        } else {
-                            DB::table('allschedule')->insert($item);
-                        }
+                        DB::table('allschedule')->where('matchtime', '=', $item['matchtime'])
+                            ->delete();
+                        DB::table('allschedule')->insert($item);
                     }
 
                     echo '<br>';
