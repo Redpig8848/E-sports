@@ -47,11 +47,34 @@ class FnscoreSpiderController extends Controller
             $json_arr = $json;
         }
 //        dd($json_arr);
-        $img_client = new Client();
+        $client_img = new Client();
         $arr = array();
         if (count($json_arr) > 0) {
             foreach ($json_arr as $key => $item) {
                 $arr[$key]['eventsimg'] = $item['league']['logo'];
+
+                $filename = substr($arr[$key]['eventsimg'], strrpos($arr[$key]['eventsimg'], '/') + 1);
+                if (!file_exists(public_path('static/' . $filename))) {
+                    try {
+                        $resp = $client_img->get($arr[$key]['eventsimg'], ['headers' => [
+                            'Content-Type' => 'application/json; charset=utf-8',
+                            'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1598236985,1598499176; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1598513879',
+                            'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
+                            'dataType' => 'json',
+                            'X-Content-Type-Options' => 'nosniff'
+                        ],
+                            'save_to' => public_path('static/' . $filename)]);
+                        if ($resp->getStatusCode() == 200) {
+                            $arr[$key]['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
+                        }
+                    } catch (\Exception $exception) {
+                    }
+
+                } else {
+                    $arr[$key]['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
+                }
+
+
                 $arr[$key]['events'] = $item['league']['leagueName'];
                 switch ((int)$item['gameType']) {
                     case 1:
@@ -91,6 +114,28 @@ class FnscoreSpiderController extends Controller
                     // 增加赛事
                     $match['match'] = $item['league']['leagueName'];
                     $match['matchimg'] = $item['league']['logo'];
+
+                    $filename = substr($match['matchimg'], strrpos($match['matchimg'], '/') + 1);
+                    if (!file_exists(public_path('static/' . $filename))) {
+                        try {
+                            $resp = $client_img->get($match['matchimg'], ['headers' => [
+                                'Content-Type' => 'application/json; charset=utf-8',
+                                'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1598236985,1598499176; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1598513879',
+                                'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
+                                'dataType' => 'json',
+                                'X-Content-Type-Options' => 'nosniff'
+                            ],
+                                'save_to' => public_path('static/' . $filename)]);
+                            if ($resp->getStatusCode() == 200) {
+                                $match['matchimg'] = 'http://45.157.91.154/static/' . $filename;
+                            }
+                        } catch (\Exception $exception) {
+                        }
+
+                    } else {
+                        $match['matchimg'] = 'http://45.157.91.154/static/' . $filename;
+                    }
+
                     $start_time = $item['league']['startTime'] / 1000;
                     $end_time = $item['league']['endTime'] / 1000;
                     $match['matchtime'] = date('Y-m-d', $start_time) . ' - ' . date('Y-m-d', $end_time);
@@ -104,7 +149,7 @@ class FnscoreSpiderController extends Controller
 
                     $arr[$key]['eventsid'] = DB::table('match')->insertGetId($match);
 
-                    $a = $this->FnScoreLeague($link,$match['match'],$arr[$key]['eventsid']);
+                    $a = $this->FnScoreLeague($link, $match['match'], $arr[$key]['eventsid']);
                     DB::table('schedulematch')->insert(array_filter($a));
 
                 }
@@ -117,14 +162,60 @@ class FnscoreSpiderController extends Controller
                 }
 
                 $arr[$key]['now'] = $item['homeScore'] + $item['awayScore'];
-                $arr[$key]['BO'] = $item['bo'];
+                $arr[$key]['BO'] = 'BO' . $item['bo'];
                 $arr[$key]['pooreconomy'] = '';
                 $arr[$key]['team1img'] = $item['home']['logo'];
+
+                $filename = substr($arr[$key]['team1img'], strrpos($arr[$key]['team1img'], '/') + 1);
+                if (!file_exists(public_path('static/' . $filename))) {
+                    try {
+                        $resp = $client_img->get($arr[$key]['team1img'], ['headers' => [
+                            'Content-Type' => 'application/json; charset=utf-8',
+                            'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1598236985,1598499176; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1598513879',
+                            'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
+                            'dataType' => 'json',
+                            'X-Content-Type-Options' => 'nosniff'
+                        ],
+                            'save_to' => public_path('static/' . $filename)]);
+                        if ($resp->getStatusCode() == 200) {
+                            $arr[$key]['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                        }
+                    } catch (\Exception $exception) {
+                    }
+
+                } else {
+                    $arr[$key]['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                }
+
+
                 $arr[$key]['team1'] = $item['home']['teamName'];
                 $arr[$key]['team1winnum'] = $item['homeScore'];
                 $arr[$key]['team1killnum'] = 0;
                 $arr[$key]['team1special'] = '';
                 $arr[$key]['team2img'] = $item['away']['logo'];
+
+                $filename = substr($arr[$key]['team2img'], strrpos($arr[$key]['team2img'], '/') + 1);
+                if (!file_exists(public_path('static/' . $filename))) {
+                    try {
+                        $resp = $client_img->get($arr[$key]['team2img'], ['headers' => [
+                            'Content-Type' => 'application/json; charset=utf-8',
+                            'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1598236985,1598499176; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1598513879',
+                            'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
+                            'dataType' => 'json',
+                            'X-Content-Type-Options' => 'nosniff'
+                        ],
+                            'save_to' => public_path('static/' . $filename)]);
+                        if ($resp->getStatusCode() == 200) {
+                            $arr[$key]['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                        }
+                    } catch (\Exception $exception) {
+                    }
+
+                } else {
+                    $arr[$key]['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                }
+
+
                 $arr[$key]['team2'] = $item['away']['teamName'];
                 $arr[$key]['team2winnum'] = $item['awayScore'];
                 $arr[$key]['team2killnum'] = 0;
@@ -132,15 +223,19 @@ class FnscoreSpiderController extends Controller
 //                $arr[$key]['time'] = $item['matchTime'] / 1000;
 
 
-
-
-
-
-
-
+            }
+            foreach ($arr as $item) {
+                $id = DB::table('allmatching')->where(
+                    'events', $item['events']
+                )->select('id')->get()->toArray();
+                if (empty($id)) {
+                    // insert
+                    DB::table('allmatching')->insert($item);
+                } else {
+                    DB::table('allmatching')->where('id', $id[0]->id)->update(['tv' => $item['tv']]);
+                }
             }
 
-            DB::table('allmatching')->insert($arr);
 //            dd($arr);
         }
 
@@ -148,8 +243,8 @@ class FnscoreSpiderController extends Controller
     }
 
 
-
-    public function ListWait(){
+    public function ListWait()
+    {
 
         set_time_limit(0);
         ini_set('memory_limit', '-1');
@@ -197,7 +292,7 @@ class FnscoreSpiderController extends Controller
                         break;
                 }
                 $time = $item['matchTime'] / 1000;
-                $arr[$key]['time'] = date('H:i',$time);
+                $arr[$key]['time'] = date('H:i', $time);
                 $arr[$key]['BO'] = $item['bo'];
                 $arr[$key]['team1'] = $item['home']['teamName'];
                 $arr[$key]['team1img'] = $item['home']['logo'];
@@ -205,10 +300,8 @@ class FnscoreSpiderController extends Controller
                 $arr[$key]['team2'] = $item['away']['teamName'];
 
 
-
-
-
             }
+
 
             DB::table('allmatching')->insert($arr);
 //            dd($arr);
@@ -216,11 +309,16 @@ class FnscoreSpiderController extends Controller
     }
 
 
-
-
-
-    public function FnScoreLeague($link,$event,$event_id){
+    public function FnScoreLeague($link, $event, $event_id)
+    {
         $client = new Client();
+        $client_img = new Client(['headers' => [
+            'Content-Type' => 'application/json; charset=utf-8',
+            'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1598236985,1598499176; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1598513879',
+            'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
+            'dataType' => 'json',
+            'X-Content-Type-Options' => 'nosniff'
+        ]]);
         $http = $client->get($link, ['verify' => false,
             'headers' => [
                 'Content-Type' => 'text/html; charset=utf-8',
@@ -231,15 +329,46 @@ class FnscoreSpiderController extends Controller
         $content = $http->getBody()->getContents();
         $crawler = new Crawler();
         $crawler->addHtmlContent($content);
-        $a = $crawler->filter('#__layout > div > div.detail-wrapper.default-continer > div.detail-container > div.match-panel-wrapper > div.match-panel-container > div')->each(function ($node, $i) use ($event,$event_id) {
+        $a = $crawler->filter('#__layout > div > div.detail-wrapper.default-continer > div.detail-container > div.match-panel-wrapper > div.match-panel-container > div')->each(function ($node, $i) use ($event, $event_id,$client_img) {
             if ($i > 0) {
                 $array['event'] = $event;
                 $array['eventid'] = $event_id;
                 $array['time'] = $node->filter('p:nth-child(1)')->text();
                 $array['team1img'] = $node->filter('div:nth-child(2) > img')->attr('src');
+
+                $filename = substr($array['team1img'], strrpos($array['team1img'], '/') + 1);
+                if (!file_exists(public_path('static/' . $filename))) {
+                    try {
+                        $resp = $client_img->get($array['team1img'], ['save_to' => public_path('static/' . $filename)]);
+                        if ($resp->getStatusCode() == 200) {
+                            $array['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                        }
+                    } catch (\Exception $exception) {
+                    }
+
+                } else {
+                    $array['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                }
+
+
                 $array['team1'] = $node->filter('div:nth-child(2) > p')->text();
                 $array['score'] = $node->filter('p.score-wait')->text();
                 $array['team2img'] = $node->filter('div:nth-child(4) > img')->attr('src');
+
+                $filename = substr($array['team2img'], strrpos($array['team2img'], '/') + 1);
+                if (!file_exists(public_path('static/' . $filename))) {
+                    try {
+                        $resp = $client_img->get($array['team2img'], ['save_to' => public_path('static/' . $filename)]);
+                        if ($resp->getStatusCode() == 200) {
+                            $array['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                        }
+                    } catch (\Exception $exception) {
+                    }
+
+                } else {
+                    $array['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                }
+
                 $array['team2'] = $node->filter('div:nth-child(4) > p')->text();
                 $array['BO'] = $node->filter('p:nth-child(5)')->text();
                 return $array;
@@ -247,23 +376,52 @@ class FnscoreSpiderController extends Controller
 
         });
         if (count($a) == 0) {
-            $a = $crawler->filter('#__layout > div > div.detail-wrapper.default-continer > div.detail-container > div.league-group-rank > div > div.league-info-panel > div.match-progress > div')->each(function ($node, $i) use ($event,$event_id) {
+            $a = $crawler->filter('#__layout > div > div.detail-wrapper.default-continer > div.detail-container > div.league-group-rank > div > div.league-info-panel > div.match-progress > div')->each(function ($node, $i) use ($event, $event_id) {
                 if ($i > 0) {
                     $array['event'] = $event;
                     $array['eventid'] = $event_id;
                     $array['time'] = $node->filter('p:nth-child(1)')->text();
                     $array['team1img'] = $node->filter('div:nth-child(2) > img')->attr('src');
+
+                    $filename = substr($array['team1img'], strrpos($array['team1img'], '/') + 1);
+                    if (!file_exists(public_path('static/' . $filename))) {
+                        try {
+                            $resp = $client_img->get($array['team1img'], ['save_to' => public_path('static/' . $filename)]);
+                            if ($resp->getStatusCode() == 200) {
+                                $array['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                            }
+                        } catch (\Exception $exception) {
+                        }
+
+                    } else {
+                        $array['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                    }
+
                     $array['team1'] = $node->filter('div:nth-child(2) > p')->text();
                     $array['score'] = $node->filter('p:nth-child(3)')->text();
                     $array['team2img'] = $node->filter('div:nth-child(4) > img')->attr('src');
+
+                    $filename = substr($array['team2img'], strrpos($array['team2img'], '/') + 1);
+                    if (!file_exists(public_path('static/' . $filename))) {
+                        try {
+                            $resp = $client_img->get($array['team2img'], ['save_to' => public_path('static/' . $filename)]);
+                            if ($resp->getStatusCode() == 200) {
+                                $array['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                            }
+                        } catch (\Exception $exception) {
+                        }
+
+                    } else {
+                        $array['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                    }
+
+
                     $array['team2'] = $node->filter('div:nth-child(4) > p')->text();
                     $array['BO'] = $node->filter('p:nth-child(5)')->text();
                     return $array;
                 }
             });
         }
-
-
 
 
         return $a;

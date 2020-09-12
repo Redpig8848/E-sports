@@ -281,6 +281,8 @@ class HomeSpiderController extends Controller
 //                    dd($arr);
                     DB::table('allmatching')->truncate();
                     DB::table('allmatching')->insert($arr);
+                    $fn = new FnscoreSpiderController();
+                    $fn->index();
 //                    echo $bool;
                     echo '<br>';
                     $this->countedAndCheckEnded();

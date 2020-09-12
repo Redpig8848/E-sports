@@ -39,13 +39,28 @@ class MatchSpiderController extends Controller
         } else {
             $this->url = $links['link'];
         }
+        $fn = new FnscoreSpiderController();
         if (is_string($this->url)) {
-            $requests = function ($total) use ($client, $links) {
+            $requests = function ($total) use ($client, $links,$fn) {
                 $uri = $this->url;
-                yield function () use ($client, $uri, $links) {
+                yield function () use ($client, $uri, $links,$fn) {
                     if ($links == '') {
                         if ($uri->matchimg != "该赛事内容不存在") {
-                            return $client->get($uri->link, ['verify' => false]);
+                            if (strpos($uri->link,'fnscore') !== false) {
+                                $datas = array_filter($fn->FnScoreLeague($uri->link,$uri->match,$uri->id));
+                                foreach ($datas as $data) {
+                                    DB::table('schedulematch')->updateOrInsert(
+                                        ['event' => $data['event'], 'eventid' => $data['eventid'], 'time' => $data['time'], 'team1img' => $data['team1img'],
+                                            'team1' => $data['team1'], 'team2img' => $data['team2img'], 'team2' => $data['team2'], 'BO' => $data['BO']
+                                        ],
+                                        ['score' => $data['score']]
+                                    );
+                                }
+                            }else {
+                                return $client->get($uri->link, ['verify' => false]);
+                            }
+
+
                         }
                     } else {
                         return $client->get($uri, ['verify' => false]);
@@ -53,12 +68,24 @@ class MatchSpiderController extends Controller
                 };
             };
         } else {
-            $requests = function ($total) use ($client, $links) {
+            $requests = function ($total) use ($client, $links, $fn) {
                 foreach ($this->url as $uri) {
-                    yield function () use ($client, $uri, $links) {
+                    yield function () use ($client, $uri, $links, $fn) {
                         if ($links == '') {
                             if ($uri->matchimg != "该赛事内容不存在") {
-                                return $client->get($uri->link, ['verify' => false]);
+                                if (strpos($uri->link,'fnscore') !== false) {
+                                    $datas = array_filter($fn->FnScoreLeague($uri->link,$uri->match,$uri->id));
+                                    foreach ($datas as $data) {
+                                        DB::table('schedulematch')->updateOrInsert(
+                                            ['event' => $data['event'], 'eventid' => $data['eventid'], 'time' => $data['time'], 'team1img' => $data['team1img'],
+                                                'team1' => $data['team1'], 'team2img' => $data['team2img'], 'team2' => $data['team2'], 'BO' => $data['BO']
+                                            ],
+                                            ['score' => $data['score']]
+                                        );
+                                    }
+                                }else {
+                                    return $client->get($uri->link, ['verify' => false]);
+                                }
                             }
                         } else {
                             return $client->get($uri, ['verify' => false]);
