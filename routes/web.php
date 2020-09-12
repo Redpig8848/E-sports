@@ -155,6 +155,7 @@ elseif ($ip_from == 'pig') {
 
 
     Route::get('Fnscore', 'FnscoreSpiderController@index');
+    Route::get('ListWait', 'FnscoreSpiderController@ListWait');
 
 
 

@@ -34,7 +34,7 @@ class MatchSpiderController extends Controller
         $client = new Client();
         if ($links == '') {
             $now = strtotime(date('Y-m-d')) - 86400;
-            $this->url = DB::table('match')->where('timestamp','>',$now)->get()->toArray();
+            $this->url = DB::table('match')->where('timestamp', '>', $now)->get()->toArray();
 //            DB::table('schedulematch')->truncate();
         } else {
             $this->url = $links['link'];
@@ -88,11 +88,11 @@ class MatchSpiderController extends Controller
                 if (!empty($http)) {
                     $crawler = new Crawler();
                     $crawler->addHtmlContent($http);
-                    $arr = $crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-container > div > div.match-panel-container > div.match-panel-item')->each(function ($node, $i) use ($http, $index,$links) {
+                    $arr = $crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-container > div > div.match-panel-container > div.match-panel-item')->each(function ($node, $i) use ($http, $index, $links) {
                         try {
                             $data['event'] = $this->url[$index]->match;
                             $data['eventid'] = $this->url[$index]->id;
-                        } catch (\Exception $exception){
+                        } catch (\Exception $exception) {
                             $data['event'] = $links['match'];
                             $data['eventid'] = $links['matchid'];
                         }
@@ -113,7 +113,7 @@ class MatchSpiderController extends Controller
                         }
 //                        dd($data);
                         $data['team1'] = $node->filter('div:nth-child(2) > p')->text();
-                        $data2['score'] = $node->filter('p.score')->text();
+                        $data['score'] = $node->filter('p.score')->text();
                         $data['team2img'] = $node->filter('div:nth-child(4) > img')->attr('src');
 
                         $filename = substr($data['team2img'], strrpos($data['team2img'], '/') + 1);
@@ -134,8 +134,10 @@ class MatchSpiderController extends Controller
 //                        $endtime = substr($data['time'],strpos($data['time'],'- ')+2);
 //                        $data['timestamp'] = strtotime($endtime);
                         DB::table('schedulematch')->updateOrInsert(
-                            [$data],
-                            [$data2]
+                            ['event' => $data['event'], 'eventid' => $data['eventid'], 'time' => $data['time'], 'team1img' => $data['team1img'],
+                                'team1' => $data['team1'], 'team2img' => $data['team2img'], 'team2' => $data['team2'], 'BO' => $data['BO']
+                            ],
+                            ['score' => $data['score']]
                         );
 //                        dd($data);
 //                        return $data;
