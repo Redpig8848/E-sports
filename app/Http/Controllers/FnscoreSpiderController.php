@@ -30,16 +30,17 @@ class FnscoreSpiderController extends Controller
         $uri = 'https://www.fnscore.com/api/common/getMatchLives?timestamp=1599198082859&sign=p1E%252Bcis2nVMRXEtWz3xdL7yHMxvJUHBQmNU0g9U5PSU%253D';
 //        $uri = 'https://www.fnscore.com/api/common/getMatchLiveBattle?timestamp=1599381688257&sign=SI0O6Y1wfo2nT9BMqCTe45h5Tj7nyfUclpTTAJnPSvg%253D';
 
+        $header = [
+            'Content-Type' => 'application/json; charset=utf-8',
+            'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1598236985,1598499176; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1598513879',
+            'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
+            'dataType' => 'json',
+            'X-Content-Type-Options' => 'nosniff',
+        ];
+
         $this->totalPageCount = 1500;
         $client = new Client();
-        $req = $client->post($uri, ['verify' => false,
-            'headers' => [
-                'Content-Type' => 'application/json; charset=utf-8',
-                'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1598236985,1598499176; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1598513879',
-                'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
-                'dataType' => 'json',
-                'X-Content-Type-Options' => 'nosniff',
-            ]]);
+        $req = $client->post($uri, ['verify' => false, 'headers' => $header]);
 
         $post = $req->getBody()->getContents();
         $jsons = json_decode($post, true);
@@ -56,14 +57,7 @@ class FnscoreSpiderController extends Controller
                 $filename = substr($arr[$key]['eventsimg'], strrpos($arr[$key]['eventsimg'], '/') + 1);
                 if (!file_exists(public_path('static/' . $filename))) {
                     try {
-                        $resp = $client_img->get($arr[$key]['eventsimg'], ['headers' => [
-                            'Content-Type' => 'application/json; charset=utf-8',
-                            'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1598236985,1598499176; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1598513879',
-                            'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
-                            'dataType' => 'json',
-                            'X-Content-Type-Options' => 'nosniff'
-                        ],
-                            'save_to' => public_path('static/' . $filename)]);
+                        $resp = $client_img->get($arr[$key]['eventsimg'], ['headers' => $header, 'save_to' => public_path('static/' . $filename)]);
                         if ($resp->getStatusCode() == 200) {
                             $arr[$key]['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
                         }
@@ -118,14 +112,7 @@ class FnscoreSpiderController extends Controller
                     $filename = substr($match['matchimg'], strrpos($match['matchimg'], '/') + 1);
                     if (!file_exists(public_path('static/' . $filename))) {
                         try {
-                            $resp = $client_img->get($match['matchimg'], ['headers' => [
-                                'Content-Type' => 'application/json; charset=utf-8',
-                                'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1598236985,1598499176; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1598513879',
-                                'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
-                                'dataType' => 'json',
-                                'X-Content-Type-Options' => 'nosniff'
-                            ],
-                                'save_to' => public_path('static/' . $filename)]);
+                            $resp = $client_img->get($match['matchimg'], ['headers' => $header, 'save_to' => public_path('static/' . $filename)]);
                             if ($resp->getStatusCode() == 200) {
                                 $match['matchimg'] = 'http://45.157.91.154/static/' . $filename;
                             }
@@ -169,13 +156,7 @@ class FnscoreSpiderController extends Controller
                 $filename = substr($arr[$key]['team1img'], strrpos($arr[$key]['team1img'], '/') + 1);
                 if (!file_exists(public_path('static/' . $filename))) {
                     try {
-                        $resp = $client_img->get($arr[$key]['team1img'], ['headers' => [
-                            'Content-Type' => 'application/json; charset=utf-8',
-                            'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1598236985,1598499176; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1598513879',
-                            'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
-                            'dataType' => 'json',
-                            'X-Content-Type-Options' => 'nosniff'
-                        ],
+                        $resp = $client_img->get($arr[$key]['team1img'], ['headers' => $header,
                             'save_to' => public_path('static/' . $filename)]);
                         if ($resp->getStatusCode() == 200) {
                             $arr[$key]['team1img'] = 'http://45.157.91.154/static/' . $filename;
@@ -197,13 +178,7 @@ class FnscoreSpiderController extends Controller
                 $filename = substr($arr[$key]['team2img'], strrpos($arr[$key]['team2img'], '/') + 1);
                 if (!file_exists(public_path('static/' . $filename))) {
                     try {
-                        $resp = $client_img->get($arr[$key]['team2img'], ['headers' => [
-                            'Content-Type' => 'application/json; charset=utf-8',
-                            'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1598236985,1598499176; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1598513879',
-                            'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
-                            'dataType' => 'json',
-                            'X-Content-Type-Options' => 'nosniff'
-                        ],
+                        $resp = $client_img->get($arr[$key]['team2img'], ['headers' => $header,
                             'save_to' => public_path('static/' . $filename)]);
                         if ($resp->getStatusCode() == 200) {
                             $arr[$key]['team2img'] = 'http://45.157.91.154/static/' . $filename;
