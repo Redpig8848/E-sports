@@ -27,8 +27,8 @@ class FnscoreSpiderController extends Controller
         set_time_limit(0);
         ini_set('memory_limit', '-1');
 
-        $uri = 'https://www.fnscore.com/api/common/getMatchLives?timestamp=1599198082859&sign=p1E%252Bcis2nVMRXEtWz3xdL7yHMxvJUHBQmNU0g9U5PSU%253D';
-//        $uri = 'https://www.fnscore.com/api/common/getMatchLiveBattle?timestamp=1599381688257&sign=SI0O6Y1wfo2nT9BMqCTe45h5Tj7nyfUclpTTAJnPSvg%253D';
+        $uri = 'https://www.54lol.com/api/common/getMatchLives?timestamp=1599198082859&sign=p1E%252Bcis2nVMRXEtWz3xdL7yHMxvJUHBQmNU0g9U5PSU%253D';
+//        $uri = 'https://www.54lol.com/api/common/getMatchLiveBattle?timestamp=1599381688257&sign=SI0O6Y1wfo2nT9BMqCTe45h5Tj7nyfUclpTTAJnPSvg%253D';
 
         $header = [
             'Content-Type' => 'application/json; charset=utf-8',
@@ -93,16 +93,16 @@ class FnscoreSpiderController extends Controller
                 } else {
                     // 开始处理赛事
                     if ($arr[$key]['game'] == '英雄联盟') {
-                        $link = 'https://www.fnscore.com/detail/league/lol-1/league-lol-' . $item['league']['leagueId'] . '.html';
+                        $link = 'https://www.54lol.com/detail/league/lol-1/league-lol-' . $item['league']['leagueId'] . '.html';
                     }
                     if ($arr[$key]['game'] == '王者荣耀') {
-                        $link = 'https://www.fnscore.com/detail/league/kog-2/league-kog-' . $item['league']['leagueId'] . '.html';
+                        $link = 'https://www.54lol.com/detail/league/kog-2/league-kog-' . $item['league']['leagueId'] . '.html';
                     }
                     if ($arr[$key]['game'] == 'CS:GO') {
-                        $link = 'https://www.fnscore.com/detail/league/csgo-3/league-csgo-' . $item['league']['leagueId'] . '.html';
+                        $link = 'https://www.54lol.com/detail/league/csgo-3/league-csgo-' . $item['league']['leagueId'] . '.html';
                     }
                     if ($arr[$key]['game'] == 'DOTA2') {
-                        $link = 'https://www.fnscore.com/detail/league/dota-4/league-dota-' . $item['league']['leagueId'] . '.html';
+                        $link = 'https://www.54lol.com/detail/league/dota-4/league-dota-' . $item['league']['leagueId'] . '.html';
                     }
                     $match = array();
                     // 增加赛事
@@ -224,22 +224,26 @@ class FnscoreSpiderController extends Controller
         set_time_limit(0);
         ini_set('memory_limit', '-1');
 
-        $uri = 'https://www.fnscore.com/api/common/getMatchListWait?timestamp=1599296134666&sign=fyhQKpyAe7%252BfzLMX%252Fi%252FZTHdTDTwVjtaHYgdpEhGkShQ%253D';
-//        $uri = 'https://www.fnscore.com/api/common/getMatchLiveBattle?timestamp=1599381688257&sign=SI0O6Y1wfo2nT9BMqCTe45h5Tj7nyfUclpTTAJnPSvg%253D';
+        $uri = 'https://www.54lol.com/api/common/getMatchListWait?timestamp=1599296134666&sign=fyhQKpyAe7%252BfzLMX%252Fi%252FZTHdTDTwVjtaHYgdpEhGkShQ%253D';
+//        $uri = 'https://www.54lol.com/api/common/getMatchLiveBattle?timestamp=1599381688257&sign=SI0O6Y1wfo2nT9BMqCTe45h5Tj7nyfUclpTTAJnPSvg%253D';
 
         $this->totalPageCount = 1500;
-        $client = new Client();
-        $req = $client->post($uri, ['verify' => false,
-            'headers' => [
+
+        $config = ['verify' => false,
+            'header' => [
                 'Content-Type' => 'application/json; charset=utf-8',
                 'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1598236985,1598499176; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1598513879',
                 'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
                 'dataType' => 'json',
                 'X-Content-Type-Options' => 'nosniff',
-            ]]);
+            ]];
+
+        $client = new Client($config);
+        $req = $client->post($uri);
 
         $post = $req->getBody()->getContents();
         $jsons = json_decode($post, true);
+        dd($jsons);
         foreach ($jsons as $json) {
             $json_arr = $json;
         }
@@ -271,7 +275,36 @@ class FnscoreSpiderController extends Controller
                 $arr[$key]['BO'] = $item['bo'];
                 $arr[$key]['team1'] = $item['home']['teamName'];
                 $arr[$key]['team1img'] = $item['home']['logo'];
+
+                $filename = substr($arr[$key]['team1img'],strrpos($arr[$key]['team1img'],'/')+1);
+                if (!file_exists(public_path('static/' . $filename))) {
+                    try {
+                        $resp = $client->get($arr[$key]['team1img']);
+                        if ($resp->getStatusCode() == 200) {
+                            $arr[$key]['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                        }
+                    } catch (\Exception $exception) {
+                    }
+
+                } else {
+                    $arr[$key]['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                }
+
                 $arr[$key]['team2img'] = $item['away']['logo'];
+
+                $filename = substr($arr[$key]['team2img'],strrpos($arr[$key]['team2img'],'/')+1);
+                if (!file_exists(public_path('static/'.$filename))){
+                    try {
+                        $resp = $client->get($arr[$key]['team2img']);
+                        if ($resp->getStatusCode() == 200) {
+                            $arr[$key]['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                        }
+                    } catch (\Exception $exception) {
+                    }
+                } else {
+                    $arr[$key]['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                }
+
                 $arr[$key]['team2'] = $item['away']['teamName'];
 
 
@@ -287,24 +320,21 @@ class FnscoreSpiderController extends Controller
     public function FnScoreLeague($link, $event, $event_id)
     {
         $client = new Client();
-        $client_img = new Client(['headers' => [
+        $header = [
             'Content-Type' => 'application/json; charset=utf-8',
             'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1598236985,1598499176; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1598513879',
             'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
             'dataType' => 'json',
             'X-Content-Type-Options' => 'nosniff'
-        ]]);
+        ];
+        $client_img = new Client(['headers' => $header]);
         $http = $client->get($link, ['verify' => false,
-            'headers' => [
-                'Content-Type' => 'text/html; charset=utf-8',
-                'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1598236985,1598499176; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1598513879',
-                'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
-                'X-Content-Type-Options' => 'nosniff',]
+            'headers' => $header
         ]);
         $content = $http->getBody()->getContents();
         $crawler = new Crawler();
         $crawler->addHtmlContent($content);
-        $a = $crawler->filter('#__layout > div > div.detail-wrapper.default-continer > div.detail-container > div.match-panel-wrapper > div.match-panel-container > div')->each(function ($node, $i) use ($event, $event_id,$client_img) {
+        $a = $crawler->filter('#__layout > div > div.detail-wrapper.default-continer > div.detail-container > div.match-panel-wrapper > div.match-panel-container > div')->each(function ($node, $i) use ($event, $event_id, $client_img) {
             if ($i > 0) {
                 $array['event'] = $event;
                 $array['eventid'] = $event_id;
@@ -351,7 +381,7 @@ class FnscoreSpiderController extends Controller
 
         });
         if (count($a) == 0) {
-            $a = $crawler->filter('#__layout > div > div.detail-wrapper.default-continer > div.detail-container > div.league-group-rank > div > div.league-info-panel > div.match-progress > div')->each(function ($node, $i) use ($event, $event_id) {
+            $a = $crawler->filter('#__layout > div > div.detail-wrapper.default-continer > div.detail-container > div.league-group-rank > div > div.league-info-panel > div.match-progress > div')->each(function ($node, $i) use ($event, $event_id, $client_img) {
                 if ($i > 0) {
                     $array['event'] = $event;
                     $array['eventid'] = $event_id;

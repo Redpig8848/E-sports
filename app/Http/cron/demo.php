@@ -94,5 +94,20 @@ use GuzzleHttp\Client;
 //echo strtotime('2020-09-23');
 //echo substr('2020-09-09 - 2020-09-13',strpos('2020-09-09 - 2020-09-13', '- ')+2);
 
+//$array = ['tit'=>1];
+//echo !isset($array['tit']);
 
+function one($str1, $str2)
+{
+    two("Glenn", "Quagmire");
+}
+function two($str1, $str2)
+{
+    three("Cleveland", "Brown");
+}
+function three($str1, $str2)
+{
+    print_r(debug_backtrace());
+}
 
+one("Peter", "Griffin");
