@@ -375,34 +375,45 @@ class HomeSpiderController extends Controller
 
 
                         $filename = substr($data['team1img'], strrpos($data['team1img'], '/') + 1);
-                        if (!file_exists(public_path('static/' . $filename))) {
-                            try {
-                                $resp = $client_img->get($data['team1img'], ['save_to' => public_path('static/' . $filename)]);
-                                if ($resp->getStatusCode() == 200) {
-                                    $data['team1img'] = 'http://45.157.91.154/static/' . $filename;
-                                }
-                            } catch (\Exception $exception) {
-                            }
-
+                        if (strpos($data['team1img'],'/lol/team.png') !== false) {
+                            $data['team1img'] = 'http://45.157.91.154/static/lolteam.png';
                         } else {
-                            $data['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                            if (!file_exists(public_path('static/' . $filename))) {
+                                try {
+                                    $resp = $client_img->get($data['team1img'], ['save_to' => public_path('static/' . $filename)]);
+                                    if ($resp->getStatusCode() == 200) {
+                                        $data['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                                    }
+                                } catch (\Exception $exception) {
+                                }
+
+                            } else {
+                                $data['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                            }
                         }
+
+
 
 
                         $data['team2img'] = $node->filter('div.away-team > img')->attr('src');
 
                         $filename = substr($data['team2img'], strrpos($data['team2img'], '/') + 1);
-                        if (!file_exists(public_path('static/' . $filename))) {
-                            try {
-                                $resp = $client_img->get($data['team2img'], ['save_to' => public_path('static/' . $filename)]);
-                                if ($resp->getStatusCode() == 200) {
-                                    $data['team2img'] = 'http://45.157.91.154/static/' . $filename;
-                                }
-                            } catch (\Exception $exception) {
-                            }
 
+                        if (strpos($data['team2img'],'/lol/team.png') !== false) {
+                            $data['team2img'] = 'http://45.157.91.154/static/lolteam.png';
                         } else {
-                            $data['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                            if (!file_exists(public_path('static/' . $filename))) {
+                                try {
+                                    $resp = $client_img->get($data['team2img'], ['save_to' => public_path('static/' . $filename)]);
+                                    if ($resp->getStatusCode() == 200) {
+                                        $data['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                                    }
+                                } catch (\Exception $exception) {
+                                }
+
+                            } else {
+                                $data['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                            }
                         }
 
                         $data['team2'] = $node->filter('div.away-team > p')->text();
