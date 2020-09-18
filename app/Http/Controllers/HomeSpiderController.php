@@ -90,6 +90,7 @@ class HomeSpiderController extends Controller
                             $find_onclick = $node->filter('div > div.header > div')->attr('onclick');
                             $find_link = substr($find_onclick, strpos($find_onclick, 'hrefClicked(\'') + 13);
                             $find_link = substr($find_link, 0, strpos($find_link, '\')'));
+                            $events_link = $find_link;
                             $find_client = new Client();
                             $find_response = $find_client->get('https://www.500bf.com' . $find_link, ['verify' => false]);
                             $find_request = $find_response->getBody()->getContents();
@@ -401,6 +402,10 @@ class HomeSpiderController extends Controller
 
                         if (strpos($data['team2img'],'/lol/team.png') !== false) {
                             $data['team2img'] = 'http://45.157.91.154/static/lolteam.png';
+                        }elseif (strpos($data['team2img'],'/kog/team.png') !== false){
+                            $data['team2img'] = 'http://45.157.91.154/static/kogteam.png';
+                        } elseif (strpos($data['team2img'],'')) {
+
                         } else {
                             if (!file_exists(public_path('static/' . $filename))) {
                                 try {
