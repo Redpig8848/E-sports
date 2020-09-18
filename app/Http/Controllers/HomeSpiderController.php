@@ -404,8 +404,8 @@ class HomeSpiderController extends Controller
                             $data['team2img'] = 'http://45.157.91.154/static/lolteam.png';
                         }elseif (strpos($data['team2img'],'/kog/team.png') !== false){
                             $data['team2img'] = 'http://45.157.91.154/static/kogteam.png';
-                        } elseif (strpos($data['team2img'],'')) {
-
+                        } elseif (strpos($data['team2img'],'dota/team.png')) {
+                            $data['team2img'] = 'http://45.157.91.154/static/dotateam.png';
                         } else {
                             if (!file_exists(public_path('static/' . $filename))) {
                                 try {
