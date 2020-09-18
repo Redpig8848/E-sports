@@ -26,6 +26,7 @@ class MatchController extends Controller
         }
         $match[0] = array_add((array)$match[0],'game_img',$game_img);
         $matchs = DB::table('schedulematch')->where('eventid', $id)
+            ->orderBy('time','asc')
             ->get()
             ->toArray();
 //        dd($matchs);
