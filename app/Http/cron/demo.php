@@ -91,23 +91,23 @@ use GuzzleHttp\Client;
 
 //$time = time();
 //echo date('Y-m-d H:i:s',1599383700);
-//echo strtotime('2020-09-23');
+echo strtotime('2020-09-14');
 //echo substr('2020-09-09 - 2020-09-13',strpos('2020-09-09 - 2020-09-13', '- ')+2);
 
 //$array = ['tit'=>1];
 //echo !isset($array['tit']);
 
-function one($str1, $str2)
-{
-    two("Glenn", "Quagmire");
-}
-function two($str1, $str2)
-{
-    three("Cleveland", "Brown");
-}
-function three($str1, $str2)
-{
-    print_r(debug_backtrace());
-}
-
-one("Peter", "Griffin");
+//function one($str1, $str2)
+//{
+//    two("Glenn", "Quagmire");
+//}
+//function two($str1, $str2)
+//{
+//    three("Cleveland", "Brown");
+//}
+//function three($str1, $str2)
+//{
+//    print_r(debug_backtrace());
+//}
+//
+//one("Peter", "Griffin");

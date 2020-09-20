@@ -221,6 +221,7 @@ class HomeSpiderController extends Controller
                         $data['team1img'] = $tema1img;
 
                         $filename = substr($data['team1img'], strrpos($data['team1img'], '/') + 1);
+
                         if (!file_exists(public_path('static/' . $filename))) {
                             try {
                                 $resp = $client_img->get($data['team1img'], ['save_to' => public_path('static/' . $filename)]);
@@ -378,6 +379,10 @@ class HomeSpiderController extends Controller
                         $filename = substr($data['team1img'], strrpos($data['team1img'], '/') + 1);
                         if (strpos($data['team1img'],'/lol/team.png') !== false) {
                             $data['team1img'] = 'http://45.157.91.154/static/lolteam.png';
+                        } elseif (strpos($data['team1img'],'/kog/team.png') !== false) {
+                            $data['team1img'] = 'http://45.157.91.154/static/kogteam.png';
+                        } elseif (strpos($data['team1img'],'dota/team.png')) {
+                            $data['team1img'] = 'http://45.157.91.154/static/dotateam.png';
                         } else {
                             if (!file_exists(public_path('static/' . $filename))) {
                                 try {
