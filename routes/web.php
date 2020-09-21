@@ -160,7 +160,7 @@ elseif ($ip_from == 'pig') {
 
 
 
-//    Route::get('demo', 'DemoController@index');
+    Route::get('demo', 'DemoController@index');
 
 
 }

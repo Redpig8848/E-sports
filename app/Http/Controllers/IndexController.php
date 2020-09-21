@@ -58,12 +58,13 @@ class IndexController extends Controller
                     $tv_link = substr($item, strpos($item, '=>') + 2);
                     $match[$key]->tv = array_add($match[$key]->tv, $key_2,array('name'=>$k,'link'=>$tv_link));
                 }
-//                foreach ($match[$key]->tv as $tv_value){
-////                    dd(is_int(strpos($tv_value['name'],'斗2鱼')));
-//                    if ($con == 0 && !is_int(strpos($tv_value['name'],'斗鱼'))){
-//                        $match[$key]->tv[0] = array('name' => $tv_value['name'],'link'=>$tv_value['link']);
-//                    }
-//                }
+                foreach ($match[$key]->tv as $tv_value){
+//                    dd(is_int(strpos($tv_value['name'],'斗2鱼')));
+                    if ($con == 0 && (is_int(strpos($tv_value['name'],'斗鱼')) || is_int(strpos($tv_value['name'],'虎牙')) || is_int(strpos($tv_value['name'],'火猫')))  ){
+                        $match[$key]->tv[0] = array('name' => $tv_value['name'],'link'=>$tv_value['link']);
+                        $con = 1;
+                    }
+                }
 
             } else {
                 $match[$key]->tv = array();
@@ -87,6 +88,7 @@ class IndexController extends Controller
                 $match[$key] = array_add((array)$match[$key],'pooimg','');
             }
         }
+
         return $match;
     }
 
@@ -117,8 +119,9 @@ class IndexController extends Controller
                 }
                 foreach ($match[$key]->tv as $tv_value){
 //                    dd(is_int(strpos($tv_value['name'],'斗2鱼')));
-                    if ($con == 0 && !is_int(strpos($tv_value['name'],'斗鱼'))){
+                    if ($con == 0 && (is_int(strpos($tv_value['name'],'斗鱼')) || is_int(strpos($tv_value['name'],'虎牙')) || is_int(strpos($tv_value['name'],'火猫')))  ){
                         $match[$key]->tv[0] = array('name' => $tv_value['name'],'link'=>$tv_value['link']);
+                        $con = 1;
                     }
                 }
 

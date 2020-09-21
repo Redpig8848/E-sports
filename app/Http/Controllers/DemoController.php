@@ -24,7 +24,8 @@ class DemoController extends Controller
         set_time_limit(0);
         ini_set('memory_limit', '-1');
         for ($i = 1; $i < 2; $i++) {
-            $this->url[] = 'https://www.fnscore.com/api/common/getMatchLives?timestamp=1599198082859&sign=p1E%252Bcis2nVMRXEtWz3xdL7yHMxvJUHBQmNU0g9U5PSU%253D';
+//            $this->url[] = 'https://www.fnscore.com/api/common/getMatchLives?timestamp=1599198082859&sign=p1E%252Bcis2nVMRXEtWz3xdL7yHMxvJUHBQmNU0g9U5PSU%253D';
+            $this->url[] = 'https://www.fnscore.com/api/score/getLiveBetList?timestamp=1600670668378&sign=5Q2o74CLsj6EgI7JRf3a6WgPniz1FqPvhNoqlujLkWo%253D';
         }
         $this->totalPageCount = 1500;
         $client = new Client();
@@ -33,6 +34,9 @@ class DemoController extends Controller
                 yield function () use ($client, $uri) {
                     return $client->post($uri, ['verify' => false,
                         'headers' => [
+                            'accept' => 'application/json, text/plain, */*',
+                            'accept-encoding' => 'POST',
+                            'accept-language' => 'zh-CN,zh;q=0.9',
                             'Content-Type' => 'application/json; charset=utf-8',
                             'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1598236985,1598499176; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1598513879',
                             'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
