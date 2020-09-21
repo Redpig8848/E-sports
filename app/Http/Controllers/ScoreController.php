@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use function GuzzleHttp\Psr7\str;
 
 class ScoreController extends Controller
 {
@@ -33,8 +34,9 @@ class ScoreController extends Controller
                 }
                 foreach ($scoreing[$key]->tv as $tv_value){
 //                    dd(is_int(strpos($tv_value['name'],'斗2鱼')));
-                    if ($con == 0 && !is_int(strpos($tv_value['name'],'斗鱼'))){
+                    if ($con == 0 && (is_int(strpos($tv_value['name'],'斗鱼')) || is_int(strpos($tv_value['name'],'虎牙')) || is_int(strpos($tv_value['name'],'火猫')))  ){
                         $scoreing[$key]->tv[0] = array('name' => $tv_value['name'],'link'=>$tv_value['link']);
+                        $con = 1;
                     }
                 }
 
@@ -142,8 +144,9 @@ class ScoreController extends Controller
                 }
                 foreach ($scoreing[$key]->tv as $tv_value){
 //                    dd(is_int(strpos($tv_value['name'],'斗2鱼')));
-                    if ($con == 0 && !is_int(strpos($tv_value['name'],'斗鱼'))){
+                    if ($con == 0 && (is_int(strpos($tv_value['name'],'斗鱼')) || is_int(strpos($tv_value['name'],'火猫')) || is_int(strpos($tv_value['name'],'虎牙')))  ){
                         $scoreing[$key]->tv[0] = array('name' => $tv_value['name'],'link'=>$tv_value['link']);
+                        $con = 1;
                     }
                 }
 
