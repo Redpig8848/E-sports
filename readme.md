@@ -18,17 +18,14 @@
             "created_at": null,
             "updated_at": null
         },
-        
         {
             "id": 2,
             ...
         },
-        
         {
             "id": 3,
             ...
         },
-        
         {
             "id": 4,
             "game": "\u738b\u8005\u8363\u8000",
