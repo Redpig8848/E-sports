@@ -39,7 +39,7 @@
 - 游戏赛事导航 ( http://45.157.91.155/GameNavigation )
 
 
-    {
+    
         "DOTA2": [
             {
                 "id": 270,
@@ -93,7 +93,7 @@
                 "matchimg": "https:\/\/qn.feijing88.com\/egame\/kog\/league\/3767c1e22299befd683350035b98ad62.png"
             }
         ]
-    }
+    
 
 - 首页全部游戏正在进行 ( http://45.157.91.155/GetAllMatchIng )
 
