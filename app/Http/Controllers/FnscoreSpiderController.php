@@ -93,16 +93,16 @@ class FnscoreSpiderController extends Controller
                 } else {
                     // 开始处理赛事
                     if ($arr[$key]['game'] == '英雄联盟') {
-                        $link = 'https://www.54lol.com/detail/league/lol-1/league-lol-' . $item['league']['leagueId'] . '.html';
+                        $link = 'https://www.fnscore.com/detail/league/lol-1/league-lol-' . $item['league']['leagueId'] . '.html';
                     }
                     if ($arr[$key]['game'] == '王者荣耀') {
-                        $link = 'https://www.54lol.com/detail/league/kog-2/league-kog-' . $item['league']['leagueId'] . '.html';
+                        $link = 'https://www.fnscore.com/detail/league/kog-2/league-kog-' . $item['league']['leagueId'] . '.html';
                     }
                     if ($arr[$key]['game'] == 'CS:GO') {
-                        $link = 'https://www.54lol.com/detail/league/csgo-3/league-csgo-' . $item['league']['leagueId'] . '.html';
+                        $link = 'https://www.fnscore.com/detail/league/csgo-3/league-csgo-' . $item['league']['leagueId'] . '.html';
                     }
                     if ($arr[$key]['game'] == 'DOTA2') {
-                        $link = 'https://www.54lol.com/detail/league/dota-4/league-dota-' . $item['league']['leagueId'] . '.html';
+                        $link = 'https://www.fnscore.com/detail/league/dota-4/league-dota-' . $item['league']['leagueId'] . '.html';
                     }
                     $match = array();
                     // 增加赛事
@@ -224,22 +224,21 @@ class FnscoreSpiderController extends Controller
         set_time_limit(0);
         ini_set('memory_limit', '-1');
 
-        $uri = 'https://www.54lol.com/api/common/getMatchListWait?timestamp=1599296134666&sign=fyhQKpyAe7%252BfzLMX%252Fi%252FZTHdTDTwVjtaHYgdpEhGkShQ%253D';
+        $uri = 'https://www.fnscore.com/api/common/getMatchListWait?timestamp=1599296134666&sign=fyhQKpyAe7%252BfzLMX%252Fi%252FZTHdTDTwVjtaHYgdpEhGkShQ%253D';
 //        $uri = 'https://www.54lol.com/api/common/getMatchLiveBattle?timestamp=1599381688257&sign=SI0O6Y1wfo2nT9BMqCTe45h5Tj7nyfUclpTTAJnPSvg%253D';
-
+        $header = [
+            'Content-Type' => 'application/json; charset=utf-8',
+            'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1600394600,1600480516,1600566916,1600653498; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1600762627',
+            'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
+            'dataType' => 'json',
+            'X-Content-Type-Options' => 'nosniff',
+        ];
         $this->totalPageCount = 1500;
 
-        $config = ['verify' => false,
-            'header' => [
-                'Content-Type' => 'application/json; charset=utf-8',
-                'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1598236985,1598499176; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1598513879',
-                'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
-                'dataType' => 'json',
-                'X-Content-Type-Options' => 'nosniff',
-            ]];
+        $config = ['verify' => false, 'header' => $header];
 
-        $client = new Client($config);
-        $req = $client->post($uri);
+        $client = new Client();
+        $req = $client->post($uri,['verify' => false, 'header' => $header]);
 
         $post = $req->getBody()->getContents();
         $jsons = json_decode($post, true);
@@ -334,7 +333,7 @@ class FnscoreSpiderController extends Controller
         $content = $http->getBody()->getContents();
         $crawler = new Crawler();
         $crawler->addHtmlContent($content);
-        $a = $crawler->filter('#__layout > div > div.detail-wrapper.default-continer > div.detail-container > div.match-panel-wrapper > div.match-panel-container > div')->each(function ($node, $i) use ($event, $event_id, $client_img) {
+        $a = $crawler->filter('#__layout > div > div.detail-wrapper.default-continer > div.detail-container > div.match-panel-wrapper > div.match-panel-container > div')->each(function ($node, $i) use ($event, $event_id, $client_img, $link) {
             if ($i > 0) {
                 $array['event'] = $event;
                 $array['eventid'] = $event_id;
