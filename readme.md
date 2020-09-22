@@ -10,7 +10,7 @@
     
     
     
-    [
+    
         {
             "id": 1,
             "game": "DOTA2",
@@ -33,7 +33,7 @@
             "created_at": null,
             "updated_at": null
         }
-    ]
+    
 
 
 - 游戏赛事导航 ( http://45.157.91.155/GameNavigation )
