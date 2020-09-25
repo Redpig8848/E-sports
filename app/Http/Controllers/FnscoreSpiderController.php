@@ -361,36 +361,53 @@ class FnscoreSpiderController extends Controller
                 $array['team1img'] = $node->filter('div:nth-child(2) > img')->attr('src');
 
                 $filename = substr($array['team1img'], strrpos($array['team1img'], '/') + 1);
-                if (!file_exists(public_path('static/' . $filename))) {
-                    try {
-                        $resp = $client_img->get($array['team1img'], ['save_to' => public_path('static/' . $filename)]);
-                        if ($resp->getStatusCode() == 200) {
-                            $array['team1img'] = 'http://45.157.91.154/static/' . $filename;
-                        }
-                    } catch (\Exception $exception) {
-                    }
-
+                if (strpos($array['team1img'],'/lol/team.png') !== false){
+                    $array['team1img'] = 'http://45.157.91.154/static/lolteam.png';
+                } elseif (strpos($array['team1img'], '/dota/team.png') !== false){
+                    $array['team1img'] = 'http://45.157.91.154/static/dotateam.png';
+                } elseif (strpos($array['team1img'],'/kog/team.png') !== false){
+                    $array['team1img'] = 'http://45.157.91.154/static/kogteam.png';
                 } else {
-                    $array['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                    if (!file_exists(public_path('static/' . $filename))) {
+                        try {
+                            $resp = $client_img->get($array['team1img'], ['save_to' => public_path('static/' . $filename)]);
+                            if ($resp->getStatusCode() == 200) {
+                                $array['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                            }
+                        } catch (\Exception $exception) {
+                        }
+
+                    } else {
+                        $array['team1img'] = 'http://45.157.91.154/static/' . $filename;
+                    }
                 }
+
 
 
                 $array['team1'] = $node->filter('div:nth-child(2) > p')->text();
                 $array['score'] = $node->filter('p:nth-child(3)')->text();
                 $array['team2img'] = $node->filter('div:nth-child(4) > img')->attr('src');
-
                 $filename = substr($array['team2img'], strrpos($array['team2img'], '/') + 1);
-                if (!file_exists(public_path('static/' . $filename))) {
-                    try {
-                        $resp = $client_img->get($array['team2img'], ['save_to' => public_path('static/' . $filename)]);
-                        if ($resp->getStatusCode() == 200) {
-                            $array['team2img'] = 'http://45.157.91.154/static/' . $filename;
-                        }
-                    } catch (\Exception $exception) {
-                    }
 
+                if(strpos($array['team2img'],'/lol/team.png') !== false){
+                    $array['team2img'] = 'http://45.157.91.154/static/lolteam.png';
+                } elseif (strpos($array['team2img'],'/dota/team.png') !== false) {
+                    $array['team2img'] = 'http://45.157.91.154/static/dotateam.png';
+                } elseif (strpos($array['team2img'],'/kog/team.png') !== false) {
+                    $array['team2img'] = 'http://45.157.91.154/static/kogteam.png';
                 } else {
-                    $array['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                    if (!file_exists(public_path('static/' . $filename))) {
+                        try {
+                            $resp = $client_img->get($array['team2img'], ['save_to' => public_path('static/' . $filename)]);
+                            if ($resp->getStatusCode() == 200) {
+                                $array['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                            }
+                        } catch (\Exception $exception) {
+                        }
+
+                    } else {
+                        $array['team2img'] = 'http://45.157.91.154/static/' . $filename;
+                    }
                 }
 
                 $array['team2'] = $node->filter('div:nth-child(4) > p')->text();
