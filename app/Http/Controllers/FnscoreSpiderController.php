@@ -224,21 +224,25 @@ class FnscoreSpiderController extends Controller
         set_time_limit(0);
         ini_set('memory_limit', '-1');
 
-        $uri = 'https://www.fnscore.com/api/common/getMatchListWait?timestamp=1599296134666&sign=fyhQKpyAe7%252BfzLMX%252Fi%252FZTHdTDTwVjtaHYgdpEhGkShQ%253D';
+        $uri = 'https://www.fnscore.com/api/common/getMatchListWait?timestamp=1600936023187&sign=0tKeSSeYPOYTOrsLdB%252FouLsjOC0Hzd%252BAswkxOxxQm70%253D';
 //        $uri = 'https://www.54lol.com/api/common/getMatchLiveBattle?timestamp=1599381688257&sign=SI0O6Y1wfo2nT9BMqCTe45h5Tj7nyfUclpTTAJnPSvg%253D';
         $header = [
+            'Postman-Token' => '9be17206-8d05-4298-a0cf-e44cca44c8a2',
             'Content-Type' => 'application/json; charset=utf-8',
-            'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1600394600,1600480516,1600566916,1600653498; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1600762627',
-            'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
-            'dataType' => 'json',
-            'X-Content-Type-Options' => 'nosniff',
+            'cookie' => 'Hm_lvt_f9784b3edd94d69659d8e4abfed9b281=1600480516,1600566916,1600653498,1600923046; Hm_lpvt_f9784b3edd94d69659d8e4abfed9b281=1600924978',
+            'user-agent' => 'PostmanRuntime/7.26.5',
+            'Accept' => '*/*',
+            'Accept-Encoding' => 'gzip, deflate, br',
+            'Connection' => 'keep-alive',
+            'Host' => 'https://www.fnscore.com/'
         ];
+
         $this->totalPageCount = 1500;
 
         $config = ['verify' => false, 'header' => $header];
 
         $client = new Client();
-        $req = $client->post($uri,['verify' => false, 'header' => $header]);
+        $req = $client->post($uri, ['verify' => false,'header' => $header]);
 
         $post = $req->getBody()->getContents();
         $jsons = json_decode($post, true);
@@ -275,7 +279,7 @@ class FnscoreSpiderController extends Controller
                 $arr[$key]['team1'] = $item['home']['teamName'];
                 $arr[$key]['team1img'] = $item['home']['logo'];
 
-                $filename = substr($arr[$key]['team1img'],strrpos($arr[$key]['team1img'],'/')+1);
+                $filename = substr($arr[$key]['team1img'], strrpos($arr[$key]['team1img'], '/') + 1);
                 if (!file_exists(public_path('static/' . $filename))) {
                     try {
                         $resp = $client->get($arr[$key]['team1img']);
@@ -291,8 +295,8 @@ class FnscoreSpiderController extends Controller
 
                 $arr[$key]['team2img'] = $item['away']['logo'];
 
-                $filename = substr($arr[$key]['team2img'],strrpos($arr[$key]['team2img'],'/')+1);
-                if (!file_exists(public_path('static/'.$filename))){
+                $filename = substr($arr[$key]['team2img'], strrpos($arr[$key]['team2img'], '/') + 1);
+                if (!file_exists(public_path('static/' . $filename))) {
                     try {
                         $resp = $client->get($arr[$key]['team2img']);
                         if ($resp->getStatusCode() == 200) {
@@ -356,7 +360,7 @@ class FnscoreSpiderController extends Controller
 
 
                 $array['team1'] = $node->filter('div:nth-child(2) > p')->text();
-                $array['score'] = $node->filter('p.score-wait')->text();
+                $array['score'] = $node->filter('p:nth-child(3)')->text();
                 $array['team2img'] = $node->filter('div:nth-child(4) > img')->attr('src');
 
                 $filename = substr($array['team2img'], strrpos($array['team2img'], '/') + 1);
