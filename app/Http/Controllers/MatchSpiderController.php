@@ -129,6 +129,10 @@ class MatchSpiderController extends Controller
                         $filename = substr($data['team1img'], strrpos($data['team1img'], '/') + 1);
                         if (strpos($data['team1img'], '/lol/team.png') !== false) {
                             $data['team1img'] = 'http://45.157.91.154/static/lolteam.png';
+                        } elseif (strpos($data['team1img'],'/dota/team.png')){
+                            $data['team1img'] = 'http://45.157.91.154/static/dotateam.png';
+                        } elseif (strpos($data['team1img'],'/kog/team.png')){
+                            $data['team1img'] = 'http://45.157.91.154/static/kogteam.png';
                         } else {
                             if (!file_exists(public_path('static/' . $filename))) {
                                 try {
@@ -151,6 +155,10 @@ class MatchSpiderController extends Controller
 
                         if (strpos($data['team2img'],'/lol/team.png') !== false) {
                             $data['team2img'] = 'http://45.157.91.154/static/lolteam.png';
+                        } elseif (strpos($data['team2img'],'/dota/team.png')){
+                            $data['team2img'] = 'http://45.157.91.154/static/dotateam.png';
+                        } elseif (strpos($data['team2img'],'/kog/team.png')){
+                            $data['team2img'] = 'http://45.157.91.154/static/kogteam.png';
                         } else {
                             if (!file_exists(public_path('static/' . $filename))) {
                                 try {

@@ -27,7 +27,7 @@ class FnscoreSpiderController extends Controller
         set_time_limit(0);
         ini_set('memory_limit', '-1');
 
-        $uri = 'https://www.54lol.com/api/common/getMatchLives?timestamp=1599198082859&sign=p1E%252Bcis2nVMRXEtWz3xdL7yHMxvJUHBQmNU0g9U5PSU%253D';
+        $uri = 'https://www.fnscore.com/api/common/getMatchLives?timestamp=1599198082859&sign=p1E%252Bcis2nVMRXEtWz3xdL7yHMxvJUHBQmNU0g9U5PSU%253D';
 //        $uri = 'https://www.54lol.com/api/common/getMatchLiveBattle?timestamp=1599381688257&sign=SI0O6Y1wfo2nT9BMqCTe45h5Tj7nyfUclpTTAJnPSvg%253D';
 
         $header = [
@@ -89,6 +89,22 @@ class FnscoreSpiderController extends Controller
                 $eventsid = $Match->GetMatchId($arr[$key]['events'], $arr[$key]['game']);
 
                 if ($eventsid) {
+                    $ma = DB::table('match')->where('id',$eventsid)->get()->toArray();
+                    if (strpos($ma[0]->link,'500bf') !== false){
+                        if ($arr[$key]['game'] == '英雄联盟') {
+                            $link = 'https://www.fnscore.com/detail/league/lol-1/league-lol-' . $item['league']['leagueId'] . '.html';
+                        }
+                        if ($arr[$key]['game'] == '王者荣耀') {
+                            $link = 'https://www.fnscore.com/detail/league/kog-2/league-kog-' . $item['league']['leagueId'] . '.html';
+                        }
+                        if ($arr[$key]['game'] == 'CS:GO') {
+                            $link = 'https://www.fnscore.com/detail/league/csgo-3/league-csgo-' . $item['league']['leagueId'] . '.html';
+                        }
+                        if ($arr[$key]['game'] == 'DOTA2') {
+                            $link = 'https://www.fnscore.com/detail/league/dota-4/league-dota-' . $item['league']['leagueId'] . '.html';
+                        }
+                        DB::table('match')->where('id',$eventsid)->update(['link'=>$link]);
+                    }
                     $arr[$key]['eventsid'] = $eventsid;
                 } else {
                     // 开始处理赛事
