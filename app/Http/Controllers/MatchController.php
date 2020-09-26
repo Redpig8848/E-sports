@@ -37,9 +37,11 @@ class MatchController extends Controller
             if ($v->team2img == 'http://45.157.91.154/static/') {
                 $matchs[$key]->team2img = '';
             }
-
-            $time1 = substr($v->time,0,5);
-            $time2 =  substr($v->time,7);
+//            $time1 = substr($v->time,0,5);
+//            $time2 =  substr($v->time,7);
+            preg_match('/\d+:\d+/',$v->time,$time2);
+            $time2 = $time2[0];
+            $time1 = str_replace($time2,'',$v->time);
             $matchs[$key]->time = array($time1,$time2);
         }
         return array('title' => $match, 'body' => $matchs);

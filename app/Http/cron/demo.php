@@ -91,7 +91,7 @@ use GuzzleHttp\Client;
 
 //$time = time();
 //echo date('Y-m-d H:i:s',1599383700);
-echo strtotime('2020-09-14');
+//echo strtotime('2020-09-14');
 //echo substr('2020-09-09 - 2020-09-13',strpos('2020-09-09 - 2020-09-13', '- ')+2);
 
 //$array = ['tit'=>1];
@@ -111,3 +111,13 @@ echo strtotime('2020-09-14');
 //}
 //
 //one("Peter", "Griffin");
+
+
+$time = '2020-10-01 19:00';
+preg_match('/\d+:\d+/',$time,$str);
+$str = str_replace($str[0],'',$time);
+print_r($str);
+
+
+
+
