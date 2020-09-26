@@ -172,10 +172,10 @@ class HomeSpiderController extends Controller
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
                             $events['matchid'] = $data['eventsid'];
-                            if ($events['matchimg'] !== '该赛事内容不存在') {
-                                $matchspider = new MatchSpiderController();
-                                $matchspider->AllMatch($events);
-                            }
+//                            if ($events['matchimg'] !== '该赛事内容不存在') {
+//                                $matchspider = new MatchSpiderController();
+//                                $matchspider->AllMatch($events);
+//                            }
                         }
 
 

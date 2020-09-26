@@ -68,7 +68,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('command:After')
             ->daily();
         $schedule->command('command:AllSchedule')
-            ->dailyAt('01:00');
+            ->everyThirtyMinutes();
         $schedule->command('command:LOL')
             ->everyTenMinutes();
         $schedule->command('command:DOTA')
