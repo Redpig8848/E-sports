@@ -39,8 +39,10 @@ class MatchSpiderController extends Controller
         } else {
             $this->url = $links['link'];
         }
+//        dd($this->url);
         $fn = new FnscoreSpiderController();
         if (is_string($this->url)) {
+
             $requests = function ($total) use ($client, $links, $fn) {
                 $uri = $this->url;
                 yield function () use ($client, $uri, $links, $fn) {
@@ -48,14 +50,16 @@ class MatchSpiderController extends Controller
                         if ($uri->matchimg != "该赛事内容不存在") {
                             if (strpos($uri->link, 'fnscore') !== false) {
                                 $datas = array_filter($fn->FnScoreLeague($uri->link, $uri->match, $uri->id));
-                                foreach ($datas as $data) {
-                                    DB::table('schedulematch')->updateOrInsert(
-                                        ['event' => $data['event'], 'eventid' => $data['eventid'], 'time' => $data['time'], 'team1img' => $data['team1img'],
-                                            'team1' => $data['team1'], 'team2img' => $data['team2img'], 'team2' => $data['team2'], 'BO' => $data['BO']
-                                        ],
-                                        ['score' => $data['score']]
-                                    );
-                                }
+                                DB::table('schedulematch')->where('eventid',$uri->id)->delete();
+                                DB::table('schedulematch')->insert($datas);
+//                                foreach ($datas as $data) {
+//                                    DB::table('schedulematch')->updateOrInsert(
+//                                        ['event' => $data['event'], 'eventid' => $data['eventid'], 'time' => $data['time'], 'team1img' => $data['team1img'],
+//                                            'team1' => $data['team1'], 'team2img' => $data['team2img'], 'team2' => $data['team2'], 'BO' => $data['BO']
+//                                        ],
+//                                        ['score' => $data['score']]
+//                                    );
+//                                }
                             } else {
                                 return $client->get($uri->link, ['verify' => false]);
                             }
@@ -75,14 +79,16 @@ class MatchSpiderController extends Controller
                             if ($uri->matchimg != "该赛事内容不存在") {
                                 if (strpos($uri->link, 'fnscore') !== false) {
                                     $datas = array_filter($fn->FnScoreLeague($uri->link, $uri->match, $uri->id));
-                                    foreach ($datas as $data) {
-                                        DB::table('schedulematch')->updateOrInsert(
-                                            ['event' => $data['event'], 'eventid' => $data['eventid'], 'time' => $data['time'], 'team1img' => $data['team1img'],
-                                                'team1' => $data['team1'], 'team2img' => $data['team2img'], 'team2' => $data['team2'], 'BO' => $data['BO']
-                                            ],
-                                            ['score' => $data['score']]
-                                        );
-                                    }
+                                    DB::table('schedulematch')->where('eventid',$uri->id)->delete();
+                                    DB::table('schedulematch')->insert($datas);
+//                                    foreach ($datas as $data) {
+//                                        DB::table('schedulematch')->updateOrInsert(
+//                                            ['event' => $data['event'], 'eventid' => $data['eventid'], 'time' => $data['time'], 'team1img' => $data['team1img'],
+//                                                'team1' => $data['team1'], 'team2img' => $data['team2img'], 'team2' => $data['team2'], 'BO' => $data['BO']
+//                                            ],
+//                                            ['score' => $data['score']]
+//                                        );
+//                                    }
                                 } else {
                                     return $client->get($uri->link, ['verify' => false]);
                                 }
@@ -94,7 +100,6 @@ class MatchSpiderController extends Controller
                 }
             };
         }
-
 
         $pool = new Pool($client, $requests($this->totalPageCount), [
             'concurrency' => $this->concurrency,
@@ -179,21 +184,18 @@ class MatchSpiderController extends Controller
                         $data['BO'] = $node->filter('p:nth-child(5)')->text();
 //                        $endtime = substr($data['time'],strpos($data['time'],'- ')+2);
 //                        $data['timestamp'] = strtotime($endtime);
-                        DB::table('schedulematch')->updateOrInsert(
-                            ['event' => $data['event'], 'eventid' => $data['eventid'], 'time' => $data['time'], 'team1img' => $data['team1img'],
-                                'team1' => $data['team1'], 'team2img' => $data['team2img'], 'team2' => $data['team2'], 'BO' => $data['BO']
-                            ],
-                            ['score' => $data['score']]
-                        );
+//                        DB::table('schedulematch')->updateOrInsert(
+//                            ['event' => $data['event'], 'eventid' => $data['eventid'], 'time' => $data['time'], 'team1img' => $data['team1img'],
+//                                'team1' => $data['team1'], 'team2img' => $data['team2img'], 'team2' => $data['team2'], 'BO' => $data['BO']
+//                            ],
+//                            ['score' => $data['score']]
+//                        );
+                        DB::table('schedulematch')->where('eventid',$data['eventid'])->delete();
+                        DB::table('schedulematch')->insert($data);
 //                        dd($data);
-//                        return $data;
+
                     });
 
-//                    DB::table('schedulematch')->insert($arr);
-
-
-//                    $bool = DB::table('title')->insert($arr);
-//                    echo $bool;
                     echo '<br>';
                     $this->countedAndCheckEnded();
                 }

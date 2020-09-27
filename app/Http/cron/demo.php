@@ -113,10 +113,18 @@ use GuzzleHttp\Client;
 //one("Peter", "Griffin");
 
 
-$time = '2020-10-01 19:00';
-preg_match('/\d+:\d+/',$time,$str);
-$str = str_replace($str[0],'',$time);
-print_r($str);
+//$time = '2020-10-01 19:00';
+//preg_match('/\d+:\d+/',$time,$str);
+//$str = str_replace($str[0],'',$time);
+//print_r($str);
+
+
+$link = 'https://www.500bf.com/index/index/detail/id/1183.html';
+$id  = substr($link ,strpos($link,'/id/')+4);
+$id = substr($id,0,strpos($id,'.html'));
+print $id;
+
+
 
 
 

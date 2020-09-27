@@ -74,17 +74,13 @@ class HomeSpiderController extends Controller
                         $tema2img = $node->filter('div > div:nth-child(4) > div.tag-1 > img')->attr('src');
                         $find_request = false;
                         // 所属游戏
-                        if (strpos($data['eventsimg'], 'dota') !== false || strpos($tema1img, 'dota') !== false ||
-                            strpos($tema2img, 'dota') !== false) {
+                        if (strpos($data['eventsimg'], 'dota') !== false) {
                             $data['game'] = 'DOTA2';
-                        } elseif (strpos($data['eventsimg'], 'csgo') !== false || strpos($tema1img, 'csgo') !== false ||
-                            strpos($tema2img, 'csgo') !== false) {
+                        } elseif (strpos($data['eventsimg'], 'csgo') !== false) {
                             $data['game'] = 'CS:GO';
-                        } elseif (strpos($data['eventsimg'], 'lol') !== false || strpos($tema1img, 'lol') !== false ||
-                            strpos($tema2img, 'lol') !== false) {
+                        } elseif (strpos($data['eventsimg'], 'lol') !== false) {
                             $data['game'] = '英雄联盟';
-                        } elseif (strpos($data['eventsimg'], 'kog') !== false || strpos($tema1img, 'kog') !== false ||
-                            strpos($tema2img, 'kog') !== false) {
+                        } elseif (strpos($data['eventsimg'], 'kog') !== false) {
                             $data['game'] = '王者荣耀';
                         } else {
                             $find_onclick = $node->filter('div > div.header > div')->attr('onclick');
@@ -128,16 +124,45 @@ class HomeSpiderController extends Controller
                         // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中
                         $Match = new Match();
                         $events_id = $Match->GetMatchId($data['events'], $data['game']);
+
+                        $events_onclick = $node->filter('div > div.header > div')->attr('onclick');
+                        $events_link = substr($events_onclick, strpos($events_onclick, 'hrefClicked(\'') + 13);
+                        $events_link = substr($events_link, 0, strpos($events_link, '\')'));
+
                         if ($events_id) {
+                            $ma = DB::table('match')->where('id', $events_id)->get()->toArray();
+                            if (strpos($ma[0]->link, '500bf') !== false) {
+                                $id = substr($events_link, strpos($events_link, '/id/') + 4);
+                                $id = substr($id, 0, strpos($id, '.html'));
+                                if ($data['game'] == '英雄联盟') {
+                                    $link = 'https://www.fnscore.com/detail/league/lol-1/league-lol-' . $id . '.html';
+                                } elseif ($data['game'] == '王者荣耀') {
+                                    $link = 'https://www.fnscore.com/detail/league/kog-2/league-kog-' . $id . '.html';
+                                } elseif ($data['game'] == 'CS:GO') {
+                                    $link = 'https://www.fnscore.com/detail/league/csgo-3/league-csgo-' . $id . '.html';
+                                } elseif ($data['game'] == 'DOTA2') {
+                                    $link = 'https://www.fnscore.com/detail/league/dota-4/league-dota-' . $id . '.html';
+                                }
+                                DB::table('match')->where('id', $events_id)->update(['link' => $link]);
+                            }
                             $data['eventsid'] = $events_id;
                         } else { // 赛事不存在，需新增
+
+                            $id = substr($events_link, strpos($events_link, '/id/') + 4);
+                            $id = substr($id, 0, strpos($id, '.html'));
+                            if ($data['game'] == '英雄联盟') {
+                                $link = 'https://www.fnscore.com/detail/league/lol-1/league-lol-' . $id . '.html';
+                            } elseif ($data['game'] == '王者荣耀') {
+                                $link = 'https://www.fnscore.com/detail/league/kog-2/league-kog-' . $id . '.html';
+                            } elseif ($data['game'] == 'CS:GO') {
+                                $link = 'https://www.fnscore.com/detail/league/csgo-3/league-csgo-' . $id . '.html';
+                            } elseif ($data['game'] == 'DOTA2') {
+                                $link = 'https://www.fnscore.com/detail/league/dota-4/league-dota-' . $id . '.html';
+                            }
                             if ($find_request) {
                                 $events_crawler = new Crawler();
                                 $events_crawler->addHtmlContent($find_request);
                             } else {
-                                $events_onclick = $node->filter('div > div.header > div')->attr('onclick');
-                                $events_link = substr($events_onclick, strpos($events_onclick, 'hrefClicked(\'') + 13);
-                                $events_link = substr($events_link, 0, strpos($events_link, '\')'));
                                 $events_client = new Client();
                                 $events_response = $events_client->get('https://www.500bf.com' . $events_link, ['verify' => false]);
                                 $events_request = $events_response->getBody()->getContents();
@@ -167,26 +192,33 @@ class HomeSpiderController extends Controller
                             $events['organizers'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.organizer > div > p:nth-child(2)')->text();
 
                             $events['game'] = $data['game'];
-                            $endtime = substr($events['matchtime'],strpos($events['matchtime'],'- ')+2);
+                            $endtime = substr($events['matchtime'], strpos($events['matchtime'], '- ') + 2);
                             $events['timestamp'] = strtotime($endtime);
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
                             $events['matchid'] = $data['eventsid'];
+                            $fnscore = new FnscoreSpiderController();
+
+                            $a = $fnscore->FnScoreLeague($link, $events['match'], $data['eventsid']);
+
+                            DB::table('schedulematch')->insert($a);
 //                            if ($events['matchimg'] !== '该赛事内容不存在') {
 //                                $matchspider = new MatchSpiderController();
 //                                $matchspider->AllMatch($events);
 //                            }
+
+
                         }
 
 
                         $arr = array();
                         // 开始处理直播地址
-                        try{
+                        try {
                             $tv_arr = $node->filter('div > div.header > div.videos-panel > ul > li')->each(function ($node2, $i) use ($arr) {
                                 $arr = array_add($arr, $node2->filter('a > span')->text(), 'https://www.500bf.com' . $node2->filter('a')->attr('href'));
                                 return $arr;
                             });
-                        }catch (\Exception $exception){
+                        } catch (\Exception $exception) {
                             $tv_arr = null;
                         }
 
@@ -208,7 +240,8 @@ class HomeSpiderController extends Controller
 //                                echo current($value);
                                 }
                             }
-                        }catch (\Exception $exception){}
+                        } catch (\Exception $exception) {
+                        }
 
 
                         $data['now'] = $node->filter('div > div.item-row-title > div.tag-1 > p')->text();
@@ -377,11 +410,11 @@ class HomeSpiderController extends Controller
 
 
                         $filename = substr($data['team1img'], strrpos($data['team1img'], '/') + 1);
-                        if (strpos($data['team1img'],'/lol/team.png') !== false) {
+                        if (strpos($data['team1img'], '/lol/team.png') !== false) {
                             $data['team1img'] = 'http://45.157.91.154/static/lolteam.png';
-                        } elseif (strpos($data['team1img'],'/kog/team.png') !== false) {
+                        } elseif (strpos($data['team1img'], '/kog/team.png') !== false) {
                             $data['team1img'] = 'http://45.157.91.154/static/kogteam.png';
-                        } elseif (strpos($data['team1img'],'dota/team.png')) {
+                        } elseif (strpos($data['team1img'], 'dota/team.png')) {
                             $data['team1img'] = 'http://45.157.91.154/static/dotateam.png';
                         } else {
                             if (!file_exists(public_path('static/' . $filename))) {
@@ -399,17 +432,15 @@ class HomeSpiderController extends Controller
                         }
 
 
-
-
                         $data['team2img'] = $node->filter('div.away-team > img')->attr('src');
 
                         $filename = substr($data['team2img'], strrpos($data['team2img'], '/') + 1);
 
-                        if (strpos($data['team2img'],'/lol/team.png') !== false) {
+                        if (strpos($data['team2img'], '/lol/team.png') !== false) {
                             $data['team2img'] = 'http://45.157.91.154/static/lolteam.png';
-                        }elseif (strpos($data['team2img'],'/kog/team.png') !== false){
+                        } elseif (strpos($data['team2img'], '/kog/team.png') !== false) {
                             $data['team2img'] = 'http://45.157.91.154/static/kogteam.png';
-                        } elseif (strpos($data['team2img'],'dota/team.png')) {
+                        } elseif (strpos($data['team2img'], 'dota/team.png')) {
                             $data['team2img'] = 'http://45.157.91.154/static/dotateam.png';
                         } else {
                             if (!file_exists(public_path('static/' . $filename))) {
@@ -483,7 +514,7 @@ class HomeSpiderController extends Controller
                             $events['organizers'] = $events_crawler->filter('#__layout > div.body > div.detail-wrapper.default-continer > div.detail-header > div.league-content > div.league-info > div.item.organizer > div > p:nth-child(2)')->text();
 
                             $events['game'] = $data['game'];
-                            $endtime = substr($events['matchtime'],strpos($events['matchtime'],'- ')+2);
+                            $endtime = substr($events['matchtime'], strpos($events['matchtime'], '- ') + 2);
                             $events['timestamp'] = strtotime($endtime);
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
@@ -686,7 +717,7 @@ class HomeSpiderController extends Controller
 
                             }
                             $events['game'] = $data['game'];
-                            $endtime = substr($events['matchtime'],strpos($events['matchtime'],'- ')+2);
+                            $endtime = substr($events['matchtime'], strpos($events['matchtime'], '- ') + 2);
                             $events['timestamp'] = strtotime($endtime);
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
@@ -840,7 +871,7 @@ class HomeSpiderController extends Controller
                                 ->toArray();
                             try {
                                 $data['eventsimg'] = $match_img[0]->matchimg;
-                            } catch (\Exception $exception){
+                            } catch (\Exception $exception) {
                                 $data['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
                             }
                         } else {
@@ -908,7 +939,7 @@ class HomeSpiderController extends Controller
 
                             $events['game'] = $data['game'];
                             $events['link'] = 'https://www.500bf.com' . $events_link;
-                            $endtime = substr($events['matchtime'],strpos($events['matchtime'],'- ')+2);
+                            $endtime = substr($events['matchtime'], strpos($events['matchtime'], '- ') + 2);
                             $events['timestamp'] = strtotime($endtime);
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
                             if ($events['matchimg'] !== '该赛事内容不存在') {
@@ -1057,7 +1088,7 @@ class HomeSpiderController extends Controller
 
                             }
                             $events['game'] = $data['game'];
-                            $endtime = substr($events['matchtime'],strpos($events['matchtime'],'- ')+2);
+                            $endtime = substr($events['matchtime'], strpos($events['matchtime'], '- ') + 2);
                             $events['timestamp'] = strtotime($endtime);
                             $events['link'] = 'https://www.500bf.com' . $events_link;
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
@@ -1104,7 +1135,7 @@ class HomeSpiderController extends Controller
                                     return $arr;
                                 });
                             }
-                        }catch (\Exception $exception) {
+                        } catch (\Exception $exception) {
                             $tv_arr = null;
                         }
                         $data['tv'] = '';
@@ -1124,7 +1155,8 @@ class HomeSpiderController extends Controller
 //                                echo current($value);
                                 }
                             }
-                        }catch (\Exception $exception){}
+                        } catch (\Exception $exception) {
+                        }
 
 
                         $data['now'] = $node->filter('div > div > div.content > div.match-info > p:nth-child(1)')->text();
