@@ -457,6 +457,8 @@ class HomeSpiderController extends Controller
                             }
                         }
 
+
+
                         $data['team2'] = $node->filter('div.away-team > p')->text();
                         $data['eventsimg'] = $node->filter('div.league > img')->attr('src');
 

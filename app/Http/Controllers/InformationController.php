@@ -55,6 +55,19 @@ class InformationController extends Controller
         $information = DB::table('information')->select('id','thumbnail','title','gametype','gametypeid','time','unix')
             ->orderBy('unix','desc')
             ->paginate(30);
+        foreach ($information as $key => $in){
+            if ($in->thumbnail == "http://45.157.91.154/static/information/"){
+                if ($in->gametype == "英雄联盟"){
+                    $information[$key]->thumbnail = "http://45.157.91.154/static/information/informationlol.jpg";
+                } elseif($in->gametype == "王者荣耀") {
+                    $information[$key]->thumbnail = 'http://45.157.91.154/static/information/15429606721180.jpg';
+                } elseif ($in->gametype == "CS:GO") {
+                    $information[$key]->thumbnail = "http://45.157.91.154/static/information/informationcsgo.jpg";
+                } elseif ($in->gametype == "DOTA2") {
+                    $information[$key]->thumbnail = "http://45.157.91.154/static/information/15350937078190.jpg";
+                }
+            }
+        }
         return $information;
     }
 
