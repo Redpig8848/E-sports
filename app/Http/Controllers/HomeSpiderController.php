@@ -105,20 +105,35 @@ class HomeSpiderController extends Controller
                         }
 
                         $client_img = new Client(['verify' => false]);
-                        $filename = substr($data['eventsimg'], strrpos($data['eventsimg'], '/') + 1);
-                        if (!file_exists(public_path('static/' . $filename))) {
-                            try {
-                                $resp = $client_img->get($data['eventsimg'], ['save_to' => public_path('static/' . $filename)]);
-                                if ($resp->getStatusCode() == 200) {
-                                    $data['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
-                                }
-                            } catch (\Exception $exception) {
-                                $data['eventsimg'] = '';
-                            }
 
+
+
+                        if ($data['game'] == 'DOTA2'){
+                            $data['eventsimg'] = 'http://45.157.91.154/static/dota_sel_icon.png';
+                        } elseif ($data['game'] == 'CS:GO') {
+                            $data['eventsimg'] = 'http://45.157.91.154/static/csgo_sel_icon.png';
+                        } elseif ($data['game'] == '英雄联盟') {
+                            $data['eventsimg'] = 'http://45.157.91.154/static/lol_sel_icon.png';
+                        } elseif ($data['game'] == '王者荣耀') {
+                            $data['eventsimg'] = 'http://45.157.91.154/static/kog_sel_icon.png';
                         } else {
-                            $data['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
+                            $filename = substr($data['eventsimg'], strrpos($data['eventsimg'], '/') + 1);
+                            if (!file_exists(public_path('static/' . $filename))) {
+                                try {
+                                    $resp = $client_img->get($data['eventsimg'], ['save_to' => public_path('static/' . $filename)]);
+                                    if ($resp->getStatusCode() == 200) {
+                                        $data['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
+                                    }
+                                } catch (\Exception $exception) {
+                                    $data['eventsimg'] = '';
+                                }
+
+                            } else {
+                                $data['eventsimg'] = 'http://45.157.91.154/static/' . $filename;
+                            }
                         }
+
+
 
 
                         // 获取赛事ID，如赛事不存在，则新增赛事在赛事表中

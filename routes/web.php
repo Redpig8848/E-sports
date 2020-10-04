@@ -18,7 +18,7 @@ try {
     $ip_from = 'pig';
 }
 //$ip_from = 'pig';
-//$file = fopen(public_path('demo.txt'),'a');
+//$file = fopen(psublic_path('demo.txt'),'a');
 //fwrite($file,$ip_from.chr(10));
 //fclose($file);
 $is = in_array($ip_from, $ip_array);
