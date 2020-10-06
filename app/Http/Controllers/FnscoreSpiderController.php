@@ -85,12 +85,24 @@ class FnscoreSpiderController extends Controller
                         break;
                 }
 
+
+                if ($arr[$key]['game'] == '英雄联盟') {
+                    $arr[$key]['eventsimg'] = 'http://45.157.91.154/static/lol_sel_icon.png';
+                } elseif ($arr[$key]['game'] == '王者荣耀') {
+                    $arr[$key]['eventsimg'] = 'http://45.157.91.154/static/kog_sel_icon.png';
+                } elseif ($arr[$key]['game'] == 'CS:GO') {
+                    $arr[$key]['eventsimg'] = 'http://45.157.91.154/static/csgo_sel_icon.png';
+                } elseif ($arr[$key]['game'] == 'DOTA2') {
+                    $arr[$key]['eventsimg'] = 'http://45.157.91.154/static/dota_sel_icon.png';
+                }
+
+
                 $Match = new Match();
                 $eventsid = $Match->GetMatchId($arr[$key]['events'], $arr[$key]['game']);
 
                 if ($eventsid) {
-                    $ma = DB::table('match')->where('id',$eventsid)->get()->toArray();
-                    if (strpos($ma[0]->link,'500bf') !== false){
+                    $ma = DB::table('match')->where('id', $eventsid)->get()->toArray();
+                    if (strpos($ma[0]->link, '500bf') !== false) {
                         if ($arr[$key]['game'] == '英雄联盟') {
                             $link = 'https://www.fnscore.com/detail/league/lol-1/league-lol-' . $item['league']['leagueId'] . '.html';
                         }
@@ -103,7 +115,7 @@ class FnscoreSpiderController extends Controller
                         if ($arr[$key]['game'] == 'DOTA2') {
                             $link = 'https://www.fnscore.com/detail/league/dota-4/league-dota-' . $item['league']['leagueId'] . '.html';
                         }
-                        DB::table('match')->where('id',$eventsid)->update(['link'=>$link]);
+                        DB::table('match')->where('id', $eventsid)->update(['link' => $link]);
                     }
                     $arr[$key]['eventsid'] = $eventsid;
                 } else {
@@ -258,7 +270,7 @@ class FnscoreSpiderController extends Controller
         $config = ['verify' => false, 'header' => $header];
 
         $client = new Client();
-        $req = $client->post($uri, ['verify' => false,'header' => $header]);
+        $req = $client->post($uri, ['verify' => false, 'header' => $header]);
 
         $post = $req->getBody()->getContents();
         $jsons = json_decode($post, true);
@@ -361,11 +373,11 @@ class FnscoreSpiderController extends Controller
                 $array['team1img'] = $node->filter('div:nth-child(2) > img')->attr('src');
 
                 $filename = substr($array['team1img'], strrpos($array['team1img'], '/') + 1);
-                if (strpos($array['team1img'],'/lol/team.png') !== false){
+                if (strpos($array['team1img'], '/lol/team.png') !== false) {
                     $array['team1img'] = 'http://45.157.91.154/static/lolteam.png';
-                } elseif (strpos($array['team1img'], '/dota/team.png') !== false){
+                } elseif (strpos($array['team1img'], '/dota/team.png') !== false) {
                     $array['team1img'] = 'http://45.157.91.154/static/dotateam.png';
-                } elseif (strpos($array['team1img'],'/kog/team.png') !== false){
+                } elseif (strpos($array['team1img'], '/kog/team.png') !== false) {
                     $array['team1img'] = 'http://45.157.91.154/static/kogteam.png';
                 } else {
                     if (!file_exists(public_path('static/' . $filename))) {
@@ -383,17 +395,16 @@ class FnscoreSpiderController extends Controller
                 }
 
 
-
                 $array['team1'] = $node->filter('div:nth-child(2) > p')->text();
                 $array['score'] = $node->filter('p:nth-child(3)')->text();
                 $array['team2img'] = $node->filter('div:nth-child(4) > img')->attr('src');
                 $filename = substr($array['team2img'], strrpos($array['team2img'], '/') + 1);
 
-                if(strpos($array['team2img'],'/lol/team.png') !== false){
+                if (strpos($array['team2img'], '/lol/team.png') !== false) {
                     $array['team2img'] = 'http://45.157.91.154/static/lolteam.png';
-                } elseif (strpos($array['team2img'],'/dota/team.png') !== false) {
+                } elseif (strpos($array['team2img'], '/dota/team.png') !== false) {
                     $array['team2img'] = 'http://45.157.91.154/static/dotateam.png';
-                } elseif (strpos($array['team2img'],'/kog/team.png') !== false) {
+                } elseif (strpos($array['team2img'], '/kog/team.png') !== false) {
                     $array['team2img'] = 'http://45.157.91.154/static/kogteam.png';
                 } else {
                     if (!file_exists(public_path('static/' . $filename))) {
