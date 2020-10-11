@@ -11,18 +11,18 @@
 |
 */
 
-$ip_array = array('175.100.204.246', '154.89.127.200','154.89.127.199','175.100.204.232','127.0.0.1','122.10.38.205');
-try {
-    $ip_from = $_SERVER["REMOTE_ADDR"];
-}catch (Exception $exception){
-    $ip_from = 'pig';
-}
+//$ip_array = array('175.100.204.246', '154.89.127.200','154.89.127.199','175.100.204.232','127.0.0.1','122.10.38.205');
+//try {
+//    $ip_from = $_SERVER["REMOTE_ADDR"];
+//}catch (Exception $exception){
+//    $ip_from = 'pig';
+//}
 //$ip_from = 'pig';
 //$file = fopen(psublic_path('demo.txt'),'a');
 //fwrite($file,$ip_from.chr(10));
 //fclose($file);
-$is = in_array($ip_from, $ip_array);
-if ($is || is_int(strpos($ip_from,'122.10.38'))) {
+//$is = in_array($ip_from, $ip_array);
+//if ($is || is_int(strpos($ip_from,'122.10.38'))) {
 //    Route::get('/', function () {
 //        return view('welcome');
 //    });
@@ -120,8 +120,8 @@ if ($is || is_int(strpos($ip_from,'122.10.38'))) {
     Route::get('GetInformationBody/{id}', 'InformationController@GetInformationBody');
 
 
-}
-elseif ($ip_from == 'pig') {
+//}
+//elseif ($ip_from == 'pig') {
 
 //--------------爬虫-----------------//
     Route::get('allmatching', 'HomeSpiderController@index');  // 首页正在进行   需频繁更新
@@ -160,10 +160,10 @@ elseif ($ip_from == 'pig') {
 
 
 
-    Route::get('demo', 'DemoController@index');
+//    Route::get('demo', 'HomeSpiderController@demo');
 
 
-}
+//}
 
 
 

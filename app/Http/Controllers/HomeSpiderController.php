@@ -1456,8 +1456,8 @@ class HomeSpiderController extends Controller
     {
         set_time_limit(0);
         ini_set('memory_limit', '-1');
-        $this->url[] = 'https://500bf.com/index/index/living_bat?type=1&match_id=268076395&tab_index=6&map_index=1';
-//        $this->url[] = 'https://500bf.com/index/index/living_bat?type=1&match_id=268076395&tab_index=1&map_index=1';
+//        $this->url[] = 'https://500bf.com/index/index/living_bat?type=1&match_id=268076395&tab_index=6&map_index=1';
+        $this->url[] = 'https://500bf.com/index/index/living_bat?type=1&match_id=268076395&tab_index=1&map_index=1';
         $this->totalPageCount = 1500;
         $client = new Client();
         $requests = function ($total) use ($client) {
