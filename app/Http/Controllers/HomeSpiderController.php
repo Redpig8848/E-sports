@@ -95,10 +95,10 @@ class HomeSpiderController extends Controller
                                 $data['game'] = 'DOTA2';
                             } elseif (strpos($find_request, '/csgo/team')) {
                                 $data['game'] = 'CS:GO';
-                            } elseif (strpos($find_request, '/lol/team')) {
-                                $data['game'] = '英雄联盟';
                             } elseif (strpos($find_request, '/kog/team')) {
                                 $data['game'] = '王者荣耀';
+                            } elseif (strpos($find_request, '/lol/team')) {
+                                $data['game'] = '英雄联盟';
                             }
 
 
