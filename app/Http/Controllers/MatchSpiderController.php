@@ -81,6 +81,9 @@ class MatchSpiderController extends Controller
                             if ($uri->matchimg != "该赛事内容不存在") {
                                 if (strpos($uri->link, 'fnscore') !== false) {
                                     $datas = array_filter($fn->FnScoreLeague($uri->link, $uri->match, $uri->id));
+                                    if($uri->id == 473){
+                                        dd($datas);
+                                    }
                                     DB::table('schedulematch')->where('eventid',$uri->id)->delete();
                                     DB::table('schedulematch')->insert($datas);
 //                                    foreach ($datas as $data) {
