@@ -34,7 +34,8 @@ class MatchSpiderController extends Controller
         $client = new Client();
         if ($links == '') {
             $now = strtotime(date('Y-m-d')) - 86400;
-            $this->url = DB::table('match')->where('timestamp', '>', $now)->orWhere('timestamp','==',0)->get()->toArray();
+//            $this->url = DB::table('match')->where('timestamp', '>', $now)->orWhere('timestamp','==',0)->get()->toArray();
+            $this->url = DB::table('match')->get()->toArray();
 //            DB::table('schedulematch')->truncate();
         } else {
             $this->url = $links['link'];
