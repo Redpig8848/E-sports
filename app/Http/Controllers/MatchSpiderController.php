@@ -40,7 +40,7 @@ class MatchSpiderController extends Controller
         } else {
             $this->url = $links['link'];
         }
-//        dd($this->url);
+        dd($this->url);
         $fn = new FnscoreSpiderController();
         if (is_string($this->url)) {
 
@@ -193,7 +193,7 @@ class MatchSpiderController extends Controller
 //                            ['score' => $data['score']]
 //                        );
 //                        if($data['eventid'] == '473' || $data['eventid'] == 473){
-                            dd($data);
+//                            dd($data);
 //                        }
                         DB::table('schedulematch')->where('eventid',$data['eventid'])->delete();
 
