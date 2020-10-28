@@ -192,10 +192,11 @@ class MatchSpiderController extends Controller
 //                            ],
 //                            ['score' => $data['score']]
 //                        );
-                        DB::table('schedulematch')->where('eventid',$data['eventid'])->delete();
-                        if($data['eventid'] == '473' || $data['eventid'] == 473){
+//                        if($data['eventid'] == '473' || $data['eventid'] == 473){
                             dd($data);
-                        }
+//                        }
+                        DB::table('schedulematch')->where('eventid',$data['eventid'])->delete();
+
                         DB::table('schedulematch')->insert($data);
 //                        dd($data);
 
