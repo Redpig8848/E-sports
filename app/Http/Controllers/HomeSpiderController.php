@@ -174,6 +174,9 @@ class HomeSpiderController extends Controller
                             } elseif ($data['game'] == 'DOTA2') {
                                 $link = 'https://www.fnscore.com/detail/league/dota-4/league-dota-' . $id . '.html';
                             }
+
+
+                            try{
                             if ($find_request) {
                                 $events_crawler = new Crawler();
                                 $events_crawler->addHtmlContent($find_request);
@@ -210,13 +213,28 @@ class HomeSpiderController extends Controller
                             $endtime = substr($events['matchtime'], strpos($events['matchtime'], '- ') + 2);
                             $events['timestamp'] = strtotime($endtime);
                             $events['link'] = 'https://www.500bf.com' . $events_link;
+                            }catch (\Exception $exception){
+                                $events['match'] = $data['events'];
+                                $events['matchimg'] = '';
+
+                                $events['matchtime'] = '';
+                                $events['teams'] = '';
+                                $events['money'] = '';
+                                $events['venue'] = '';
+                                $events['organizers'] = '';
+
+                                $events['game'] = $data['game'];
+                                $events['timestamp'] = 0;
+                                $events['link'] = 'https://www.500bf.com' . $events_link;
+                            }
                             $data['eventsid'] = DB::table('match')->insertGetId($events);
                             $events['matchid'] = $data['eventsid'];
+
                             $fnscore = new FnscoreSpiderController();
 
                             $a = $fnscore->FnScoreLeague($link, $events['match'], $data['eventsid']);
 
-                            DB::table('schedulematch')->insert($a);
+                            DB::table('schedulematch')->insert(array_filter($a));
 //                            if ($events['matchimg'] !== '该赛事内容不存在') {
 //                                $matchspider = new MatchSpiderController();
 //                                $matchspider->AllMatch($events);
