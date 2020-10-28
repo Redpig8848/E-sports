@@ -40,7 +40,6 @@ class MatchSpiderController extends Controller
         } else {
             $this->url = $links['link'];
         }
-        dd($this->url[454]);
         $fn = new FnscoreSpiderController();
         if (is_string($this->url)) {
 
@@ -82,6 +81,8 @@ class MatchSpiderController extends Controller
                                 if (strpos($uri->link, 'fnscore') !== false) {
                                     $datas = array_filter($fn->FnScoreLeague($uri->link, $uri->match, $uri->id));
                                     DB::table('schedulematch')->where('eventid',$uri->id)->delete();
+                                    print_r($datas);
+                                    echo "fnsocre<br>";
                                     DB::table('schedulematch')->insert($datas);
 //                                    foreach ($datas as $data) {
 //                                        DB::table('schedulematch')->updateOrInsert(
@@ -193,9 +194,12 @@ class MatchSpiderController extends Controller
 //                            ['score' => $data['score']]
 //                        );
 //                        if($data['eventid'] == '473' || $data['eventid'] == 473){
-//                            dd($data);
+//                            $data;
 //                        }
                         DB::table('schedulematch')->where('eventid',$data['eventid'])->delete();
+
+                        print_r($data);
+                        echo "500bf<br>";
 
                         DB::table('schedulematch')->insert($data);
 //                        dd($data);
