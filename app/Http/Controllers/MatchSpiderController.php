@@ -40,7 +40,7 @@ class MatchSpiderController extends Controller
         } else {
             $this->url = $links['link'];
         }
-        dd($this->url);
+        dd($this->url[454]);
         $fn = new FnscoreSpiderController();
         if (is_string($this->url)) {
 
